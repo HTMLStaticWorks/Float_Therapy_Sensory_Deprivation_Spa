@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64" role="img" aria-label="Solace Float Spa">
+  <rect width="64" height="64" rx="16" fill="#1A6B72"/>
+  <!-- Concentric sensory ripple -->
+  <circle cx="32" cy="36" r="20" fill="none" stroke="#52B69A" stroke-width="2.5" opacity="0.4"/>
+  <circle cx="32" cy="36" r="13" fill="none" stroke="#52B69A" stroke-width="2.5" opacity="0.7"/>
+  <!-- Tranquil water drop -->
+  <path d="M32 12 C32 12 20 28 20 36 C20 42.6 25.4 48 32 48 C38.6 48 44 42.6 44 36 C44 28 32 12 32 12 Z" fill="#F6FAFA"/>
+  <circle cx="28" cy="32" r="3.5" fill="#52B69A" opacity="0.8"/>
+</svg>

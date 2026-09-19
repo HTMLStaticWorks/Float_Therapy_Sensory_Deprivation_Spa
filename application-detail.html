@@ -1,0 +1,461 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pricing &amp; Sanctuary Memberships | Solace Float Spa</title>
+    <link rel="icon" type="image/svg+xml" href="assets/images/favicon.svg">
+    <meta name="description" content="Transparent float therapy pricing, multi-session package bundles, and monthly sanctuary memberships at Solace Float Spa.">
+    
+    <!-- CSS -->
+    <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="stylesheet" href="assets/css/rtl.css">
+    
+    <!-- Phosphor Icons -->
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+    <style>
+        .pricing-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: var(--space-6);
+            margin-top: var(--space-8);
+        }
+
+        .pricing-card {
+            background: var(--color-bg-primary);
+            border: 1px solid var(--color-border);
+            border-radius: var(--radius-soft);
+            padding: var(--space-6);
+            display: flex;
+            flex-direction: column;
+            position: relative;
+            transition: transform var(--transition-fast), box-shadow var(--transition-fast);
+        }
+
+        .pricing-card:hover {
+            transform: translateY(-6px);
+            box-shadow: var(--shadow-hover);
+        }
+
+        .pricing-card.featured {
+            border-color: var(--color-brand-accent);
+            border-width: 2px;
+            box-shadow: var(--shadow-lift);
+        }
+
+        .pricing-badge {
+            position: absolute;
+            top: -14px;
+            right: 24px;
+            background: var(--color-brand-accent);
+            color: white;
+            font-size: 0.75rem;
+            font-weight: 700;
+            padding: 0.25rem 0.75rem;
+            border-radius: 9999px;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .price-val {
+            font-size: 2.5rem;
+            font-weight: 700;
+            font-family: var(--font-display);
+            color: var(--color-text-primary);
+            margin: var(--space-3) 0 var(--space-1);
+        }
+
+        .pricing-features {
+            list-style: none;
+            padding: 0;
+            margin: var(--space-5) 0;
+            flex-grow: 1;
+        }
+
+        .pricing-features li {
+            margin-bottom: var(--space-3);
+            display: flex;
+            align-items: center;
+            gap: var(--space-2);
+            color: var(--color-text-secondary);
+            font-size: 0.95rem;
+        }
+
+        .pricing-features li i {
+            color: var(--color-brand-accent);
+            font-size: 1.1rem;
+        }
+
+        .comparison-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: var(--space-6);
+            background: var(--color-bg-primary);
+            border-radius: var(--radius-soft);
+            overflow: hidden;
+            border: 1px solid var(--color-border);
+        }
+
+        .comparison-table th, .comparison-table td {
+            padding: 1rem;
+            text-align: center;
+            border-bottom: 1px solid var(--color-border);
+        }
+
+        .comparison-table th:first-child, .comparison-table td:first-child {
+            text-align: start;
+            font-weight: 600;
+        }
+
+        .faq-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: var(--space-6);
+            margin-top: var(--space-6);
+        }
+
+        .faq-card {
+            background: var(--color-bg-secondary);
+            padding: var(--space-6);
+            border-radius: var(--radius-soft);
+            border: 1px solid var(--color-border);
+        }
+    </style>
+</head>
+<body style="background-color: var(--color-bg-primary);">
+
+    <!-- Navbar -->
+    <header class="navbar">
+        <div class="container navbar-container">
+            <a href="index.html" class="navbar-brand">
+                <svg class="brand-logo" viewBox="0 0 200 60" preserveAspectRatio="xMinYMid meet" role="img" aria-label="Solace">
+                    <title>Solace</title>
+                    <g transform="translate(4, 4) scale(1.15)">
+                        <circle cx="24" cy="24" r="22" fill="#1A6B72" opacity="0.12"/>
+                        <circle cx="24" cy="24" r="22" fill="none" stroke="#52B69A" stroke-width="1.8" opacity="0.4"/>
+                        <path d="M 24 3 A 21 21 0 1 1 4 26" fill="none" stroke="#52B69A" stroke-width="2" stroke-linecap="round" opacity="0.75"/>
+                        <path d="M 24 8 A 16 16 0 1 1 9 28" fill="none" stroke="#52B69A" stroke-width="2" stroke-linecap="round" opacity="0.85"/>
+                        <path d="M 24 13 A 11 11 0 1 1 14 29" fill="none" stroke="#52B69A" stroke-width="1.8" stroke-linecap="round" opacity="0.95"/>
+                        <g transform="translate(24, 24) rotate(-35) translate(-24, -24)">
+                            <circle cx="24" cy="10" r="3.2" fill="#1A6B72"/>
+                            <path d="M 21.5 14 C 21.5 14 20 22 21 28 C 22 33 22.5 38 22.5 38 L 25.5 38 C 25.5 38 26 33 27 28 C 28 22 26.5 14 26.5 14 Z" fill="#1A6B72"/>
+                            <path d="M 22 16 C 17 13 11 10 7 9 C 6.5 10.5 8 12.5 12 14.5 C 16 16.5 21.5 18 21.5 18 Z" fill="#1A6B72"/>
+                            <path d="M 26 16 C 31 13 37 10 41 9 C 41.5 10.5 40 12.5 36 14.5 C 32 16.5 26.5 18 26.5 18 Z" fill="#1A6B72"/>
+                        </g>
+                    </g>
+                    <text class="brand-text" x="66" y="42" font-family="'Lora','Georgia',serif" font-weight="700" font-size="34" letter-spacing="-0.5" fill="currentColor">Solace</text>
+                </svg>
+            </a>
+
+            <nav class="navbar-menu">
+                <ul class="navbar-nav">
+                    <li><a href="index.html" class="nav-link">Home</a></li>
+                    <li><a href="home2.html" class="nav-link">Home 2</a></li>
+                    <li><a href="browse-schools.html" class="nav-link">Services</a></li>
+                    <li><a href="about.html" class="nav-link">First-Time Guide</a></li>
+                    <li><a href="application-detail.html" class="nav-link active">Pricing</a></li>
+                    <li><a href="blog.html" class="nav-link">Blog</a></li>
+                    <li><a href="contact.html" class="nav-link">Contact</a></li>
+                    <li><a href="parent-dashboard.html" class="nav-link">Dashboard</a></li>
+                </ul>
+                <div class="navbar-actions">
+                    <button class="theme-toggle" aria-label="Toggle Theme">
+                        <i class="ph ph-moon"></i>
+                    </button>
+                    <button class="rtl-toggle" aria-label="Toggle RTL">
+                        <i class="ph ph-arrows-left-right"></i>
+                    </button>
+                    <a href="login.html" class="btn btn-primary">Login</a>
+                </div>
+            </nav>
+
+            <!-- Mobile Toggle -->
+            <button class="nav-toggle" aria-label="Open Menu">
+                <i class="ph ph-list"></i>
+            </button>
+        </div>
+    </header>
+
+    <!-- Mobile Drawer -->
+    <div class="drawer-overlay" id="drawerOverlay"></div>
+    <div class="mobile-drawer" id="mobileDrawer">
+        <div class="drawer-header">
+            <a href="index.html" class="navbar-brand">
+                <svg class="brand-logo" viewBox="0 0 180 56" preserveAspectRatio="xMinYMid meet" role="img" aria-label="Solace">
+                    <title>Solace</title>
+                    <g transform="translate(2, 2) scale(1.05)">
+                        <circle cx="24" cy="24" r="22" fill="#1A6B72" opacity="0.12"/>
+                        <circle cx="24" cy="24" r="22" fill="none" stroke="#52B69A" stroke-width="1.8" opacity="0.4"/>
+                        <path d="M 24 3 A 21 21 0 1 1 4 26" fill="none" stroke="#52B69A" stroke-width="2" stroke-linecap="round" opacity="0.75"/>
+                        <path d="M 24 8 A 16 16 0 1 1 9 28" fill="none" stroke="#52B69A" stroke-width="2" stroke-linecap="round" opacity="0.85"/>
+                        <path d="M 24 13 A 11 11 0 1 1 14 29" fill="none" stroke="#52B69A" stroke-width="1.8" stroke-linecap="round" opacity="0.95"/>
+                        <g transform="translate(24, 24) rotate(-35) translate(-24, -24)">
+                            <circle cx="24" cy="10" r="3.2" fill="#1A6B72"/>
+                            <path d="M 21.5 14 C 21.5 14 20 22 21 28 C 22 33 22.5 38 22.5 38 L 25.5 38 C 25.5 38 26 33 27 28 C 28 22 26.5 14 26.5 14 Z" fill="#1A6B72"/>
+                            <path d="M 22 16 C 17 13 11 10 7 9 C 6.5 10.5 8 12.5 12 14.5 C 16 16.5 21.5 18 21.5 18 Z" fill="#1A6B72"/>
+                            <path d="M 26 16 C 31 13 37 10 41 9 C 41.5 10.5 40 12.5 36 14.5 C 32 16.5 26.5 18 26.5 18 Z" fill="#1A6B72"/>
+                        </g>
+                    </g>
+                    <text class="brand-text" x="62" y="39" font-family="'Lora','Georgia',serif" font-weight="700" font-size="30" letter-spacing="-0.5" fill="currentColor">Solace</text>
+                </svg>
+            </a>
+            <button class="drawer-close" aria-label="Close Menu">
+                <i class="ph ph-x"></i>
+            </button>
+        </div>
+        <nav class="drawer-nav">
+            <a href="index.html" class="nav-link">Home</a>
+            <a href="home2.html" class="nav-link">Home 2</a>
+            <a href="browse-schools.html" class="nav-link">Services</a>
+            <a href="about.html" class="nav-link">First-Time Guide</a>
+            <a href="application-detail.html" class="nav-link active">Pricing</a>
+            <a href="blog.html" class="nav-link">Blog</a>
+            <a href="contact.html" class="nav-link">Contact</a>
+            <a href="parent-dashboard.html" class="nav-link">Dashboard</a>
+        </nav>
+        <div class="drawer-actions">
+            <div style="display: flex; gap: var(--space-2); margin-bottom: var(--space-4);">
+                <button class="theme-toggle" aria-label="Toggle Theme">
+                    <i class="ph ph-moon"></i>
+                </button>
+                <button class="rtl-toggle" aria-label="Toggle RTL">
+                    <i class="ph ph-arrows-left-right"></i>
+                </button>
+            </div>
+            <a href="login.html" class="btn btn-primary" style="width: 100%;">Login</a>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <main style="padding: var(--space-8) 0;">
+        <div class="container">
+            <div class="section-header" style="text-align: center;">
+                <span class="eyebrow">Pricing &amp; Sanctuary Memberships</span>
+                <h2>Invest in Your Deep Rest &amp; Recovery</h2>
+                <p class="subtext">Choose single float sessions, multi-float bundles, or monthly sanctuary passes</p>
+            </div>
+
+            <!-- Featured Pricing Cards -->
+            <div class="pricing-grid">
+                <!-- Tier 1 -->
+                <div class="pricing-card">
+                    <h3>First-Time Single Float</h3>
+                    <p style="color: var(--color-text-secondary); font-size: 0.9rem;">Introductory 60-Minute Float Session</p>
+                    <div class="price-val">$79</div>
+                    <span style="font-size: 0.8rem; color: var(--color-text-secondary);">One-time introductory rate</span>
+
+                    <ul class="pricing-features">
+                        <li><i class="ph-fill ph-check-circle"></i> 60 Min Executive Pod Float</li>
+                        <li><i class="ph-fill ph-check-circle"></i> Private Rain Shower Suite</li>
+                        <li><i class="ph-fill ph-check-circle"></i> Silicone Earplugs &amp; Towels</li>
+                        <li><i class="ph-fill ph-check-circle"></i> Post-Float Organic Tea Lounge</li>
+                    </ul>
+
+                    <a href="register.html" class="btn btn-outline" style="width: 100%; text-align: center;">Book Single Float</a>
+                </div>
+
+                <!-- Tier 2 -->
+                <div class="pricing-card featured">
+                    <span class="pricing-badge">Most Popular</span>
+                    <h3>Zenith Monthly Membership</h3>
+                    <p style="color: var(--color-text-secondary); font-size: 0.9rem;">4 Floats per Month + Perks</p>
+                    <div class="price-val">$189<span style="font-size: 1rem; font-weight: 400;">/mo</span></div>
+                    <span style="font-size: 0.8rem; color: var(--color-brand-accent); font-weight: 600;">$47.25 per float session</span>
+
+                    <ul class="pricing-features">
+                        <li><i class="ph-fill ph-check-circle"></i> 4 Floats per month (60 or 90 Min)</li>
+                        <li><i class="ph-fill ph-check-circle"></i> Unused floats roll over for 90 days</li>
+                        <li><i class="ph-fill ph-check-circle"></i> 20% Off Infrared Sauna &amp; Red Light</li>
+                        <li><i class="ph-fill ph-check-circle"></i> Priority Time Slot Reservations</li>
+                        <li><i class="ph-fill ph-check-circle"></i> 1 Free Guest Pass per month</li>
+                    </ul>
+
+                    <a href="register.html" class="btn btn-primary" style="width: 100%; text-align: center;">Start Zenith Membership</a>
+                </div>
+
+                <!-- Tier 3 -->
+                <div class="pricing-card">
+                    <h3>3-Float Starter Pack</h3>
+                    <p style="color: var(--color-text-secondary); font-size: 0.9rem;">Multi-Session Bundle</p>
+                    <div class="price-val">$199</div>
+                    <span style="font-size: 0.8rem; color: var(--color-text-secondary);">Save $38 compared to single rates</span>
+
+                    <ul class="pricing-features">
+                        <li><i class="ph-fill ph-check-circle"></i> 3 x 60 Min Float Pod Sessions</li>
+                        <li><i class="ph-fill ph-check-circle"></i> Valid for 90 days from purchase</li>
+                        <li><i class="ph-fill ph-check-circle"></i> Shareable with family or friends</li>
+                        <li><i class="ph-fill ph-check-circle"></i> Post-Float Lounge Access</li>
+                    </ul>
+
+                    <a href="register.html" class="btn btn-outline" style="width: 100%; text-align: center;">Buy 3-Pack Bundle</a>
+                </div>
+            </div>
+
+            <!-- Full Membership Comparison Matrix Table -->
+            <div style="margin-top: var(--space-12);">
+                <div class="section-header" style="text-align: center;">
+                    <span class="eyebrow">Full Comparison</span>
+                    <h2>Plan Feature Matrix</h2>
+                    <p class="subtext">Compare inclusions across all sanctuary plans</p>
+                </div>
+
+                <div style="overflow-x: auto;">
+                    <table class="comparison-table">
+                        <thead>
+                            <tr style="background: var(--color-bg-secondary);">
+                                <th>Plan Features</th>
+                                <th>Single Float ($79)</th>
+                                <th>3-Pack Bundle ($199)</th>
+                                <th>Zenith Membership ($189/mo)</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Float Duration Choice (60 or 90 Min)</td>
+                                <td>60 Min Only</td>
+                                <td>60 Min</td>
+                                <td><i class="ph-fill ph-check-circle" style="color: var(--color-brand-accent);"></i> 60 &amp; 90 Min Included</td>
+                            </tr>
+                            <tr>
+                                <td>Rollover Unused Credits</td>
+                                <td>&mdash;</td>
+                                <td>90 Days</td>
+                                <td><i class="ph-fill ph-check-circle" style="color: var(--color-brand-accent);"></i> 90 Days Rollover</td>
+                            </tr>
+                            <tr>
+                                <td>Infrared Sauna &amp; Red Light Discount</td>
+                                <td>&mdash;</td>
+                                <td>10% Off</td>
+                                <td><i class="ph-fill ph-check-circle" style="color: var(--color-brand-accent);"></i> 20% Off All Add-ons</td>
+                            </tr>
+                            <tr>
+                                <td>Monthly Complimentary Guest Pass</td>
+                                <td>&mdash;</td>
+                                <td>&mdash;</td>
+                                <td><i class="ph-fill ph-check-circle" style="color: var(--color-brand-accent);"></i> 1 Pass / Month</td>
+                            </tr>
+                            <tr>
+                                <td>Priority Time Slot Reservation</td>
+                                <td>&mdash;</td>
+                                <td>&mdash;</td>
+                                <td><i class="ph-fill ph-check-circle" style="color: var(--color-brand-accent);"></i> Yes</td>
+                            </tr>
+                            <tr>
+                                <td>Private Shower Suite &amp; Toiletries</td>
+                                <td><i class="ph-fill ph-check-circle" style="color: var(--color-brand-accent);"></i> Included</td>
+                                <td><i class="ph-fill ph-check-circle" style="color: var(--color-brand-accent);"></i> Included</td>
+                                <td><i class="ph-fill ph-check-circle" style="color: var(--color-brand-accent);"></i> Included</td>
+                            </tr>
+                            <tr>
+                                <td>Post-Float Herbal Tea Lounge</td>
+                                <td><i class="ph-fill ph-check-circle" style="color: var(--color-brand-accent);"></i> Included</td>
+                                <td><i class="ph-fill ph-check-circle" style="color: var(--color-brand-accent);"></i> Included</td>
+                                <td><i class="ph-fill ph-check-circle" style="color: var(--color-brand-accent);"></i> Included</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Frequently Asked Questions Grid -->
+            <div style="margin-top: var(--space-12);">
+                <div class="section-header" style="text-align: center;">
+                    <span class="eyebrow">Got Questions?</span>
+                    <h2>Pricing &amp; Membership FAQ</h2>
+                </div>
+
+                <div class="faq-grid">
+                    <div class="faq-card">
+                        <h4 style="margin-bottom: 0.5rem;">Can I pause or cancel my membership anytime?</h4>
+                        <p style="color: var(--color-text-secondary); font-size: 0.9rem; margin: 0;">Yes! Zenith Monthly Memberships can be paused or canceled directly from your dashboard with zero penalty fees before your next renewal date.</p>
+                    </div>
+                    <div class="faq-card">
+                        <h4 style="margin-bottom: 0.5rem;">What happens to my unused float credits?</h4>
+                        <p style="color: var(--color-text-secondary); font-size: 0.9rem; margin: 0;">Unused float credits from 3-packs and monthly memberships remain active and automatically roll over for 90 days.</p>
+                    </div>
+                    <div class="faq-card">
+                        <h4 style="margin-bottom: 0.5rem;">Are gift float vouchers available?</h4>
+                        <p style="color: var(--color-text-secondary); font-size: 0.9rem; margin: 0;">Absolutly. You can purchase single floats or 3-pack bundle gift vouchers directly from your dashboard or concierge team.</p>
+                    </div>
+                    <div class="faq-card">
+                        <h4 style="margin-bottom: 0.5rem;">What is included with my float session?</h4>
+                        <p style="color: var(--color-text-secondary); font-size: 0.9rem; margin: 0;">Every float session includes a private luxury suite, rain shower, organic shampoo &amp; body wash, silicone earplugs, towels, and post-float herbal tea lounge access.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-brand">
+                    <a href="index.html" class="navbar-brand">
+                        <svg class="brand-logo" viewBox="0 0 200 60" preserveAspectRatio="xMinYMid meet" role="img" aria-label="Solace">
+                            <title>Solace</title>
+                            <g transform="translate(4, 4) scale(1.15)">
+                                <circle cx="24" cy="24" r="22" fill="#1A6B72" opacity="0.12"/>
+                                <circle cx="24" cy="24" r="22" fill="none" stroke="#52B69A" stroke-width="1.8" opacity="0.4"/>
+                                <path d="M 24 3 A 21 21 0 1 1 4 26" fill="none" stroke="#52B69A" stroke-width="2" stroke-linecap="round" opacity="0.75"/>
+                                <path d="M 24 8 A 16 16 0 1 1 9 28" fill="none" stroke="#52B69A" stroke-width="2" stroke-linecap="round" opacity="0.85"/>
+                                <path d="M 24 13 A 11 11 0 1 1 14 29" fill="none" stroke="#52B69A" stroke-width="1.8" stroke-linecap="round" opacity="0.95"/>
+                                <g transform="translate(24, 24) rotate(-35) translate(-24, -24)">
+                                    <circle cx="24" cy="10" r="3.2" fill="#1A6B72"/>
+                                    <path d="M 21.5 14 C 21.5 14 20 22 21 28 C 22 33 22.5 38 22.5 38 L 25.5 38 C 25.5 38 26 33 27 28 C 28 22 26.5 14 26.5 14 Z" fill="#1A6B72"/>
+                                    <path d="M 22 16 C 17 13 11 10 7 9 C 6.5 10.5 8 12.5 12 14.5 C 16 16.5 21.5 18 21.5 18 Z" fill="#1A6B72"/>
+                                    <path d="M 26 16 C 31 13 37 10 41 9 C 41.5 10.5 40 12.5 36 14.5 C 32 16.5 26.5 18 26.5 18 Z" fill="#1A6B72"/>
+                                </g>
+                            </g>
+                            <text class="brand-text" x="66" y="42" font-family="'Lora','Georgia',serif" font-weight="700" font-size="34" letter-spacing="-0.5" fill="currentColor">Solace</text>
+                        </svg>
+                    </a>
+                    <p class="footer-desc">A tranquil urban sanctuary dedicated to zero-gravity sensory deprivation float therapy, Epsom salt hydrotherapy, and holistic neuromuscular reset.</p>
+                    <div
+                        style="display: flex; gap: var(--space-2); font-size: 1.5rem; color: var(--color-text-secondary);">
+                        <a href="#" aria-label="Solace Float Spa on X"><i class="ph-fill ph-x-logo"></i></a>
+                        <a href="#"><i class="ph-fill ph-facebook-logo"></i></a>
+                        <a href="#"><i class="ph-fill ph-instagram-logo"></i></a>
+                    </div>
+                </div>
+
+                <div>
+                    <h4 class="footer-heading">Therapies</h4>
+                    <ul class="footer-links">
+                        <li><a href="browse-schools.html">Sensory Float Pods</a></li>
+                        <li><a href="browse-schools.html">Open Basin Suites</a></li>
+                        <li><a href="browse-schools.html">Infrared Salt Sauna</a></li>
+                        <li><a href="browse-schools.html">Red Light Recovery</a></li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h4 class="footer-heading">Member Portal</h4>
+                    <ul class="footer-links">
+                        <li><a href="parent-dashboard.html">Book Float Slot</a></li>
+                        <li><a href="parent-dashboard.html">Package Tracker</a></li>
+                        <li><a href="about.html">First-Time Guide</a></li>
+                        <li><a href="application-detail.html">Membership Plans</a></li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h4 class="footer-heading">Sanctuary Hours</h4>
+                    <ul class="footer-links">
+                        <li><a href="#">Mon - Fri: 8:00 AM - 10:00 PM</a></li>
+                        <li><a href="#">Sat - Sun: 8:00 AM - 11:00 PM</a></li>
+                        <li><a href="contact.html">Sanctuary Locations</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2026 Solace Float &amp; Sensory Spa. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="assets/js/main.js"></script>
+    <script src="assets/js/interactive.js"></script>
+</body>
+</html>

@@ -1,0 +1,1406 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Client Sanctuary Dashboard | Solace Float Spa</title>
+    <link rel="icon" type="image/svg+xml" href="assets/images/favicon.svg">
+    
+    <!-- CSS -->
+    <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="stylesheet" href="assets/css/rtl.css">
+    
+    <!-- Phosphor Icons -->
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+
+    <style>
+        /* ---- Application detail view: status pipeline ---- */
+        .pipeline {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            position: relative;
+            margin: var(--space-6) 0 var(--space-8);
+            padding: 0 var(--space-4);
+        }
+
+        .pipeline::before {
+            content: '';
+            position: absolute;
+            top: 24px;
+            inset-inline: var(--space-6);
+            height: 2px;
+            background: var(--color-border);
+            z-index: 1;
+        }
+
+        .pipeline-progress {
+            position: absolute;
+            top: 24px;
+            inset-inline-start: var(--space-6);
+            height: 2px;
+            background: var(--color-brand-accent);
+            z-index: 2;
+            width: 75%;
+            transition: width var(--transition-normal);
+        }
+
+        .pipeline-step {
+            position: relative;
+            z-index: 3;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: var(--space-2);
+            text-align: center;
+            width: 80px;
+        }
+
+        .pipeline-icon {
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            background: var(--color-bg-primary);
+            border: 2px solid var(--color-border);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.25rem;
+            color: var(--color-text-secondary);
+            transition: all var(--transition-fast);
+        }
+
+        .pipeline-step.completed .pipeline-icon {
+            background: var(--color-brand-accent);
+            border-color: var(--color-brand-accent);
+            color: white;
+        }
+
+        .pipeline-step.active .pipeline-icon {
+            border-color: var(--color-brand-accent);
+            color: var(--color-brand-accent);
+            box-shadow: 0 0 0 4px rgba(26, 107, 114, 0.15);
+        }
+
+        .pipeline-label {
+            font-size: 0.75rem;
+            font-weight: 600;
+            color: var(--color-text-secondary);
+        }
+
+        .pipeline-step.completed .pipeline-label,
+        .pipeline-step.active .pipeline-label {
+            color: var(--color-text-primary);
+        }
+
+        @media (max-width: 768px) {
+            .pipeline {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: var(--space-4);
+                padding-inline: 0;
+                margin: var(--space-5) 0;
+            }
+
+            .pipeline::before,
+            .pipeline-progress {
+                inset-inline: 23px auto;
+                top: 24px;
+                width: 2px;
+            }
+
+            .pipeline::before {
+                bottom: 24px;
+            }
+
+            .pipeline-progress {
+                height: calc((100% - 48px) * 0.75);
+            }
+
+            .pipeline-step {
+                flex-direction: row;
+                align-items: center;
+                gap: var(--space-3);
+                width: 100%;
+                text-align: start;
+            }
+
+            .pipeline-label {
+                font-size: 0.9375rem;
+            }
+        }
+
+        .app-detail-head {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            flex-wrap: wrap;
+            gap: var(--space-4);
+        }
+
+        .app-detail-id {
+            text-align: end;
+        }
+
+        .app-detail-logo {
+            width: 80px;
+            height: 80px;
+            flex-shrink: 0;
+            border-radius: var(--radius-soft);
+            overflow: hidden;
+            border: 1px solid var(--color-border);
+        }
+
+        .app-detail-logo img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .app-detail-cols {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: var(--space-6);
+        }
+
+        .app-detail-school {
+            display: flex;
+            gap: var(--space-4);
+        }
+
+        .app-callout {
+            background: var(--color-status-interview-bg);
+            border: 1px solid var(--color-status-interview);
+            padding: var(--space-4);
+            border-radius: var(--radius-soft);
+            display: flex;
+            gap: var(--space-3);
+            align-items: flex-start;
+            margin-top: var(--space-4);
+        }
+
+        .app-callout-icon {
+            color: var(--color-status-interview);
+            font-size: 1.5rem;
+            flex-shrink: 0;
+            line-height: 1;
+        }
+
+        .app-callout-title {
+            color: var(--color-text-primary);
+            display: block;
+            margin-bottom: 0.25rem;
+        }
+
+        .app-callout-text {
+            margin: 0;
+            font-size: 0.875rem;
+            color: var(--color-text-secondary);
+        }
+
+        .app-callout-btn {
+            margin-top: var(--space-3);
+            padding: 0.5rem 1rem;
+            font-size: 0.875rem;
+        }
+
+        @media (min-width: 901px) and (max-width: 1024px) {
+            .doc-grid {
+                grid-template-columns: repeat(3, minmax(0, 1fr));
+            }
+
+            .doc-card {
+                min-width: 0;
+            }
+
+            .doc-card .doc-name {
+                white-space: normal;
+                overflow-wrap: break-word;
+            }
+        }
+
+        [dir="rtl"] .app-back-link .ph-arrow-left {
+            transform: scaleX(-1);
+        }
+
+        @media (max-width: 600px) {
+            .app-detail-id {
+                text-align: start;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .app-detail-school {
+                flex-direction: column;
+                gap: var(--space-3);
+            }
+
+            .app-detail-logo {
+                width: 64px;
+                height: 64px;
+            }
+
+            .app-detail-head {
+                gap: var(--space-3);
+            }
+
+            .app-detail-id {
+                display: flex;
+                align-items: baseline;
+                gap: 0.5rem;
+                width: 100%;
+                padding-top: var(--space-3);
+                border-top: 1px solid var(--color-border);
+            }
+
+            .app-detail-id>div {
+                margin-bottom: 0 !important;
+            }
+
+            .app-callout {
+                flex-direction: column;
+                gap: var(--space-2);
+                padding: var(--space-3);
+            }
+
+            .app-callout-btn {
+                display: block;
+                text-align: center;
+            }
+
+            .pipeline {
+                margin: var(--space-4) 0 var(--space-5);
+            }
+
+            .pipeline::before,
+            .pipeline-progress {
+                inset-inline: 19px auto;
+                top: 20px;
+            }
+
+            .pipeline::before {
+                bottom: 20px;
+            }
+
+            .pipeline-progress {
+                height: calc((100% - 40px) * 0.75);
+            }
+
+            .pipeline-icon {
+                width: 40px;
+                height: 40px;
+                font-size: 1rem;
+            }
+
+            .pipeline-label {
+                font-size: 0.875rem;
+            }
+        }
+    </style>
+</head>
+<body class="dashboard-layout">
+
+    <!-- Sidebar -->
+    <aside class="dashboard-sidebar" id="dashboardSidebar">
+        <div class="dashboard-sidebar-header">
+            <a href="index.html" class="navbar-brand">
+                <svg class="brand-logo" viewBox="0 0 200 60" preserveAspectRatio="xMinYMid meet" role="img" aria-label="Solace">
+                    <title>Solace</title>
+                    <g transform="translate(4, 4) scale(1.15)">
+                        <circle cx="24" cy="24" r="22" fill="#1A6B72" opacity="0.12"/>
+                        <circle cx="24" cy="24" r="22" fill="none" stroke="#52B69A" stroke-width="1.8" opacity="0.4"/>
+                        <path d="M 24 3 A 21 21 0 1 1 4 26" fill="none" stroke="#52B69A" stroke-width="2" stroke-linecap="round" opacity="0.75"/>
+                        <path d="M 24 8 A 16 16 0 1 1 9 28" fill="none" stroke="#52B69A" stroke-width="2" stroke-linecap="round" opacity="0.85"/>
+                        <path d="M 24 13 A 11 11 0 1 1 14 29" fill="none" stroke="#52B69A" stroke-width="1.8" stroke-linecap="round" opacity="0.95"/>
+                        <g transform="translate(24, 24) rotate(-35) translate(-24, -24)">
+                            <circle cx="24" cy="10" r="3.2" fill="#1A6B72"/>
+                            <path d="M 21.5 14 C 21.5 14 20 22 21 28 C 22 33 22.5 38 22.5 38 L 25.5 38 C 25.5 38 26 33 27 28 C 28 22 26.5 14 26.5 14 Z" fill="#1A6B72"/>
+                            <path d="M 22 16 C 17 13 11 10 7 9 C 6.5 10.5 8 12.5 12 14.5 C 16 16.5 21.5 18 21.5 18 Z" fill="#1A6B72"/>
+                            <path d="M 26 16 C 31 13 37 10 41 9 C 41.5 10.5 40 12.5 36 14.5 C 32 16.5 26.5 18 26.5 18 Z" fill="#1A6B72"/>
+                        </g>
+                    </g>
+                    <text class="brand-text" x="66" y="42" font-family="'Lora','Georgia',serif" font-weight="700" font-size="34" letter-spacing="-0.5" fill="currentColor">Solace</text>
+                </svg>
+            </a>
+            <button class="nav-toggle" id="sidebarClose" aria-label="Close Sidebar" style="margin-left: auto; display: none;">
+                <i class="ph ph-x"></i>
+            </button>
+        </div>
+        
+        <nav class="dashboard-nav">
+            <a href="#overview" class="dash-nav-item active" data-view="overview">
+                <i class="ph ph-squares-four"></i> Overview
+            </a>
+            <a href="#applications" class="dash-nav-item" data-view="applications">
+                <i class="ph ph-calendar-plus"></i> Slot Booking &amp; Sessions
+            </a>
+            <a href="#vault" class="dash-nav-item" data-view="vault">
+                <i class="ph ph-floppy-disk"></i> Package Tracker &amp; Vault
+            </a>
+            <a href="#shortlist" class="dash-nav-item" data-view="shortlist">
+                <i class="ph ph-heart"></i> Saved Suites &amp; Therapies
+            </a>
+            <a href="#interviews" class="dash-nav-item" data-view="interviews">
+                <i class="ph ph-clock"></i> Float Reservations
+                <span class="dash-nav-badge">1</span>
+            </a>
+            <a href="#messages" class="dash-nav-item" data-view="messages">
+                <i class="ph ph-chat-circle-dots"></i> Guide Messages
+                <span class="dash-nav-badge">2</span>
+            </a>
+            <a href="#payments" class="dash-nav-item" data-view="payments">
+                <i class="ph ph-receipt"></i> Membership &amp; Payments
+            </a>
+            <a href="#notifications" class="dash-nav-item" data-view="notifications">
+                <i class="ph ph-bell-ringing"></i> Notifications
+                <span class="dash-nav-badge">2</span>
+            </a>
+            <a href="#profile" class="dash-nav-item" data-view="profile">
+                <i class="ph ph-user-circle"></i> Guest Profile &amp; Preferences
+            </a>
+            <a href="#settings" class="dash-nav-item" data-view="settings">
+                <i class="ph ph-gear"></i> Settings
+            </a>
+        </nav>
+        
+        <div style="padding: var(--space-4); border-top: 1px solid var(--color-border);">
+            <div style="display: flex; align-items: center; gap: var(--space-3); margin-bottom: var(--space-4);">
+                <div style="width: 40px; height: 40px; border-radius: 50%; background: var(--color-brand-accent); display: flex; align-items: center; justify-content: center; color: white; font-weight: 600;">SJ</div>
+                <div>
+                    <div style="font-weight: 600; font-size: 0.875rem;">Dr. Sarah Jenkins</div>
+                    <div style="color: var(--color-text-secondary); font-size: 0.75rem;">Zenith Spa Member</div>
+                </div>
+            </div>
+            <a href="index.html" class="dash-nav-item" style="color: var(--color-status-reject); padding: 0;">
+                <i class="ph ph-sign-out"></i> Logout
+            </a>
+        </div>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="dashboard-main">
+        <!-- Header -->
+        <header class="dashboard-header">
+            <div class="dashboard-header-start">
+                <button class="nav-toggle" id="sidebarToggle" style="display: none;">
+                    <i class="ph ph-list"></i>
+                </button>
+                <a href="index.html" class="navbar-brand dashboard-header-brand">
+                    <svg class="brand-logo" viewBox="0 0 200 60" preserveAspectRatio="xMinYMid meet" role="img" aria-label="Solace">
+                        <title>Solace</title>
+                        <g transform="translate(4, 4) scale(1.15)">
+                            <circle cx="24" cy="24" r="22" fill="#1A6B72" opacity="0.12"/>
+                            <circle cx="24" cy="24" r="22" fill="none" stroke="#52B69A" stroke-width="1.8" opacity="0.4"/>
+                            <path d="M 24 3 A 21 21 0 1 1 4 26" fill="none" stroke="#52B69A" stroke-width="2" stroke-linecap="round" opacity="0.75"/>
+                            <path d="M 24 8 A 16 16 0 1 1 9 28" fill="none" stroke="#52B69A" stroke-width="2" stroke-linecap="round" opacity="0.85"/>
+                            <path d="M 24 13 A 11 11 0 1 1 14 29" fill="none" stroke="#52B69A" stroke-width="1.8" stroke-linecap="round" opacity="0.95"/>
+                            <g transform="translate(24, 24) rotate(-35) translate(-24, -24)">
+                                <circle cx="24" cy="10" r="3.2" fill="#1A6B72"/>
+                                <path d="M 21.5 14 C 21.5 14 20 22 21 28 C 22 33 22.5 38 22.5 38 L 25.5 38 C 25.5 38 26 33 27 28 C 28 22 26.5 14 26.5 14 Z" fill="#1A6B72"/>
+                                <path d="M 22 16 C 17 13 11 10 7 9 C 6.5 10.5 8 12.5 12 14.5 C 16 16.5 21.5 18 21.5 18 Z" fill="#1A6B72"/>
+                                <path d="M 26 16 C 31 13 37 10 41 9 C 41.5 10.5 40 12.5 36 14.5 C 32 16.5 26.5 18 26.5 18 Z" fill="#1A6B72"/>
+                            </g>
+                        </g>
+                        <text class="brand-text" x="66" y="42" font-family="'Lora','Georgia',serif" font-weight="700" font-size="34" letter-spacing="-0.5" fill="currentColor">Solace</text>
+                    </svg>
+                </a>
+                <h2 class="sr-only" id="dashTitle">Overview</h2>
+            </div>
+
+            <div class="dashboard-header-end">
+                <button class="theme-toggle" aria-label="Toggle Theme">
+                    <i class="ph ph-moon"></i>
+                </button>
+                <button class="rtl-toggle" aria-label="Toggle RTL">
+                    <i class="ph ph-arrows-left-right"></i>
+                </button>
+                <a href="#profile" class="header-profile" data-view="profile" aria-label="Guest profile &amp; preferences">
+                    <i class="ph ph-user"></i>
+                </a>
+            </div>
+        </header>
+
+        <div class="dashboard-content">
+
+            <!-- ============================ OVERVIEW ============================ -->
+            <section class="dash-view is-active" id="view-overview" data-title="Overview" tabindex="-1">
+                <div class="dash-page-head">
+                    <div>
+                        <h2>Welcome back, Sarah</h2>
+                        <div class="sub">Your sanctuary float credits are active &mdash; 2 reserved sessions coming up this week.</div>
+                    </div>
+                    <div class="dash-page-actions">
+                        <a href="#applications" class="btn btn-primary" style="padding: 0.5rem 1rem; font-size: 0.875rem;">
+                            <i class="ph ph-plus"></i> Book Float Slot
+                        </a>
+                    </div>
+                </div>
+
+                <div class="dash-kpi-grid">
+                    <a class="kpi-card" href="#applications">
+                        <div class="kpi-icon"><i class="ph-fill ph-drop"></i></div>
+                        <div class="kpi-info">
+                            <h4>Active Packages</h4>
+                            <div class="kpi-value">2</div>
+                        </div>
+                    </a>
+                    <a class="kpi-card" href="#shortlist">
+                        <div class="kpi-icon" style="color: var(--color-status-shortlist); background: var(--color-status-shortlist-bg);"><i class="ph-fill ph-heart"></i></div>
+                        <div class="kpi-info">
+                            <h4>Saved Suites</h4>
+                            <div class="kpi-value">3</div>
+                        </div>
+                    </a>
+                    <a class="kpi-card" href="#vault">
+                        <div class="kpi-icon" style="color: var(--color-status-review); background: var(--color-status-review-bg);"><i class="ph-fill ph-floppy-disk"></i></div>
+                        <div class="kpi-info">
+                            <h4>Float Credits</h4>
+                            <div class="kpi-value">4<span style="font-size: 0.875rem; color: var(--color-text-secondary);">/6 credits</span></div>
+                        </div>
+                    </a>
+                    <a class="kpi-card" href="#interviews">
+                        <div class="kpi-icon" style="color: var(--color-status-interview); background: var(--color-status-interview-bg);"><i class="ph-fill ph-calendar-blank"></i></div>
+                        <div class="kpi-info">
+                            <h4>Upcoming Float</h4>
+                            <div class="kpi-value">1</div>
+                        </div>
+                    </a>
+                </div>
+
+                <div style="display: grid; grid-template-columns: 1.3fr 1fr; gap: var(--space-6); align-items: start;" class="overview-split">
+                    <!-- Next actions -->
+                    <div class="dash-card" style="margin-bottom: 0;">
+                        <div class="dash-page-head" style="margin-bottom: var(--space-3);">
+                            <div><h3 style="margin-bottom: 0;">Needs Your Attention</h3></div>
+                        </div>
+
+                        <div class="notif-item is-unread">
+                            <div class="notif-icon" style="background: var(--color-status-reject-bg); color: var(--color-status-reject);"><i class="ph-fill ph-warning-circle"></i></div>
+                            <div class="notif-main">
+                                <div class="t">Sensory preferences update</div>
+                                <div class="d">Customize audio and lighting for your upcoming 90-min float.</div>
+                            </div>
+                            <a href="#profile" class="btn btn-outline" style="padding: 0.3rem 0.7rem; font-size: 0.78rem; align-self: center;">Customize</a>
+                        </div>
+
+                        <div class="notif-item is-unread">
+                            <div class="notif-icon" style="background: var(--color-status-interview-bg); color: var(--color-status-interview);"><i class="ph-fill ph-calendar-check"></i></div>
+                            <div class="notif-main">
+                                <div class="t">Confirm float session arrival time</div>
+                                <div class="d">Downtown Sanctuary &middot; Nov 15, 10:30 AM</div>
+                            </div>
+                            <a href="#interviews" class="btn btn-outline" style="padding: 0.3rem 0.7rem; font-size: 0.78rem; align-self: center;">Confirm</a>
+                        </div>
+
+                        <div class="notif-item">
+                            <div class="notif-icon" style="background: var(--color-status-applied-bg); color: var(--color-status-applied);"><i class="ph-fill ph-receipt"></i></div>
+                            <div class="notif-main">
+                                <div class="t">Monthly Zenith renewal due</div>
+                                <div class="d">Zenith Membership &middot; $189 due Nov 02</div>
+                            </div>
+                            <a href="#payments" class="btn btn-outline" style="padding: 0.3rem 0.7rem; font-size: 0.78rem; align-self: center;">Pay</a>
+                        </div>
+                    </div>
+
+                    <!-- Application progress snapshot -->
+                    <div class="dash-card" style="margin-bottom: 0;">
+                        <h3 style="margin-bottom: var(--space-3);">Sanctuary Journey Status</h3>
+
+                        <div class="mockup-timeline-track">
+                            <div class="mockup-track-step active">
+                                <div class="mockup-track-dot"><i class="ph ph-check"></i></div>
+                                <div style="font-size: 0.85rem;">Guest Profile completed</div>
+                            </div>
+                            <div class="mockup-track-step active">
+                                <div class="mockup-track-dot"><i class="ph ph-check"></i></div>
+                                <div style="font-size: 0.85rem;">4 Float sessions finished</div>
+                            </div>
+                            <div class="mockup-track-step active">
+                                <div class="mockup-track-dot"><i class="ph ph-check"></i></div>
+                                <div style="font-size: 0.85rem;">Health waiver verified</div>
+                            </div>
+                            <div class="mockup-track-step">
+                                <div class="mockup-track-dot">4</div>
+                                <div style="font-size: 0.85rem; color: var(--color-text-secondary);">Next float reserved</div>
+                            </div>
+                        </div>
+
+                        <div class="result-divider"></div>
+
+                        <div class="storage-meter" style="margin-bottom: 0;">
+                            <span class="label">Quarterly Float Target</span>
+                            <div class="meter"><div class="meter-fill" style="width: 68%;"></div></div>
+                            <span class="value">68%</span>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ========================== APPLICATIONS ========================== -->
+            <section class="dash-view" id="view-applications" data-title="Slot Booking &amp; Sessions" tabindex="-1">
+                <div class="dash-page-head">
+                    <div>
+                        <h2>Slot Booking &amp; Sessions</h2>
+                        <div class="sub">Reserve float therapy time slots, view booked sessions, and customize suite amenities.</div>
+                    </div>
+                    <div class="dash-page-actions">
+                        <a href="browse-schools.html" class="btn btn-primary" style="padding: 0.5rem 1rem; font-size: 0.875rem;">Explore Suites</a>
+                    </div>
+                </div>
+
+                <div class="filter-tabs" data-filter-group="applications">
+                    <button type="button" class="filter-tab" aria-pressed="true" data-filter="all">All <span style="opacity:.6">3</span></button>
+                    <button type="button" class="filter-tab" aria-pressed="false" data-filter="applied">Scheduled</button>
+                    <button type="button" class="filter-tab" aria-pressed="false" data-filter="review">In Prep</button>
+                    <button type="button" class="filter-tab" aria-pressed="false" data-filter="interview">Confirmed</button>
+                    <button type="button" class="filter-tab" aria-pressed="false" data-filter="decision">Completed</button>
+                </div>
+
+                <div class="dash-card dash-card--flush">
+                    <div class="dash-table-wrapper">
+                        <table class="dash-table stack-mobile">
+                            <thead>
+                                <tr>
+                                    <th>Suite &amp; Experience</th>
+                                    <th>Therapy Modality</th>
+                                    <th>Reserved Date</th>
+                                    <th>Status</th>
+                                    <th>Next Action Needed</th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody data-filter-target="applications">
+                                <tr data-status="interview">
+                                    <td class="cell-primary">
+                                        <div class="dash-school-cell">
+                                            <strong>Executive Isolation Pod #02</strong>
+                                        </div>
+                                    </td>
+                                    <td data-label="Therapy Modality">90 Min Deep Sensory Float</td>
+                                    <td data-label="Reserved Date">Nov 15, 2026</td>
+                                    <td data-label="Status">
+                                        <span class="status-badge status-interview" aria-label="Status: Confirmed">
+                                            <i class="ph-fill ph-calendar-check"></i> Confirmed
+                                        </span>
+                                    </td>
+                                    <td data-label="Next action" style="color: var(--color-status-interview); font-size: 0.875rem;">Confirm arrival time</td>
+                                    <td class="cell-action"><a href="#application" class="btn btn-outline" style="padding: 0.25rem 0.75rem; font-size: 0.875rem;">View</a></td>
+                                </tr>
+                                <tr data-status="review">
+                                    <td class="cell-primary">
+                                        <div class="dash-school-cell">
+                                            <strong>Horizon Open Basin Suite</strong>
+                                        </div>
+                                    </td>
+                                    <td data-label="Therapy Modality">60 Min Salt Hydrotherapy</td>
+                                    <td data-label="Reserved Date">Nov 28, 2026</td>
+                                    <td data-label="Status">
+                                        <span class="status-badge status-review" aria-label="Status: In Prep">
+                                            <i class="ph-fill ph-drop"></i> In Prep
+                                        </span>
+                                    </td>
+                                    <td data-label="Next action" style="color: var(--color-text-secondary); font-size: 0.875rem;">Awaiting spa check-in</td>
+                                    <td class="cell-action"><a href="#application" class="btn btn-outline" style="padding: 0.25rem 0.75rem; font-size: 0.875rem;">View</a></td>
+                                </tr>
+                                <tr data-status="applied">
+                                    <td class="cell-primary">
+                                        <div class="dash-school-cell">
+                                            <strong>Couples Sanctuary Suite</strong>
+                                        </div>
+                                    </td>
+                                    <td data-label="Therapy Modality">60 Min Float + Infrared Sauna</td>
+                                    <td data-label="Reserved Date">Oct 15, 2026</td>
+                                    <td data-label="Status">
+                                        <span class="status-badge status-applied" aria-label="Status: Completed">
+                                            <i class="ph-fill ph-check-circle"></i> Completed
+                                        </span>
+                                    </td>
+                                    <td data-label="Next action" style="color: var(--color-status-reject); font-size: 0.875rem;">Log post-float reflection</td>
+                                    <td class="cell-action"><a href="#application" class="btn btn-outline" style="padding: 0.25rem 0.75rem; font-size: 0.875rem;">View</a></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <p class="empty-state" data-filter-empty="applications" hidden>No session reservations at this stage yet.</p>
+                </div>
+            </section>
+
+            <!-- ======================= APPLICATION DETAIL ======================= -->
+            <section class="dash-view" id="view-application" data-title="Session Slot Detail" data-nav="applications" tabindex="-1">
+                <div class="dash-page-head">
+                    <div>
+                        <a href="#applications" class="app-back-link"
+                            style="color: var(--color-text-secondary); font-size: 0.875rem; display: inline-flex; align-items: center; gap: 0.35rem; margin-bottom: var(--space-2);">
+                            <i class="ph ph-arrow-left"></i> Back to Slot Booking
+                        </a>
+                        <h2>Session Slot Detail</h2>
+                        <div class="sub">Track timing, water temperature prep, and concierge notes in one place.</div>
+                    </div>
+                </div>
+
+                <!-- Session summary -->
+                <div class="dash-card app-detail-head">
+                    <div class="app-detail-school">
+                        <div class="app-detail-logo">
+                            <img src="assets/images/float-pod-1.jpg" alt="Executive Isolation Pod">
+                        </div>
+                        <div>
+                            <h3 style="margin-bottom: var(--space-1);">Executive Isolation Pod #02</h3>
+                            <div
+                                style="color: var(--color-text-secondary); font-size: 0.875rem; margin-bottom: var(--space-2);">
+                                Experience: 90 Min Sensory Deprivation • Downtown Sanctuary</div>
+                            <span class="status-badge status-interview" aria-label="Status: Confirmed Slot">
+                                <i class="ph-fill ph-calendar-check"></i> Confirmed Slot
+                            </span>
+                        </div>
+                    </div>
+                    <div class="app-detail-id">
+                        <div style="font-size: 0.875rem; color: var(--color-text-secondary); margin-bottom: 0.25rem;">
+                            Reservation ID</div>
+                        <strong>#FLT-2026-8472</strong>
+                    </div>
+                </div>
+
+                <!-- Status pipeline -->
+                <div class="dash-card">
+                    <h3 style="margin-bottom: var(--space-4);">Session Preparation Pipeline</h3>
+
+                    <div class="pipeline">
+                        <div class="pipeline-progress"></div>
+
+                        <div class="pipeline-step completed">
+                            <div class="pipeline-icon"><i class="ph ph-check"></i></div>
+                            <div class="pipeline-label">Reserved</div>
+                        </div>
+
+                        <div class="pipeline-step completed">
+                            <div class="pipeline-icon"><i class="ph ph-check"></i></div>
+                            <div class="pipeline-label">Waiver Signed</div>
+                        </div>
+
+                        <div class="pipeline-step completed">
+                            <div class="pipeline-icon"><i class="ph ph-check"></i></div>
+                            <div class="pipeline-label">Suite Sanitized</div>
+                        </div>
+
+                        <div class="pipeline-step active">
+                            <div class="pipeline-icon"><i class="ph ph-calendar-blank"></i></div>
+                            <div class="pipeline-label">Scheduled</div>
+                        </div>
+
+                        <div class="pipeline-step">
+                            <div class="pipeline-icon"><i class="ph ph-cup"></i></div>
+                            <div class="pipeline-label">Post Tea Lounge</div>
+                        </div>
+                    </div>
+
+                    <!-- Active step callout -->
+                    <div class="app-callout">
+                        <i class="ph-fill ph-warning-circle app-callout-icon"></i>
+                        <div>
+                            <strong class="app-callout-title">Action Required: Confirm Arrival Time</strong>
+                            <p class="app-callout-text">Your private suite is pre-allocated with medical-grade Epsom solution kept at precisely 98.6°F. Please confirm your arrival 15 mins prior.</p>
+                            <a href="#interviews" class="btn btn-primary app-callout-btn">Confirm Reservation</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="app-detail-cols">
+                    <!-- Document checklist -->
+                    <div class="dash-card">
+                        <h3 style="margin-bottom: var(--space-4);">Suite Amenities &amp; Checklist</h3>
+
+                        <div style="display: flex; flex-direction: column; gap: var(--space-3);">
+                            <div
+                                style="display: flex; align-items: center; justify-content: space-between; padding-bottom: var(--space-3); border-bottom: 1px solid var(--color-border);">
+                                <div style="display: flex; align-items: center; gap: 0.5rem;">
+                                    <i class="ph-fill ph-check-circle"
+                                        style="color: var(--color-status-admitted); font-size: 1.25rem;"></i>
+                                    <span style="font-size: 0.875rem; font-weight: 500;">Silicone Earplugs &amp; Eye Mask</span>
+                                </div>
+                                <a href="#vault" style="font-size: 0.75rem; color: var(--color-text-secondary);">Verified</a>
+                            </div>
+
+                            <div
+                                style="display: flex; align-items: center; justify-content: space-between; padding-bottom: var(--space-3); border-bottom: 1px solid var(--color-border);">
+                                <div style="display: flex; align-items: center; gap: 0.5rem;">
+                                    <i class="ph-fill ph-check-circle"
+                                        style="color: var(--color-status-admitted); font-size: 1.25rem;"></i>
+                                    <span style="font-size: 0.875rem; font-weight: 500;">Organic Shower &amp; Towel Set</span>
+                                </div>
+                                <a href="#vault" style="font-size: 0.75rem; color: var(--color-text-secondary);">Ready</a>
+                            </div>
+
+                            <div
+                                style="display: flex; align-items: center; justify-content: space-between; padding-bottom: var(--space-3); border-bottom: 1px solid var(--color-border);">
+                                <div style="display: flex; align-items: center; gap: 0.5rem;">
+                                    <i class="ph-fill ph-check-circle"
+                                        style="color: var(--color-status-admitted); font-size: 1.25rem;"></i>
+                                    <span style="font-size: 0.875rem; font-weight: 500;">1,000 lbs Epsom Solution Prep</span>
+                                </div>
+                                <a href="#vault" style="font-size: 0.75rem; color: var(--color-text-secondary);">Verified</a>
+                            </div>
+
+                            <!-- Missing requirement -->
+                            <div style="display: flex; align-items: center; justify-content: space-between;">
+                                <div style="display: flex; align-items: center; gap: 0.5rem;">
+                                    <i class="ph-fill ph-warning-circle"
+                                        style="color: var(--color-status-reject); font-size: 1.25rem;"></i>
+                                    <span
+                                        style="font-size: 0.875rem; font-weight: 500; color: var(--color-status-reject);">Skin Preference Note</span>
+                                </div>
+                                <div class="form-group" style="margin: 0;">
+                                    <a href="#profile" class="btn btn-outline"
+                                        style="padding: 0.25rem 0.75rem; font-size: 0.75rem; cursor: pointer;">Update</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Concierge messages -->
+                    <div class="dash-card">
+                        <h3 style="margin-bottom: var(--space-4);">Messages from Concierge</h3>
+
+                        <div style="display: flex; flex-direction: column; gap: var(--space-4);">
+                            <div
+                                style="background: var(--color-bg-secondary); padding: var(--space-3); border-radius: var(--radius-soft);">
+                                <div style="display: flex; justify-content: space-between; margin-bottom: var(--space-2);">
+                                    <strong style="font-size: 0.875rem;">Sanctuary Concierge</strong>
+                                    <span style="font-size: 0.75rem; color: var(--color-text-secondary);">Oct 20</span>
+                                </div>
+                                <p style="font-size: 0.875rem; margin-bottom: 0;">Dear Sarah, your 90-minute float pod is fully sanitized with UV &amp; 50-micron filtration. Let us know if you prefer binaural audio.</p>
+                            </div>
+
+                            <div
+                                style="background: var(--color-bg-secondary); padding: var(--space-3); border-radius: var(--radius-soft); opacity: 0.7;">
+                                <div style="display: flex; justify-content: space-between; margin-bottom: var(--space-2);">
+                                    <strong style="font-size: 0.875rem;">System</strong>
+                                    <span style="font-size: 0.75rem; color: var(--color-text-secondary);">Oct 12</span>
+                                </div>
+                                <p style="font-size: 0.875rem; margin-bottom: 0;">Your reservation #FLT-2026-8472 has been confirmed for Downtown Sanctuary.</p>
+                            </div>
+                        </div>
+
+                        <div
+                            style="margin-top: var(--space-4); border-top: 1px solid var(--color-border); padding-top: var(--space-4);">
+                            <div style="display: flex; gap: var(--space-2);">
+                                <label for="app-detail-reply" class="sr-only">Reply to Concierge</label>
+                                <input type="text" id="app-detail-reply" class="form-control"
+                                    placeholder="Reply to Sanctuary Concierge" style="padding: 0.5rem; font-size: 0.875rem;">
+                                <button class="btn btn-primary" aria-label="Send reply"
+                                    style="padding: 0.5rem; border-radius: var(--radius-soft);"><i
+                                        class="ph ph-paper-plane-right"></i></button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ========================== DOCUMENT VAULT ========================== -->
+            <section class="dash-view" id="view-vault" data-title="Package Tracker &amp; Vault" tabindex="-1">
+                <div class="dash-page-head">
+                    <div>
+                        <h2>Package Tracker &amp; Credit Vault</h2>
+                        <div class="sub">Track active float credits, package history, and spa gift vouchers.</div>
+                    </div>
+                    <div class="dash-page-actions">
+                        <button class="btn btn-primary" style="padding: 0.5rem 1rem; font-size: 0.875rem;"><i class="ph ph-upload-simple"></i> Redeem Voucher</button>
+                    </div>
+                </div>
+
+                <div class="storage-meter">
+                    <span class="label">4 of 6 float credits available for redemption</span>
+                    <div class="meter"><div class="meter-fill" style="width: 66%;"></div></div>
+                    <span class="value">66%</span>
+                </div>
+
+                <div class="dash-card dash-card--flush">
+                    <div class="doc-grid">
+                        <div class="doc-card">
+                            <div class="doc-icon" style="color: var(--color-status-applied);"><i class="ph-fill ph-file-pdf"></i></div>
+                            <div class="doc-main">
+                                <div class="doc-name">Zenith_Monthly_Credits.pdf</div>
+                                <div class="doc-meta">2 Floats remaining this month</div>
+                            </div>
+                            <button style="color: var(--color-text-secondary);" aria-label="Credit details"><i class="ph ph-dots-three-vertical"></i></button>
+                        </div>
+
+                        <div class="doc-card">
+                            <div class="doc-icon" style="color: var(--color-status-shortlist);"><i class="ph-fill ph-file-image"></i></div>
+                            <div class="doc-main">
+                                <div class="doc-name">3-Pack_Float_Voucher.pdf</div>
+                                <div class="doc-meta">1 Float remaining · Rollover active</div>
+                            </div>
+                            <button style="color: var(--color-text-secondary);" aria-label="Voucher details"><i class="ph ph-dots-three-vertical"></i></button>
+                        </div>
+
+                        <div class="doc-card">
+                            <div class="doc-icon" style="color: var(--color-status-applied);"><i class="ph-fill ph-file-pdf"></i></div>
+                            <div class="doc-main">
+                                <div class="doc-name">Infrared_Sauna_Addon.pdf</div>
+                                <div class="doc-meta">2 Complimentary Sauna passes</div>
+                            </div>
+                            <button style="color: var(--color-text-secondary);" aria-label="Sauna pass details"><i class="ph ph-dots-three-vertical"></i></button>
+                        </div>
+
+                        <div class="doc-card">
+                            <div class="doc-icon" style="color: var(--color-status-admitted);"><i class="ph-fill ph-identification-card"></i></div>
+                            <div class="doc-main">
+                                <div class="doc-name">Health_Waiver_2026.pdf</div>
+                                <div class="doc-meta">Verified &middot; Vault protected</div>
+                            </div>
+                            <button style="color: var(--color-text-secondary);" aria-label="Waiver options"><i class="ph ph-dots-three-vertical"></i></button>
+                        </div>
+
+                        <div class="doc-card">
+                            <div class="doc-icon" style="color: var(--color-status-applied);"><i class="ph-fill ph-file-pdf"></i></div>
+                            <div class="doc-main">
+                                <div class="doc-name">Gift_Voucher_Code.pdf</div>
+                                <div class="doc-meta">Active ($50 credit)</div>
+                            </div>
+                            <button style="color: var(--color-text-secondary);" aria-label="Gift voucher options"><i class="ph ph-dots-three-vertical"></i></button>
+                        </div>
+
+                        <div class="doc-card is-missing">
+                            <div class="doc-icon" style="color: var(--color-status-reject);"><i class="ph ph-warning-circle"></i></div>
+                            <div class="doc-main">
+                                <div class="doc-name" style="color: var(--color-status-reject);">Skin Health Disclosure</div>
+                                <div class="doc-meta">Required for custom add-ons</div>
+                            </div>
+                            <a href="#profile" class="btn btn-outline" style="padding: 0.25rem 0.6rem; font-size: 0.75rem;">Update</a>
+                        </div>
+
+                    </div>
+                </div>
+            </section>
+
+            <!-- ============================ SHORTLIST ============================ -->
+            <section class="dash-view" id="view-shortlist" data-title="Saved Suites &amp; Therapies" tabindex="-1">
+                <div class="dash-page-head">
+                    <div>
+                        <h2>Saved Suites &amp; Therapies</h2>
+                        <div class="sub">Your favorite float environments and hydrotherapy modalities saved for fast booking.</div>
+                    </div>
+                    <div class="dash-page-actions">
+                        <a href="browse-schools.html" class="btn btn-primary" style="padding: 0.5rem 1rem; font-size: 0.875rem;">Browse All Suites</a>
+                    </div>
+                </div>
+
+                <div class="shortlist-grid">
+                    <div class="shortlist-card">
+                        <div class="shortlist-media">
+                            <img src="assets/images/float-pod-1.jpg" alt="Executive Isolation Pod">
+                            <button class="shortlist-fav" aria-label="Remove Executive Pod from saved"><i class="ph-fill ph-heart"></i></button>
+                        </div>
+                        <div class="shortlist-body">
+                            <span class="school-board-tag">Sensory Deprivation</span>
+                            <div class="name">Executive Isolation Pod</div>
+                            <div class="meta"><i class="ph ph-map-pin"></i> Downtown Sanctuary HQ</div>
+                            <div class="meta"><i class="ph ph-wallet"></i> $79 / 60 Min Session</div>
+                            <div class="actions">
+                                <a href="browse-schools.html" class="btn btn-outline">Details</a>
+                                <a href="#applications" class="btn btn-primary">Book Now</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="shortlist-card">
+                        <div class="shortlist-media">
+                            <img src="assets/images/float-open-basin.jpg" alt="Horizon Open Basin Pool">
+                            <button class="shortlist-fav" aria-label="Remove Horizon Open Basin from saved"><i class="ph-fill ph-heart"></i></button>
+                        </div>
+                        <div class="shortlist-body">
+                            <span class="school-board-tag">Hydrotherapy</span>
+                            <div class="name">Horizon Open Basin Pool</div>
+                            <div class="meta"><i class="ph ph-map-pin"></i> Westside Studio Branch</div>
+                            <div class="meta"><i class="ph ph-wallet"></i> $89 / 60 Min Session</div>
+                            <div class="actions">
+                                <a href="browse-schools.html" class="btn btn-outline">Details</a>
+                                <a href="#applications" class="btn btn-primary">Book Now</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="shortlist-card">
+                        <div class="shortlist-media">
+                            <img src="assets/images/couples-float-suite.jpg" alt="Couples Sanctuary Suite">
+                            <button class="shortlist-fav" aria-label="Remove Couples Sanctuary from saved"><i class="ph-fill ph-heart"></i></button>
+                        </div>
+                        <div class="shortlist-body">
+                            <span class="school-board-tag">Double Float</span>
+                            <div class="name">Couples Sanctuary Suite</div>
+                            <div class="meta"><i class="ph ph-map-pin"></i> Downtown Sanctuary HQ</div>
+                            <div class="meta"><i class="ph ph-wallet"></i> $139 / 60 Min Session</div>
+                            <div class="actions">
+                                <a href="browse-schools.html" class="btn btn-outline">Details</a>
+                                <a href="#applications" class="btn btn-primary">Book Now</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ============================ INTERVIEWS ============================ -->
+            <section class="dash-view" id="view-interviews" data-title="Float Reservations" tabindex="-1">
+                <div class="dash-page-head">
+                    <div>
+                        <h2>Float Reservations</h2>
+                        <div class="sub">Scheduled float sessions and spa appointments.</div>
+                    </div>
+                    <div class="dash-page-actions">
+                        <button class="btn btn-primary" style="padding: 0.5rem 1rem; font-size: 0.875rem;"><i class="ph ph-calendar-plus"></i> Add to calendar</button>
+                    </div>
+                </div>
+
+                <h3 style="font-family: var(--font-body); font-size: 1.05rem; margin-bottom: var(--space-3);">Upcoming Reservation</h3>
+
+                <div class="interview-card">
+                    <div class="interview-date">
+                        <div class="d">15</div>
+                        <div class="m">Nov</div>
+                    </div>
+                    <div class="interview-main">
+                        <h4>Executive Isolation Pod &mdash; 90 Min Sensory Float</h4>
+                        <div class="meta">
+                            <span><i class="ph ph-clock"></i> 10:30 &ndash; 12:00 PM</span>
+                            <span><i class="ph ph-map-pin"></i> Downtown Sanctuary, Suite 2</span>
+                            <span><i class="ph ph-user"></i> Guide: Alex Rivera</span>
+                        </div>
+                    </div>
+                    <span class="status-badge status-interview"><i class="ph-fill ph-hourglass-medium"></i> Awaiting confirmation</span>
+                    <button class="btn btn-primary" style="padding: 0.45rem 1rem; font-size: 0.85rem;">Confirm</button>
+                </div>
+
+                <h3 style="font-family: var(--font-body); font-size: 1.05rem; margin: var(--space-5) 0 var(--space-3);">Past Sessions</h3>
+
+                <div class="interview-card is-past">
+                    <div class="interview-date">
+                        <div class="d">28</div>
+                        <div class="m">Oct</div>
+                    </div>
+                    <div class="interview-main">
+                        <h4>Horizon Open Basin Suite &mdash; 60 Min Hydrotherapy</h4>
+                        <div class="meta">
+                            <span><i class="ph ph-clock"></i> 4:00 &ndash; 5:00 PM</span>
+                            <span><i class="ph ph-map-pin"></i> Westside Studio Branch</span>
+                        </div>
+                    </div>
+                    <span class="status-badge status-admitted"><i class="ph-fill ph-check-circle"></i> Attended</span>
+                </div>
+
+                <div class="interview-card is-past">
+                    <div class="interview-date">
+                        <div class="d">19</div>
+                        <div class="m">Oct</div>
+                    </div>
+                    <div class="interview-main">
+                        <h4>Couples Sanctuary Suite &mdash; 60 Min Float &amp; Sauna</h4>
+                        <div class="meta">
+                            <span><i class="ph ph-clock"></i> 11:00 AM &ndash; 12:30 PM</span>
+                            <span><i class="ph ph-map-pin"></i> Downtown Sanctuary, Suite 5</span>
+                        </div>
+                    </div>
+                    <span class="status-badge status-admitted"><i class="ph-fill ph-check-circle"></i> Attended</span>
+                </div>
+            </section>
+
+            <!-- ============================= MESSAGES ============================= -->
+            <section class="dash-view" id="view-messages" data-title="Guide Messages" tabindex="-1">
+                <div class="dash-page-head">
+                    <div>
+                        <h2>Guide Messages</h2>
+                        <div class="sub">Direct communication with Solace float guides and concierge team.</div>
+                    </div>
+                </div>
+
+                <div class="messages-layout">
+                    <div class="msg-list" role="tablist" aria-label="Conversations">
+                        <button type="button" class="msg-item" role="tab" aria-pressed="true" data-thread="oakridge">
+                            <img src="assets/images/float-pod-1.jpg" alt="Downtown Concierge">
+                            <div class="msg-main">
+                                <div class="msg-who"><strong>Downtown Sanctuary</strong> <span class="msg-when">2h</span></div>
+                                <div class="msg-preview">Please confirm your arrival time for Nov 15&hellip;</div>
+                            </div>
+                            <span class="msg-unread-dot" aria-label="Unread"></span>
+                        </button>
+
+                        <button type="button" class="msg-item" role="tab" aria-pressed="false" data-thread="stmarys">
+                            <img src="assets/images/testimonial-michael.jpg" alt="Alex Rivera">
+                            <div class="msg-main">
+                                <div class="msg-who"><strong>Guide Alex Rivera</strong> <span class="msg-when">1d</span></div>
+                                <div class="msg-preview">We've added lavender aromatherapy to your suite prep.</div>
+                            </div>
+                            <span class="msg-unread-dot" aria-label="Unread"></span>
+                        </button>
+
+                        <button type="button" class="msg-item" role="tab" aria-pressed="false" data-thread="dps">
+                            <img src="assets/images/solace-logo.svg" alt="Spa Reception">
+                            <div class="msg-main">
+                                <div class="msg-who"><strong>Spa Reception</strong> <span class="msg-when">3d</span></div>
+                                <div class="msg-preview">Thank you &mdash; your monthly Zenith renewal has processed.</div>
+                            </div>
+                        </button>
+                    </div>
+
+                    <div class="msg-thread">
+                        <div class="msg-thread-head">
+                            <img src="assets/images/float-pod-1.jpg" alt="" style="width:38px;height:38px;border-radius:var(--radius-sm);object-fit:cover;" data-thread-avatar>
+                            <div>
+                                <div style="font-size: 0.95rem;" data-thread-name>Downtown Sanctuary Concierge</div>
+                                <div style="font-size: 0.75rem; color: var(--color-text-secondary);">Concierge Team &middot; replies within minutes</div>
+                            </div>
+                        </div>
+
+                        <div class="msg-thread-body" data-thread-body aria-live="polite"></div>
+
+                        <form class="msg-composer" data-thread-form>
+                            <input type="text" class="form-control" placeholder="Write a message to your guide&hellip;" aria-label="Message" data-thread-input>
+                            <button type="submit" class="btn btn-primary" style="padding: 0.6rem 1rem;" aria-label="Send"><i class="ph ph-paper-plane-tilt"></i></button>
+                        </form>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ============================= PAYMENTS ============================= -->
+            <section class="dash-view" id="view-payments" data-title="Membership &amp; Payments" tabindex="-1">
+                <div class="dash-page-head">
+                    <div>
+                        <h2>Membership &amp; Payments</h2>
+                        <div class="sub">Float memberships, package purchases, and spa receipts.</div>
+                    </div>
+                    <div class="dash-page-actions">
+                        <button class="btn btn-primary" style="padding: 0.5rem 1rem; font-size: 0.875rem;"><i class="ph ph-download-simple"></i> Export receipts</button>
+                    </div>
+                </div>
+
+                <div class="fee-summary">
+                    <div class="fee-tile is-due">
+                        <div class="cap">Due now</div>
+                        <div class="amt">$189</div>
+                        <div style="font-size: 0.8rem; color: var(--color-text-secondary);">Zenith Membership &middot; by Nov 02</div>
+                    </div>
+                    <div class="fee-tile is-paid">
+                        <div class="cap">Paid this season</div>
+                        <div class="amt">$430</div>
+                        <div style="font-size: 0.8rem; color: var(--color-text-secondary);">Across 4 float sessions</div>
+                    </div>
+                    <div class="fee-tile">
+                        <div class="cap">Refundable locker deposit</div>
+                        <div class="amt">$50</div>
+                        <div style="font-size: 0.8rem; color: var(--color-text-secondary);">Released after checkout</div>
+                    </div>
+                </div>
+
+                <div class="dash-card dash-card--flush">
+                    <h3 style="margin-bottom: var(--space-3);">Transaction History</h3>
+                    <div class="dash-table-wrapper">
+                        <table class="dash-table stack-mobile">
+                            <thead>
+                                <tr>
+                                    <th>Reference</th>
+                                    <th>Service / Package</th>
+                                    <th>Purpose</th>
+                                    <th>Date</th>
+                                    <th>Amount</th>
+                                    <th>Status</th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td class="cell-primary"><code style="font-size: 0.82rem;">INV-2026-0148</code></td>
+                                    <td data-label="Service">Zenith Monthly Membership</td>
+                                    <td data-label="Purpose">Monthly Subscription</td>
+                                    <td data-label="Date">Oct 26, 2026</td>
+                                    <td data-label="Amount" style="font-variant-numeric: tabular-nums;">$189.00</td>
+                                    <td data-label="Status"><span class="status-badge status-waitlist"><i class="ph-fill ph-clock"></i> Due</span></td>
+                                    <td class="cell-action"><button class="btn btn-primary" style="padding: 0.25rem 0.75rem; font-size: 0.82rem;">Pay now</button></td>
+                                </tr>
+                                <tr>
+                                    <td class="cell-primary"><code style="font-size: 0.82rem;">INV-2026-0121</code></td>
+                                    <td data-label="Service">3-Pack Float Bundle</td>
+                                    <td data-label="Purpose">Package Purchase</td>
+                                    <td data-label="Date">Oct 15, 2026</td>
+                                    <td data-label="Amount" style="font-variant-numeric: tabular-nums;">$199.00</td>
+                                    <td data-label="Status"><span class="status-badge status-admitted"><i class="ph-fill ph-check-circle"></i> Paid</span></td>
+                                    <td class="cell-action"><button class="btn btn-outline" style="padding: 0.25rem 0.75rem; font-size: 0.82rem;">Receipt</button></td>
+                                </tr>
+                                <tr>
+                                    <td class="cell-primary"><code style="font-size: 0.82rem;">INV-2026-0109</code></td>
+                                    <td data-label="Service">Infrared Sauna Add-on</td>
+                                    <td data-label="Purpose">Add-on Session</td>
+                                    <td data-label="Date">Oct 12, 2026</td>
+                                    <td data-label="Amount" style="font-variant-numeric: tabular-nums;">$45.00</td>
+                                    <td data-label="Status"><span class="status-badge status-admitted"><i class="ph-fill ph-check-circle"></i> Paid</span></td>
+                                    <td class="cell-action"><button class="btn btn-outline" style="padding: 0.25rem 0.75rem; font-size: 0.82rem;">Receipt</button></td>
+                                </tr>
+                                <tr>
+                                    <td class="cell-primary"><code style="font-size: 0.82rem;">INV-2026-0097</code></td>
+                                    <td data-label="Service">Single 60-Min Float</td>
+                                    <td data-label="Purpose">Introductory Session</td>
+                                    <td data-label="Date">Oct 10, 2026</td>
+                                    <td data-label="Amount" style="font-variant-numeric: tabular-nums;">$79.00</td>
+                                    <td data-label="Status"><span class="status-badge status-admitted"><i class="ph-fill ph-check-circle"></i> Paid</span></td>
+                                    <td class="cell-action"><button class="btn btn-outline" style="padding: 0.25rem 0.75rem; font-size: 0.82rem;">Receipt</button></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </section>
+
+            <!-- =========================== NOTIFICATIONS =========================== -->
+            <section class="dash-view" id="view-notifications" data-title="Notifications" tabindex="-1">
+                <div class="dash-page-head">
+                    <div>
+                        <h2>Notifications</h2>
+                        <div class="sub">Everything that has occurred regarding your sessions, vouchers, and spa news.</div>
+                    </div>
+                    <div class="dash-page-actions">
+                        <button class="btn btn-primary" style="padding: 0.5rem 1rem; font-size: 0.875rem;">Mark all as read</button>
+                    </div>
+                </div>
+
+                <div class="notif-item is-unread">
+                    <div class="notif-icon" style="background: var(--color-status-interview-bg); color: var(--color-status-interview);"><i class="ph-fill ph-calendar-check"></i></div>
+                    <div class="notif-main">
+                        <div class="t">Float session confirmed at Downtown Sanctuary</div>
+                        <div class="d">Nov 15, 10:30 AM in Pod #02. Please confirm arrival time.</div>
+                    </div>
+                    <span class="notif-when">2 hours ago</span>
+                </div>
+
+                <div class="notif-item is-unread">
+                    <div class="notif-icon" style="background: var(--color-status-reject-bg); color: var(--color-status-reject);"><i class="ph-fill ph-warning-circle"></i></div>
+                    <div class="notif-main">
+                        <div class="t">Skin preference disclosure needed</div>
+                        <div class="d">Please update your sensory preferences for custom magnesium add-ons.</div>
+                    </div>
+                    <span class="notif-when">1 day ago</span>
+                </div>
+
+                <div class="notif-item">
+                    <div class="notif-icon" style="background: var(--color-status-review-bg); color: var(--color-status-review);"><i class="ph-fill ph-floppy-disk"></i></div>
+                    <div class="notif-main">
+                        <div class="t">Zenith monthly float credit added to vault</div>
+                        <div class="d">2 fresh float credits are now active in your profile.</div>
+                    </div>
+                    <span class="notif-when">3 days ago</span>
+                </div>
+
+                <div class="notif-item">
+                    <div class="notif-icon" style="background: var(--color-status-admitted-bg); color: var(--color-status-admitted);"><i class="ph-fill ph-shield-check"></i></div>
+                    <div class="notif-main">
+                        <div class="t">Post-float reflection journal saved</div>
+                        <div class="d">Your mental recovery score was logged as 96%.</div>
+                    </div>
+                    <span class="notif-when">5 days ago</span>
+                </div>
+
+                <div class="notif-item">
+                    <div class="notif-icon" style="background: var(--color-status-applied-bg); color: var(--color-status-applied);"><i class="ph-fill ph-receipt"></i></div>
+                    <div class="notif-main">
+                        <div class="t">Payment receipt generated</div>
+                        <div class="d">$199.00 receipt for 3-Pack Float Bundle is available.</div>
+                    </div>
+                    <span class="notif-when">Oct 15</span>
+                </div>
+            </section>
+
+            <!-- ============================== PROFILE ============================== -->
+            <section class="dash-view" id="view-profile" data-title="Guest Profile &amp; Preferences" tabindex="-1">
+                <div class="dash-page-head">
+                    <div>
+                        <h2>Guest Profile &amp; Preferences</h2>
+                        <div class="sub">Set up your personal float settings, sound choices, and health disclosures.</div>
+                    </div>
+                    <div class="dash-page-actions">
+                        <button class="btn btn-primary" style="padding: 0.5rem 1rem; font-size: 0.875rem;">Save changes</button>
+                    </div>
+                </div>
+
+                <div class="profile-hero">
+                    <div class="profile-avatar">SJ</div>
+                    <div style="flex: 1; min-width: 200px;">
+                        <div style="font-size: 1.1rem;">Dr. Sarah Jenkins</div>
+                        <div style="font-size: 0.85rem; color: var(--color-text-secondary);">Zenith Spa Member &middot; Joined March 2026</div>
+                    </div>
+                    <button class="btn btn-outline" style="padding: 0.45rem 0.9rem; font-size: 0.85rem;"><i class="ph ph-camera"></i> Change photo</button>
+                </div>
+
+                <div class="dash-card">
+                    <h3 style="margin-bottom: var(--space-4);">Guest Contact Information</h3>
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label class="form-label" for="pfFirst">First name</label>
+                            <input class="form-control" id="pfFirst" type="text" value="Sarah">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label" for="pfLast">Last name</label>
+                            <input class="form-control" id="pfLast" type="text" value="Jenkins">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label" for="pfEmail">Email</label>
+                            <input class="form-control" id="pfEmail" type="email" value="sarah.j@example.com">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label" for="pfPhone">Phone</label>
+                            <input class="form-control" id="pfPhone" type="tel" value="+1 (800) 555-FLOAT">
+                        </div>
+                        <div class="form-group is-wide">
+                            <label class="form-label" for="pfAddress">Residential address</label>
+                            <input class="form-control" id="pfAddress" type="text" value="742 Ocean View Dr, Wellness City, CA 90210">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="dash-card">
+                    <h3 style="margin-bottom: var(--space-4);">Float Preferences &amp; Sensory Settings</h3>
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label class="form-label" for="cdName">Preferred Float Environment</label>
+                            <select class="form-control" id="cdName">
+                                <option selected>Executive Isolation Pod</option>
+                                <option>Horizon Open Basin Pool</option>
+                                <option>Couples Sanctuary Suite</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label" for="cdDob">Audio Soundscape</label>
+                            <select class="form-control" id="cdDob">
+                                <option selected>Binaural Theta Waves (432Hz)</option>
+                                <option>Gentle Rain &amp; Ocean Waves</option>
+                                <option>Total Silence (Complete Deprivation)</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label" for="cdGrade">Lighting Ambient Mode</label>
+                            <select class="form-control" id="cdGrade">
+                                <option>Total Darkness</option>
+                                <option selected>Starry Night Sky LED</option>
+                                <option>Soft Cyan Glow</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label" for="cdSchool">Earplug Type</label>
+                            <input class="form-control" id="cdSchool" type="text" value="Soft Silicone Moldable">
+                        </div>
+                        <div class="form-group is-wide">
+                            <label class="form-label" for="cdNotes">Health notes or skin sensitivities</label>
+                            <textarea class="form-control" id="cdNotes" rows="3">Mild skin dryness — prefers warm freshwater rinse after float.</textarea>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ============================== SETTINGS ============================== -->
+            <section class="dash-view" id="view-settings" data-title="Settings" tabindex="-1">
+                <div class="dash-page-head">
+                    <div>
+                        <h2>Settings</h2>
+                        <div class="sub">Control how Solace Spa contacts you and manage account security.</div>
+                    </div>
+                </div>
+
+                <div class="dash-card">
+                    <h3 style="margin-bottom: var(--space-2);">Notifications</h3>
+                    <div class="settings-row">
+                        <div>
+                            <div class="t">Session status &amp; preparation updates</div>
+                            <div class="d">Email me whenever a float suite status is prepared or updated.</div>
+                        </div>
+                        <button type="button" class="switch" role="switch" aria-pressed="true" aria-label="Session status updates"></button>
+                    </div>
+                    <div class="settings-row">
+                        <div>
+                            <div class="t">Float session reminders</div>
+                            <div class="d">A reminder SMS 24 hours before each scheduled float reservation.</div>
+                        </div>
+                        <button type="button" class="switch" role="switch" aria-pressed="true" aria-label="Float reminders"></button>
+                    </div>
+                    <div class="settings-row">
+                        <div>
+                            <div class="t">Credit expiration warnings</div>
+                            <div class="d">Alert me 10 days before any rollover credit expires.</div>
+                        </div>
+                        <button type="button" class="switch" role="switch" aria-pressed="true" aria-label="Expiration warnings"></button>
+                    </div>
+                    <div class="settings-row">
+                        <div>
+                            <div class="t">Wellness tips &amp; special offers</div>
+                            <div class="d">Occasional guide recommendations and seasonal spa packages.</div>
+                        </div>
+                        <button type="button" class="switch" role="switch" aria-pressed="false" aria-label="Wellness tips"></button>
+                    </div>
+                </div>
+
+                <div class="dash-card">
+                    <h3 style="margin-bottom: var(--space-2);">Privacy &amp; Security</h3>
+                    <div class="settings-row">
+                        <div>
+                            <div class="t">Share preferences with float guides</div>
+                            <div class="d">Allow float guides to view your sound and lighting choices prior to arrival.</div>
+                        </div>
+                        <button type="button" class="switch" role="switch" aria-pressed="true" aria-label="Share preferences"></button>
+                    </div>
+                    <div class="settings-row">
+                        <div>
+                            <div class="t">Two-factor authentication</div>
+                            <div class="d">Require a SMS verification code when signing in.</div>
+                        </div>
+                        <button type="button" class="switch" role="switch" aria-pressed="true" aria-label="Two-factor authentication"></button>
+                    </div>
+                </div>
+
+                <div class="dash-card">
+                    <h3 style="margin-bottom: var(--space-2);">Account Management</h3>
+                    <div class="settings-row">
+                        <div>
+                            <div class="t">Change password</div>
+                            <div class="d">Last changed 2 months ago.</div>
+                        </div>
+                        <button class="btn btn-outline" style="padding: 0.4rem 0.9rem; font-size: 0.85rem;">Update</button>
+                    </div>
+                    <div class="settings-row">
+                        <div>
+                            <div class="t">Download my spa history</div>
+                            <div class="d">A copy of your float logs, receipt history, and wellness notes.</div>
+                        </div>
+                        <button class="btn btn-outline" style="padding: 0.4rem 0.9rem; font-size: 0.85rem;">Request</button>
+                    </div>
+                    <div class="settings-row">
+                        <div>
+                            <div class="t" style="color: var(--color-status-reject);">Cancel membership</div>
+                            <div class="d">Pause or cancel your active Zenith membership.</div>
+                        </div>
+                        <button class="btn btn-outline" style="padding: 0.4rem 0.9rem; font-size: 0.85rem; color: var(--color-status-reject); border-color: var(--color-status-reject);">Cancel</button>
+                    </div>
+                </div>
+            </section>
+
+        </div>
+    </main>
+
+    <!-- Scripts -->
+    <script src="assets/js/main.js"></script>
+    <script src="assets/js/parent-dashboard.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const sidebarToggle = document.getElementById('sidebarToggle');
+            const sidebarClose = document.getElementById('sidebarClose');
+            const dashboardSidebar = document.getElementById('dashboardSidebar');
+            
+            if (window.innerWidth < 992) {
+                if (sidebarToggle) sidebarToggle.style.display = 'block';
+                if (sidebarClose) sidebarClose.style.display = 'block';
+            }
+            
+            if(sidebarClose && dashboardSidebar) {
+                sidebarClose.addEventListener('click', () => {
+                    dashboardSidebar.classList.remove('open');
+                });
+            }
+        });
+    </script>
+</body>
+</html>

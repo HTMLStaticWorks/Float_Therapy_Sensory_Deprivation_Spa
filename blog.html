@@ -1,0 +1,426 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Float Science &amp; Wellness Insights | Solace Float Spa</title>
+    <link rel="icon" type="image/svg+xml" href="assets/images/favicon.svg">
+    <meta name="description" content="Explore articles on sensory deprivation science, Epsom salt magnesium absorption, anxiety reduction, and sleep enhancement.">
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="stylesheet" href="assets/css/rtl.css">
+
+    <!-- Phosphor Icons -->
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+
+    <style>
+        .blog-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(min(320px, 100%), 1fr));
+            gap: var(--space-6);
+        }
+
+        .blog-card {
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            background: var(--color-bg-primary);
+            border: 1px solid var(--color-border);
+            border-radius: var(--radius-soft);
+            overflow: hidden;
+            text-align: start;
+            transition: transform var(--transition-premium),
+                box-shadow var(--transition-premium),
+                border-color var(--transition-premium);
+        }
+
+        .blog-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-hover);
+            border-color: var(--color-brand-secondary);
+        }
+
+        .blog-card-media {
+            display: block;
+            height: 200px;
+            overflow: hidden;
+        }
+
+        .blog-card-media img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.7s var(--ease-premium);
+        }
+
+        .blog-card:hover .blog-card-media img {
+            transform: scale(1.05);
+        }
+
+        .blog-card-body {
+            display: flex;
+            flex-direction: column;
+            flex: 1;
+            padding: var(--space-5);
+        }
+
+        .blog-card-tag {
+            background: var(--color-bg-secondary);
+            color: var(--color-brand-accent);
+            padding: 0.25rem 0.75rem;
+            border-radius: var(--radius-full);
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            width: fit-content;
+        }
+
+        .blog-card-title {
+            font-size: 1.2rem;
+            line-height: 1.35;
+            margin: var(--space-3) 0 var(--space-2);
+        }
+
+        .blog-card-title a {
+            color: inherit;
+        }
+
+        .blog-card-excerpt {
+            color: var(--color-text-secondary);
+            font-size: 0.875rem;
+            line-height: 1.55;
+            margin-bottom: var(--space-4);
+        }
+
+        .chip-filter-bar {
+            display: flex;
+            gap: var(--space-2);
+            overflow-x: auto;
+            padding-bottom: var(--space-3);
+            margin-bottom: var(--space-6);
+        }
+    </style>
+</head>
+
+<body style="background-color: var(--color-bg-primary);">
+
+    <!-- Navbar -->
+    <header class="navbar">
+        <div class="container navbar-container">
+            <a href="index.html" class="navbar-brand">
+                <svg class="brand-logo" viewBox="0 0 200 60" preserveAspectRatio="xMinYMid meet" role="img" aria-label="Solace">
+                    <title>Solace</title>
+                    <g transform="translate(4, 4) scale(1.15)">
+                        <circle cx="24" cy="24" r="22" fill="#1A6B72" opacity="0.12"/>
+                        <circle cx="24" cy="24" r="22" fill="none" stroke="#52B69A" stroke-width="1.8" opacity="0.4"/>
+                        <path d="M 24 3 A 21 21 0 1 1 4 26" fill="none" stroke="#52B69A" stroke-width="2" stroke-linecap="round" opacity="0.75"/>
+                        <path d="M 24 8 A 16 16 0 1 1 9 28" fill="none" stroke="#52B69A" stroke-width="2" stroke-linecap="round" opacity="0.85"/>
+                        <path d="M 24 13 A 11 11 0 1 1 14 29" fill="none" stroke="#52B69A" stroke-width="1.8" stroke-linecap="round" opacity="0.95"/>
+                        <g transform="translate(24, 24) rotate(-35) translate(-24, -24)">
+                            <circle cx="24" cy="10" r="3.2" fill="#1A6B72"/>
+                            <path d="M 21.5 14 C 21.5 14 20 22 21 28 C 22 33 22.5 38 22.5 38 L 25.5 38 C 25.5 38 26 33 27 28 C 28 22 26.5 14 26.5 14 Z" fill="#1A6B72"/>
+                            <path d="M 22 16 C 17 13 11 10 7 9 C 6.5 10.5 8 12.5 12 14.5 C 16 16.5 21.5 18 21.5 18 Z" fill="#1A6B72"/>
+                            <path d="M 26 16 C 31 13 37 10 41 9 C 41.5 10.5 40 12.5 36 14.5 C 32 16.5 26.5 18 26.5 18 Z" fill="#1A6B72"/>
+                        </g>
+                    </g>
+                    <text class="brand-text" x="66" y="42" font-family="'Lora','Georgia',serif" font-weight="700" font-size="34" letter-spacing="-0.5" fill="currentColor">Solace</text>
+                </svg>
+            </a>
+
+            <nav class="navbar-menu">
+                <ul class="navbar-nav">
+                    <li><a href="index.html" class="nav-link">Home</a></li>
+                    <li><a href="home2.html" class="nav-link">Home 2</a></li>
+                    <li><a href="browse-schools.html" class="nav-link">Services</a></li>
+                    <li><a href="about.html" class="nav-link">First-Time Guide</a></li>
+                    <li><a href="application-detail.html" class="nav-link">Pricing</a></li>
+                    <li><a href="blog.html" class="nav-link active">Blog</a></li>
+                    <li><a href="contact.html" class="nav-link">Contact</a></li>
+                    <li><a href="parent-dashboard.html" class="nav-link">Dashboard</a></li>
+                </ul>
+                <div class="navbar-actions">
+                    <button class="theme-toggle" aria-label="Toggle Theme">
+                        <i class="ph ph-moon"></i>
+                    </button>
+                    <button class="rtl-toggle" aria-label="Toggle RTL">
+                        <i class="ph ph-arrows-left-right"></i>
+                    </button>
+                    <a href="login.html" class="btn btn-primary">Login</a>
+                </div>
+            </nav>
+
+            <!-- Mobile Toggle -->
+            <button class="nav-toggle" aria-label="Open Menu">
+                <i class="ph ph-list"></i>
+            </button>
+        </div>
+    </header>
+
+    <!-- Mobile Drawer -->
+    <div class="drawer-overlay" id="drawerOverlay"></div>
+    <div class="mobile-drawer" id="mobileDrawer">
+        <div class="drawer-header">
+            <a href="index.html" class="navbar-brand">
+                <svg class="brand-logo" viewBox="0 0 180 56" preserveAspectRatio="xMinYMid meet" role="img" aria-label="Solace">
+                    <title>Solace</title>
+                    <g transform="translate(2, 2) scale(1.05)">
+                        <circle cx="24" cy="24" r="22" fill="#1A6B72" opacity="0.12"/>
+                        <circle cx="24" cy="24" r="22" fill="none" stroke="#52B69A" stroke-width="1.8" opacity="0.4"/>
+                        <path d="M 24 3 A 21 21 0 1 1 4 26" fill="none" stroke="#52B69A" stroke-width="2" stroke-linecap="round" opacity="0.75"/>
+                        <path d="M 24 8 A 16 16 0 1 1 9 28" fill="none" stroke="#52B69A" stroke-width="2" stroke-linecap="round" opacity="0.85"/>
+                        <path d="M 24 13 A 11 11 0 1 1 14 29" fill="none" stroke="#52B69A" stroke-width="1.8" stroke-linecap="round" opacity="0.95"/>
+                        <g transform="translate(24, 24) rotate(-35) translate(-24, -24)">
+                            <circle cx="24" cy="10" r="3.2" fill="#1A6B72"/>
+                            <path d="M 21.5 14 C 21.5 14 20 22 21 28 C 22 33 22.5 38 22.5 38 L 25.5 38 C 25.5 38 26 33 27 28 C 28 22 26.5 14 26.5 14 Z" fill="#1A6B72"/>
+                            <path d="M 22 16 C 17 13 11 10 7 9 C 6.5 10.5 8 12.5 12 14.5 C 16 16.5 21.5 18 21.5 18 Z" fill="#1A6B72"/>
+                            <path d="M 26 16 C 31 13 37 10 41 9 C 41.5 10.5 40 12.5 36 14.5 C 32 16.5 26.5 18 26.5 18 Z" fill="#1A6B72"/>
+                        </g>
+                    </g>
+                    <text class="brand-text" x="62" y="39" font-family="'Lora','Georgia',serif" font-weight="700" font-size="30" letter-spacing="-0.5" fill="currentColor">Solace</text>
+                </svg>
+            </a>
+            <button class="drawer-close" aria-label="Close Menu">
+                <i class="ph ph-x"></i>
+            </button>
+        </div>
+        <nav class="drawer-nav">
+            <a href="index.html" class="nav-link">Home</a>
+            <a href="home2.html" class="nav-link">Home 2</a>
+            <a href="browse-schools.html" class="nav-link">Services</a>
+            <a href="about.html" class="nav-link">First-Time Guide</a>
+            <a href="application-detail.html" class="nav-link">Pricing</a>
+            <a href="blog.html" class="nav-link active">Blog</a>
+            <a href="contact.html" class="nav-link">Contact</a>
+            <a href="parent-dashboard.html" class="nav-link">Dashboard</a>
+        </nav>
+        <div class="drawer-actions">
+            <div style="display: flex; gap: var(--space-2); margin-bottom: var(--space-4);">
+                <button class="theme-toggle" aria-label="Toggle Theme">
+                    <i class="ph ph-moon"></i>
+                </button>
+                <button class="rtl-toggle" aria-label="Toggle RTL">
+                    <i class="ph ph-arrows-left-right"></i>
+                </button>
+            </div>
+            <a href="login.html" class="btn btn-primary" style="width: 100%;">Login</a>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <main style="padding: var(--space-8) 0;">
+        <div class="container">
+            <div class="section-header" style="text-align: center;">
+                <span class="eyebrow">Sensory &amp; Hydrotherapy Journal</span>
+                <h2>Float Science &amp; Wellness Insights</h2>
+                <p class="subtext">Evidence-based research on zero-gravity floatation, Epsom salt magnesium absorption, and nervous system reset</p>
+            </div>
+
+            <!-- Category Filter Bar -->
+            <div class="chip-filter-bar">
+                <button class="chip" aria-pressed="true">All Articles</button>
+                <button class="chip" aria-pressed="false">Neuroscience</button>
+                <button class="chip" aria-pressed="false">Athletic Recovery</button>
+                <button class="chip" aria-pressed="false">Epsom Salt Science</button>
+                <button class="chip" aria-pressed="false">Stress &amp; Anxiety</button>
+                <button class="chip" aria-pressed="false">Mindful Sleep</button>
+            </div>
+
+            <!-- Featured Hero Article -->
+            <div style="background: var(--color-bg-secondary); border-radius: var(--radius-soft); border: 1px solid var(--color-border); overflow: hidden; margin-bottom: var(--space-8); display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); align-items: center;">
+                <div style="height: 320px; overflow: hidden;">
+                    <img src="https://images.unsplash.com/photo-1519823551278-64ac92734fb1?auto=format&fit=crop&w=1000&q=80" alt="Float Pod Meditation" style="width: 100%; height: 100%; object-fit: cover;">
+                </div>
+                <div style="padding: var(--space-6);">
+                    <span class="blog-card-tag" style="margin-bottom: var(--space-2);">FEATURED GUIDE</span>
+                    <h2 style="font-family: var(--font-display); font-size: 1.75rem; margin-bottom: var(--space-3);">
+                        <a href="#" style="color: inherit; text-decoration: none;">The Science of Floating: How 1,000 lbs of Epsom Salt Calms Cortisol</a>
+                    </h2>
+                    <p style="color: var(--color-text-secondary); margin-bottom: var(--space-4); line-height: 1.6;">
+                        Discover how sensory deprivation shifts brainwave frequency from stressful Beta to deeply restful Theta states, resetting your autonomic nervous system.
+                    </p>
+                    <a href="#" class="btn btn-primary">Read Featured Guide &rarr;</a>
+                </div>
+            </div>
+
+            <!-- Blog Grid (6 Articles) -->
+            <div class="blog-grid">
+                <!-- Article 1 -->
+                <article class="blog-card">
+                    <div class="blog-card-media">
+                        <img src="https://images.unsplash.com/photo-1519823551278-64ac92734fb1?auto=format&fit=crop&w=800&q=80" alt="Float Pod Science">
+                    </div>
+                    <div class="blog-card-body">
+                        <span class="blog-card-tag">NEUROSCIENCE</span>
+                        <h3 class="blog-card-title">
+                            <a href="#">The Science of Floating: How Epsom Salt Calms Cortisol</a>
+                        </h3>
+                        <p class="blog-card-excerpt">Discover how sensory deprivation shifts brainwave frequency from Beta to Theta states.</p>
+                        <a href="#" style="color: var(--color-brand-accent); font-weight: 600; text-decoration: none; margin-top: auto;">Read Full Article &rarr;</a>
+                    </div>
+                </article>
+
+                <!-- Article 2 -->
+                <article class="blog-card">
+                    <div class="blog-card-media">
+                        <img src="https://images.unsplash.com/photo-1544161515-4ab6ce6db874?auto=format&fit=crop&w=800&q=80" alt="Athletic Recovery Float">
+                    </div>
+                    <div class="blog-card-body">
+                        <span class="blog-card-tag">ATHLETIC RECOVERY</span>
+                        <h3 class="blog-card-title">
+                            <a href="#">Zero-Gravity Athletic Therapy: Accelerating Muscle Repair</a>
+                        </h3>
+                        <p class="blog-card-excerpt">Why professional runners and athletes use float pods for spinal decompression.</p>
+                        <a href="#" style="color: var(--color-brand-accent); font-weight: 600; text-decoration: none; margin-top: auto;">Read Full Article &rarr;</a>
+                    </div>
+                </article>
+
+                <!-- Article 3 -->
+                <article class="blog-card">
+                    <div class="blog-card-media">
+                        <img src="https://images.unsplash.com/photo-1540555700478-4be289fbecef?auto=format&fit=crop&w=800&q=80" alt="Infrared & Float Combination">
+                    </div>
+                    <div class="blog-card-body">
+                        <span class="blog-card-tag">DETOX RITUALS</span>
+                        <h3 class="blog-card-title">
+                            <a href="#">Combining Infrared Sauna Heat with Floatation Hydrotherapy</a>
+                        </h3>
+                        <p class="blog-card-excerpt">Pairing full spectrum infrared heat detox with a 60-minute float session.</p>
+                        <a href="#" style="color: var(--color-brand-accent); font-weight: 600; text-decoration: none; margin-top: auto;">Read Full Article &rarr;</a>
+                    </div>
+                </article>
+
+                <!-- Article 4 -->
+                <article class="blog-card">
+                    <div class="blog-card-media">
+                        <img src="https://images.unsplash.com/photo-1507652313519-d4e9174996dd?auto=format&fit=crop&w=800&q=80" alt="Magnesium Absorption">
+                    </div>
+                    <div class="blog-card-body">
+                        <span class="blog-card-tag">EPSOM SALT SCIENCE</span>
+                        <h3 class="blog-card-title">
+                            <a href="#">Transdermal Magnesium: Benefits of Epsom Salt Soaks</a>
+                        </h3>
+                        <p class="blog-card-excerpt">How high-density Epsom salt water promotes joint mobility and skin health.</p>
+                        <a href="#" style="color: var(--color-brand-accent); font-weight: 600; text-decoration: none; margin-top: auto;">Read Full Article &rarr;</a>
+                    </div>
+                </article>
+
+                <!-- Article 5 -->
+                <article class="blog-card">
+                    <div class="blog-card-media">
+                        <img src="https://images.unsplash.com/photo-1515377905703-c4788e51af15?auto=format&fit=crop&w=800&q=80" alt="Deep Sleep Float Therapy">
+                    </div>
+                    <div class="blog-card-body">
+                        <span class="blog-card-tag">MINDFUL SLEEP</span>
+                        <h3 class="blog-card-title">
+                            <a href="#">Overcoming Insomnia: How Floating Resets Circadian Rhythm</a>
+                        </h3>
+                        <p class="blog-card-excerpt">One hour in zero gravity simulates 4 hours of deep restorative sleep.</p>
+                        <a href="#" style="color: var(--color-brand-accent); font-weight: 600; text-decoration: none; margin-top: auto;">Read Full Article &rarr;</a>
+                    </div>
+                </article>
+
+                <!-- Article 6 -->
+                <article class="blog-card">
+                    <div class="blog-card-media">
+                        <img src="https://images.unsplash.com/photo-1596178065887-1198b6148b2b?auto=format&fit=crop&w=800&q=80" alt="First Float Preparation">
+                    </div>
+                    <div class="blog-card-body">
+                        <span class="blog-card-tag">FIRST-TIME TIPS</span>
+                        <h3 class="blog-card-title">
+                            <a href="#">First-Time Floater Checklist: Maximizing Your Quiet Session</a>
+                        </h3>
+                        <p class="blog-card-excerpt">Essential tips on earplug fitting, light controls, and post-float relaxation.</p>
+                        <a href="#" style="color: var(--color-brand-accent); font-weight: 600; text-decoration: none; margin-top: auto;">Read Full Article &rarr;</a>
+                    </div>
+                </article>
+            </div>
+
+            <!-- Weekly Newsletter Subscription Box -->
+            <div style="background: var(--color-brand-accent); color: white; padding: var(--space-8); border-radius: var(--radius-soft); margin-top: var(--space-12); text-align: center;">
+                <h3 style="color: white; font-family: var(--font-display);">Subscribe to Sensory Wellness Weekly</h3>
+                <p style="color: rgba(255,255,255,0.85); max-width: 500px; margin: var(--space-2) auto var(--space-6);">Receive curated articles on floatation science, stress management, and member discounts.</p>
+                <form action="#" style="display: flex; gap: var(--space-2); max-width: 450px; margin: 0 auto;">
+                    <input type="email" class="form-control" placeholder="Enter your email address" required style="background: white; color: black;">
+                    <button type="submit" class="btn" style="background: var(--color-brand-secondary); color: white; font-weight: 700;">Subscribe</button>
+                </form>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-brand">
+                    <a href="index.html" class="navbar-brand">
+                        <svg class="brand-logo" viewBox="0 0 200 60" preserveAspectRatio="xMinYMid meet" role="img" aria-label="Solace">
+                            <title>Solace</title>
+                            <g transform="translate(4, 4) scale(1.15)">
+                                <circle cx="24" cy="24" r="22" fill="#1A6B72" opacity="0.12"/>
+                                <circle cx="24" cy="24" r="22" fill="none" stroke="#52B69A" stroke-width="1.8" opacity="0.4"/>
+                                <path d="M 24 3 A 21 21 0 1 1 4 26" fill="none" stroke="#52B69A" stroke-width="2" stroke-linecap="round" opacity="0.75"/>
+                                <path d="M 24 8 A 16 16 0 1 1 9 28" fill="none" stroke="#52B69A" stroke-width="2" stroke-linecap="round" opacity="0.85"/>
+                                <path d="M 24 13 A 11 11 0 1 1 14 29" fill="none" stroke="#52B69A" stroke-width="1.8" stroke-linecap="round" opacity="0.95"/>
+                                <g transform="translate(24, 24) rotate(-35) translate(-24, -24)">
+                                    <circle cx="24" cy="10" r="3.2" fill="#1A6B72"/>
+                                    <path d="M 21.5 14 C 21.5 14 20 22 21 28 C 22 33 22.5 38 22.5 38 L 25.5 38 C 25.5 38 26 33 27 28 C 28 22 26.5 14 26.5 14 Z" fill="#1A6B72"/>
+                                    <path d="M 22 16 C 17 13 11 10 7 9 C 6.5 10.5 8 12.5 12 14.5 C 16 16.5 21.5 18 21.5 18 Z" fill="#1A6B72"/>
+                                    <path d="M 26 16 C 31 13 37 10 41 9 C 41.5 10.5 40 12.5 36 14.5 C 32 16.5 26.5 18 26.5 18 Z" fill="#1A6B72"/>
+                                </g>
+                            </g>
+                            <text class="brand-text" x="66" y="42" font-family="'Lora','Georgia',serif" font-weight="700" font-size="34" letter-spacing="-0.5" fill="currentColor">Solace</text>
+                        </svg>
+                    </a>
+                    <p class="footer-desc">A tranquil urban sanctuary dedicated to zero-gravity sensory deprivation float therapy, Epsom salt hydrotherapy, and holistic neuromuscular reset.</p>
+                    <div
+                        style="display: flex; gap: var(--space-2); font-size: 1.5rem; color: var(--color-text-secondary);">
+                        <a href="#" aria-label="Solace Float Spa on X"><i class="ph-fill ph-x-logo"></i></a>
+                        <a href="#"><i class="ph-fill ph-facebook-logo"></i></a>
+                        <a href="#"><i class="ph-fill ph-instagram-logo"></i></a>
+                    </div>
+                </div>
+
+                <div>
+                    <h4 class="footer-heading">Therapies</h4>
+                    <ul class="footer-links">
+                        <li><a href="browse-schools.html">Sensory Float Pods</a></li>
+                        <li><a href="browse-schools.html">Open Basin Suites</a></li>
+                        <li><a href="browse-schools.html">Infrared Salt Sauna</a></li>
+                        <li><a href="browse-schools.html">Red Light Recovery</a></li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h4 class="footer-heading">Member Portal</h4>
+                    <ul class="footer-links">
+                        <li><a href="parent-dashboard.html">Book Float Slot</a></li>
+                        <li><a href="parent-dashboard.html">Package Tracker</a></li>
+                        <li><a href="about.html">First-Time Guide</a></li>
+                        <li><a href="application-detail.html">Membership Plans</a></li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h4 class="footer-heading">Sanctuary Hours</h4>
+                    <ul class="footer-links">
+                        <li><a href="#">Mon - Fri: 8:00 AM - 10:00 PM</a></li>
+                        <li><a href="#">Sat - Sun: 8:00 AM - 11:00 PM</a></li>
+                        <li><a href="contact.html">Sanctuary Locations</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2026 Solace Float &amp; Sensory Spa. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="assets/js/main.js"></script>
+    <script src="assets/js/interactive.js"></script>
+</body>
+
+</html>

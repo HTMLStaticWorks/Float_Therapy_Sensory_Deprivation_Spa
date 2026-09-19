@@ -1,0 +1,106 @@
+/* 
+  EduPath - RTL Support 
+  Loaded conditionally when dir="rtl"
+*/
+
+[dir="rtl"] {
+  direction: rtl;
+  text-align: right;
+}
+
+/* Margin/Padding Flips */
+[dir="rtl"] .navbar-brand {
+  margin-right: 0;
+  margin-left: auto;
+}
+
+[dir="rtl"] .navbar-menu {
+  margin-left: 0;
+  margin-right: auto;
+}
+
+/* Auth: the password reveal button moves to the other side of the field */
+[dir="rtl"] .password-field .form-control {
+  padding-right: 1rem;
+  padding-left: 3rem;
+}
+
+[dir="rtl"] .password-toggle {
+  right: auto;
+  left: 0.5rem;
+}
+
+[dir="rtl"] .auth-check,
+[dir="rtl"] .auth-card .form-group {
+  text-align: right;
+}
+
+/* The copy here is English, so let each run resolve its own direction —
+   otherwise trailing punctuation ("Forgot Password?") jumps to the front. */
+[dir="rtl"] .auth-link,
+[dir="rtl"] .auth-footer,
+[dir="rtl"] .auth-check span,
+[dir="rtl"] .auth-header p,
+[dir="rtl"] .auth-card .form-label {
+  unicode-bidi: plaintext;
+}
+
+/* Dashboard Sidebar Flip */
+[dir="rtl"] .dashboard-sidebar {
+  left: auto;
+  right: 0;
+  border-right: none;
+  border-left: 1px solid var(--color-border);
+  transform: translateX(100%);
+}
+
+[dir="rtl"] .dashboard-main {
+  margin-left: 0;
+  margin-right: 280px;
+}
+
+[dir="rtl"] .dash-nav-item {
+  border-right: none;
+  border-left: 3px solid transparent;
+}
+
+[dir="rtl"] .dash-nav-item.active {
+  border-left-color: var(--color-brand-accent);
+}
+
+/* Mobile Drawer Flip */
+[dir="rtl"] .mobile-drawer {
+  right: auto;
+  left: -100%;
+}
+
+[dir="rtl"] .mobile-drawer.open {
+  left: 0;
+}
+
+/* Table Alignment */
+[dir="rtl"] .dash-table th, 
+[dir="rtl"] .dash-table td {
+  text-align: right;
+}
+
+/* Icon Spacing */
+[dir="rtl"] .btn i,
+[dir="rtl"] .status-badge i,
+[dir="rtl"] .dash-nav-item i {
+  margin-left: 0.5rem;
+  margin-right: 0;
+}
+
+/* Media Queries for RTL */
+@media (max-width: 991.98px) {
+  [dir="rtl"] .dashboard-sidebar {
+    transform: translateX(100%);
+  }
+  [dir="rtl"] .dashboard-sidebar.open {
+    transform: translateX(0);
+  }
+  [dir="rtl"] .dashboard-main {
+    margin-right: 0;
+  }
+}
