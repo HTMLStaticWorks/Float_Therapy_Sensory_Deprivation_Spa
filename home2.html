@@ -18,18 +18,58 @@
 
     <style>
         /* Home 2 specific styles */
+
+        /* Hero section: apply background-image directly so url() resolves correctly */
+        .hero-home2 {
+            background-image: url('https://truerest-assets.b-cdn.net/wp-content/themes/hello-elementor-child/images/Step-2-private-suite.jpg');
+            background-size: cover;
+            background-position: center right;
+        }
+
+        /* Fully transparent card — no fill at all, just a glowing border */
         .hero-search-card {
-            background: var(--color-bg-primary);
+            background: transparent;
             padding: var(--space-6);
             border-radius: var(--radius-soft);
-            box-shadow: var(--shadow-hover);
-            border: 1px solid var(--color-border);
+            border: 1px solid rgba(255, 255, 255, 0.35);
+            box-shadow: 0 4px 24px rgba(0, 0, 0, 0.18);
             margin-top: var(--space-6);
             max-width: 500px;
         }
 
-        [data-theme="dark"] .hero-search-card {
-            background: var(--color-bg-secondary);
+        /* All text inside the card stays white over any photo */
+        .hero-search-card h4,
+        .hero-search-card .form-label {
+            color: #ffffff !important;
+            text-shadow: 0 1px 8px rgba(0,0,0,0.5);
+        }
+
+        .hero-search-card .form-control {
+            background: rgba(255, 255, 255, 0.15) !important;
+            border-color: rgba(255, 255, 255, 0.35) !important;
+            color: #ffffff !important;
+        }
+
+        .hero-search-card .form-control::placeholder {
+            color: rgba(255, 255, 255, 0.7) !important;
+        }
+
+        .hero-search-card .form-control:focus {
+            background: rgba(255, 255, 255, 0.22) !important;
+            border-color: rgba(255, 255, 255, 0.6) !important;
+            box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.18);
+            outline: none;
+        }
+
+        .hero-search-card i[class*="ph"] {
+            color: rgba(255, 255, 255, 0.85) !important;
+        }
+
+        /* Trending Float Experiences Image Height at 1440px */
+        @media (min-width: 1440px) {
+            .trending-experiences-section .school-card-img-wrapper {
+                height: 290px;
+            }
         }
     </style>
 </head>
@@ -39,22 +79,31 @@
     <header class="navbar">
         <div class="container navbar-container">
             <a href="index.html" class="navbar-brand">
-                <svg class="brand-logo" viewBox="0 0 200 60" preserveAspectRatio="xMinYMid meet" role="img" aria-label="Solace">
+                <svg class="brand-logo" viewBox="0 0 200 60" preserveAspectRatio="xMinYMid meet" role="img"
+                    aria-label="Solace">
                     <title>Solace</title>
                     <g transform="translate(4, 4) scale(1.15)">
-                        <circle cx="24" cy="24" r="22" fill="#1A6B72" opacity="0.12"/>
-                        <circle cx="24" cy="24" r="22" fill="none" stroke="#52B69A" stroke-width="1.8" opacity="0.4"/>
-                        <path d="M 24 3 A 21 21 0 1 1 4 26" fill="none" stroke="#52B69A" stroke-width="2" stroke-linecap="round" opacity="0.75"/>
-                        <path d="M 24 8 A 16 16 0 1 1 9 28" fill="none" stroke="#52B69A" stroke-width="2" stroke-linecap="round" opacity="0.85"/>
-                        <path d="M 24 13 A 11 11 0 1 1 14 29" fill="none" stroke="#52B69A" stroke-width="1.8" stroke-linecap="round" opacity="0.95"/>
+                        <circle cx="24" cy="24" r="22" fill="#1A6B72" opacity="0.12" />
+                        <circle cx="24" cy="24" r="22" fill="none" stroke="#52B69A" stroke-width="1.8" opacity="0.4" />
+                        <path d="M 24 3 A 21 21 0 1 1 4 26" fill="none" stroke="#52B69A" stroke-width="2"
+                            stroke-linecap="round" opacity="0.75" />
+                        <path d="M 24 8 A 16 16 0 1 1 9 28" fill="none" stroke="#52B69A" stroke-width="2"
+                            stroke-linecap="round" opacity="0.85" />
+                        <path d="M 24 13 A 11 11 0 1 1 14 29" fill="none" stroke="#52B69A" stroke-width="1.8"
+                            stroke-linecap="round" opacity="0.95" />
                         <g transform="translate(24, 24) rotate(-35) translate(-24, -24)">
-                            <circle cx="24" cy="10" r="3.2" fill="#1A6B72"/>
-                            <path d="M 21.5 14 C 21.5 14 20 22 21 28 C 22 33 22.5 38 22.5 38 L 25.5 38 C 25.5 38 26 33 27 28 C 28 22 26.5 14 26.5 14 Z" fill="#1A6B72"/>
-                            <path d="M 22 16 C 17 13 11 10 7 9 C 6.5 10.5 8 12.5 12 14.5 C 16 16.5 21.5 18 21.5 18 Z" fill="#1A6B72"/>
-                            <path d="M 26 16 C 31 13 37 10 41 9 C 41.5 10.5 40 12.5 36 14.5 C 32 16.5 26.5 18 26.5 18 Z" fill="#1A6B72"/>
+                            <circle cx="24" cy="10" r="3.2" fill="#1A6B72" />
+                            <path
+                                d="M 21.5 14 C 21.5 14 20 22 21 28 C 22 33 22.5 38 22.5 38 L 25.5 38 C 25.5 38 26 33 27 28 C 28 22 26.5 14 26.5 14 Z"
+                                fill="#1A6B72" />
+                            <path d="M 22 16 C 17 13 11 10 7 9 C 6.5 10.5 8 12.5 12 14.5 C 16 16.5 21.5 18 21.5 18 Z"
+                                fill="#1A6B72" />
+                            <path d="M 26 16 C 31 13 37 10 41 9 C 41.5 10.5 40 12.5 36 14.5 C 32 16.5 26.5 18 26.5 18 Z"
+                                fill="#1A6B72" />
                         </g>
                     </g>
-                    <text class="brand-text" x="66" y="42" font-family="'Lora','Georgia',serif" font-weight="700" font-size="34" letter-spacing="-0.5" fill="currentColor">Solace</text>
+                    <text class="brand-text" x="66" y="42" font-family="'Lora','Georgia',serif" font-weight="700"
+                        font-size="34" letter-spacing="-0.5" fill="currentColor">Solace</text>
                 </svg>
             </a>
 
@@ -92,22 +141,31 @@
     <div class="mobile-drawer" id="mobileDrawer">
         <div class="drawer-header">
             <a href="index.html" class="navbar-brand">
-                <svg class="brand-logo" viewBox="0 0 180 56" preserveAspectRatio="xMinYMid meet" role="img" aria-label="Solace">
+                <svg class="brand-logo" viewBox="0 0 180 56" preserveAspectRatio="xMinYMid meet" role="img"
+                    aria-label="Solace">
                     <title>Solace</title>
                     <g transform="translate(2, 2) scale(1.05)">
-                        <circle cx="24" cy="24" r="22" fill="#1A6B72" opacity="0.12"/>
-                        <circle cx="24" cy="24" r="22" fill="none" stroke="#52B69A" stroke-width="1.8" opacity="0.4"/>
-                        <path d="M 24 3 A 21 21 0 1 1 4 26" fill="none" stroke="#52B69A" stroke-width="2" stroke-linecap="round" opacity="0.75"/>
-                        <path d="M 24 8 A 16 16 0 1 1 9 28" fill="none" stroke="#52B69A" stroke-width="2" stroke-linecap="round" opacity="0.85"/>
-                        <path d="M 24 13 A 11 11 0 1 1 14 29" fill="none" stroke="#52B69A" stroke-width="1.8" stroke-linecap="round" opacity="0.95"/>
+                        <circle cx="24" cy="24" r="22" fill="#1A6B72" opacity="0.12" />
+                        <circle cx="24" cy="24" r="22" fill="none" stroke="#52B69A" stroke-width="1.8" opacity="0.4" />
+                        <path d="M 24 3 A 21 21 0 1 1 4 26" fill="none" stroke="#52B69A" stroke-width="2"
+                            stroke-linecap="round" opacity="0.75" />
+                        <path d="M 24 8 A 16 16 0 1 1 9 28" fill="none" stroke="#52B69A" stroke-width="2"
+                            stroke-linecap="round" opacity="0.85" />
+                        <path d="M 24 13 A 11 11 0 1 1 14 29" fill="none" stroke="#52B69A" stroke-width="1.8"
+                            stroke-linecap="round" opacity="0.95" />
                         <g transform="translate(24, 24) rotate(-35) translate(-24, -24)">
-                            <circle cx="24" cy="10" r="3.2" fill="#1A6B72"/>
-                            <path d="M 21.5 14 C 21.5 14 20 22 21 28 C 22 33 22.5 38 22.5 38 L 25.5 38 C 25.5 38 26 33 27 28 C 28 22 26.5 14 26.5 14 Z" fill="#1A6B72"/>
-                            <path d="M 22 16 C 17 13 11 10 7 9 C 6.5 10.5 8 12.5 12 14.5 C 16 16.5 21.5 18 21.5 18 Z" fill="#1A6B72"/>
-                            <path d="M 26 16 C 31 13 37 10 41 9 C 41.5 10.5 40 12.5 36 14.5 C 32 16.5 26.5 18 26.5 18 Z" fill="#1A6B72"/>
+                            <circle cx="24" cy="10" r="3.2" fill="#1A6B72" />
+                            <path
+                                d="M 21.5 14 C 21.5 14 20 22 21 28 C 22 33 22.5 38 22.5 38 L 25.5 38 C 25.5 38 26 33 27 28 C 28 22 26.5 14 26.5 14 Z"
+                                fill="#1A6B72" />
+                            <path d="M 22 16 C 17 13 11 10 7 9 C 6.5 10.5 8 12.5 12 14.5 C 16 16.5 21.5 18 21.5 18 Z"
+                                fill="#1A6B72" />
+                            <path d="M 26 16 C 31 13 37 10 41 9 C 41.5 10.5 40 12.5 36 14.5 C 32 16.5 26.5 18 26.5 18 Z"
+                                fill="#1A6B72" />
                         </g>
                     </g>
-                    <text class="brand-text" x="62" y="39" font-family="'Lora','Georgia',serif" font-weight="700" font-size="30" letter-spacing="-0.5" fill="currentColor">Solace</text>
+                    <text class="brand-text" x="62" y="39" font-family="'Lora','Georgia',serif" font-weight="700"
+                        font-size="30" letter-spacing="-0.5" fill="currentColor">Solace</text>
                 </svg>
             </a>
             <button class="drawer-close" aria-label="Close Menu">
@@ -140,13 +198,13 @@
     <!-- Main Content -->
     <main>
         <!-- Hero Section 2 -->
-        <section class="hero-bg hero-bg--left"
-            style="--hero-image: url('https://images.unsplash.com/photo-1519823551278-64ac92734fb1?auto=format&fit=crop&w=2000&q=80'); --hero-position: center right;">
+        <section class="hero-bg hero-bg--left hero-home2">
             <div class="container">
                 <div class="hero-bg-inner">
                     <span class="eyebrow">Zero-Gravity Sanctuary</span>
                     <h1 style="margin-bottom: var(--space-4);">Immerse in Quiet. Reclaim Total Serenity.</h1>
-                    <p class="hero-lead" style="max-width: 500px;">The ultimate float therapy sanctuary engineered to silence sensory overload, boost athletic recovery, and promote deep restful sleep.</p>
+                    <p class="hero-lead" style="max-width: 500px;">The ultimate float therapy sanctuary engineered to
+                        silence sensory overload, boost athletic recovery, and promote deep restful sleep.</p>
 
                     <div class="hero-search-card">
                         <h4 style="margin-bottom: var(--space-4);">Quick Reservation Inquiry</h4>
@@ -159,33 +217,27 @@
                                     style="padding-left: 2.5rem;" value="Solace Spa - Downtown Sanctuary">
                             </div>
                         </div>
-                        <div class="form-group">
-                            <label class="form-label">Float Experience</label>
-                            <div style="position: relative;">
-                                <i class="ph ph-drop"
-                                    style="position: absolute; left: 1rem; top: 50%; transform: translateY(-50%); color: var(--color-text-secondary);"></i>
-                                <select class="form-control" style="padding-left: 2.5rem; cursor: pointer;">
-                                    <option value="">All Float Suites &amp; Combos</option>
-                                    <option value="pod">Executive Pod Suite (60 Min)</option>
-                                    <option value="open">Horizon Open Suite (90 Min)</option>
-                                    <option value="sauna">Float + Infrared Sauna Package</option>
-                                    <option value="couples">Couples Sanctuary Suite</option>
-                                </select>
-                            </div>
-                        </div>
-                        <a href="parent-dashboard.html" class="btn btn-primary" style="width: 100%; margin-top: var(--space-2); display: inline-block; text-align: center; text-decoration: none;">Reserve Float Suite</a>
+
+                        <a href="parent-dashboard.html" class="btn btn-primary"
+                            style="width: 100%; margin-top: var(--space-2); display: inline-block; text-align: center; text-decoration: none;">Reserve
+                            Float Suite</a>
                     </div>
 
                     <div class="hero-trust">
                         <span><i class="ph-fill ph-drop"></i> 15,000+ Floats Hosted</span>
                         <span><i class="ph-fill ph-star"></i> 4.98/5 Guest Rating</span>
                     </div>
+
+                    <div class="hero-mobile-img">
+                        <img src="https://truerest-assets.b-cdn.net/wp-content/themes/hello-elementor-child/images/Step-2-private-suite.jpg"
+                            alt="Zero Gravity Float Suite">
+                    </div>
                 </div>
             </div>
         </section>
 
         <!-- Featured Float Experiences -->
-        <section class="section" style="background-color: var(--color-bg-secondary);">
+        <section class="section trending-experiences-section" style="background-color: var(--color-bg-secondary);">
             <div class="container">
                 <div class="section-header">
                     <span class="eyebrow">Most Popular</span>
@@ -197,17 +249,18 @@
                     <!-- Suite 1 -->
                     <div class="school-card">
                         <div class="school-card-img-wrapper">
-                            <img src="https://images.unsplash.com/photo-1544161515-4ab6ce6db874?auto=format&fit=crop&w=800&q=80" alt="Executive Zero-Gravity Pod"
-                                class="school-card-img">
+                            <img src="https://sc04.alicdn.com/kf/Hb1577931bd9d4c38a282f499316832e9u.jpg"
+                                alt="Executive Zero-Gravity Pod" class="school-card-img">
                         </div>
                         <div class="school-card-content">
                             <span class="school-board-tag">ISOLATION POD</span>
                             <h3 class="school-name">Executive Zero-Gravity Pod</h3>
                             <div class="school-location">
-                                <i class="ph-fill ph-drop"></i> 1,000 lbs Epsom Salt • Soft Soundscapes
+                                <i class="ph-fill ph-drop"></i> 1,000 lbs Epsom Salt • Soft
                             </div>
                             <div class="school-actions">
-                                <a href="parent-dashboard.html" class="btn btn-primary" style="flex: 1;">Book Suite Session</a>
+                                <a href="parent-dashboard.html" class="btn btn-primary" style="flex: 1;">Book Suite
+                                    Session</a>
                             </div>
                         </div>
                     </div>
@@ -215,16 +268,18 @@
                     <!-- Suite 2 -->
                     <div class="school-card">
                         <div class="school-card-img-wrapper">
-                            <img src="https://images.unsplash.com/photo-1507652313519-d4e9174996dd?auto=format&fit=crop&w=800&q=80" alt="Horizon Open Basin Suite" class="school-card-img">
+                            <img src="https://hotelspavarese.it/wp-content/uploads/2025/09/Percorsi-benessere-5.webp"
+                                alt="Horizon Open Basin Suite" class="school-card-img">
                         </div>
                         <div class="school-card-content">
                             <span class="school-board-tag">OPEN POOL SUITE</span>
                             <h3 class="school-name">Horizon Open Basin Suite</h3>
                             <div class="school-location">
-                                <i class="ph-fill ph-drop"></i> High-Ceiling Open Pool • First-Time Choice
+                                <i class="ph-fill ph-drop"></i> High-Ceiling Open Pool • First
                             </div>
                             <div class="school-actions">
-                                <a href="parent-dashboard.html" class="btn btn-primary" style="flex: 1;">Book Suite Session</a>
+                                <a href="parent-dashboard.html" class="btn btn-primary" style="flex: 1;">Book Suite
+                                    Session</a>
                             </div>
                         </div>
                     </div>
@@ -232,17 +287,18 @@
                     <!-- Suite 3 -->
                     <div class="school-card">
                         <div class="school-card-img-wrapper">
-                            <img src="https://images.unsplash.com/photo-1540555700478-4be289fbecef?auto=format&fit=crop&w=800&q=80" alt="Float + Infrared Sauna Ritual"
-                                class="school-card-img">
+                            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRVJD4gSkAM06BsbK8hTlW3gC1CtLn1F6a-f5DKrNelzuANNby4ZF71q9I&s=10"
+                                alt="Float + Infrared Sauna Ritual" class="school-card-img">
                         </div>
                         <div class="school-card-content">
                             <span class="school-board-tag">DETOX COMBO</span>
                             <h3 class="school-name">Float + Infrared Sauna Ritual</h3>
                             <div class="school-location">
-                                <i class="ph-fill ph-fire"></i> 30m Infrared Sauna + 60m Float Pod
+                                <i class="ph-fill ph-fire"></i> 30m Infrared Sauna + 60m
                             </div>
                             <div class="school-actions">
-                                <a href="parent-dashboard.html" class="btn btn-primary" style="flex: 1;">Book Suite Session</a>
+                                <a href="parent-dashboard.html" class="btn btn-primary" style="flex: 1;">Book Suite
+                                    Session</a>
                             </div>
                         </div>
                     </div>
@@ -288,7 +344,8 @@
                 <div class="section-header">
                     <span class="eyebrow">Interactive Estimator</span>
                     <h2>Estimate Your Float Package &amp; Savings</h2>
-                    <p class="subtext">Select your preferred duration, session frequency, and membership tier to estimate your personalized sanctuary rate.</p>
+                    <p class="subtext">Select your preferred duration, session frequency, and membership tier to
+                        estimate your personalized sanctuary rate.</p>
                 </div>
 
                 <div class="interactive-shell" id="costEstimator">
@@ -302,10 +359,14 @@
                                 <span class="control-value" data-readout="board">Standard Pod</span>
                             </div>
                             <div class="chip-row" data-group="board" data-mode="single">
-                                <button type="button" class="chip" aria-pressed="true" data-value="cbse">Executive Pod</button>
-                                <button type="button" class="chip" aria-pressed="false" data-value="icse">Open Basin</button>
-                                <button type="button" class="chip" aria-pressed="false" data-value="ib">Float + Sauna</button>
-                                <button type="button" class="chip" aria-pressed="false" data-value="state">Couples Suite</button>
+                                <button type="button" class="chip" aria-pressed="true" data-value="cbse">Executive
+                                    Pod</button>
+                                <button type="button" class="chip" aria-pressed="false" data-value="icse">Open
+                                    Basin</button>
+                                <button type="button" class="chip" aria-pressed="false" data-value="ib">Float +
+                                    Sauna</button>
+                                <button type="button" class="chip" aria-pressed="false" data-value="state">Couples
+                                    Suite</button>
                             </div>
                         </div>
 
@@ -315,9 +376,12 @@
                                 <span class="control-value" data-readout="grade">60 Minutes</span>
                             </div>
                             <div class="chip-row" data-group="grade" data-mode="single">
-                                <button type="button" class="chip" aria-pressed="true" data-value="primary">60 Minutes</button>
-                                <button type="button" class="chip" aria-pressed="false" data-value="middle">90 Minutes</button>
-                                <button type="button" class="chip" aria-pressed="false" data-value="senior">120 Minutes</button>
+                                <button type="button" class="chip" aria-pressed="true" data-value="primary">60
+                                    Minutes</button>
+                                <button type="button" class="chip" aria-pressed="false" data-value="middle">90
+                                    Minutes</button>
+                                <button type="button" class="chip" aria-pressed="false" data-value="senior">120
+                                    Minutes</button>
                             </div>
                         </div>
 
@@ -327,9 +391,12 @@
                                 <span class="control-value" data-readout="city">Single Session</span>
                             </div>
                             <div class="chip-row" data-group="city" data-mode="single">
-                                <button type="button" class="chip" aria-pressed="true" data-value="metro">Single Float</button>
-                                <button type="button" class="chip" aria-pressed="false" data-value="tier2">3-Pack Bundle</button>
-                                <button type="button" class="chip" aria-pressed="false" data-value="tier3">Monthly Unlimited</button>
+                                <button type="button" class="chip" aria-pressed="true" data-value="metro">Single
+                                    Float</button>
+                                <button type="button" class="chip" aria-pressed="false" data-value="tier2">3-Pack
+                                    Bundle</button>
+                                <button type="button" class="chip" aria-pressed="false" data-value="tier3">Monthly
+                                    Unlimited</button>
                             </div>
                         </div>
 
@@ -339,9 +406,12 @@
                                 <span class="control-value" data-readout="addons">None</span>
                             </div>
                             <div class="chip-row" data-group="addon" data-mode="multi">
-                                <button type="button" class="chip" aria-pressed="false" data-value="transport">Infrared Sauna</button>
-                                <button type="button" class="chip" aria-pressed="false" data-value="meals">Red Light Therapy</button>
-                                <button type="button" class="chip" aria-pressed="false" data-value="boarding">Hydration Elixir</button>
+                                <button type="button" class="chip" aria-pressed="false" data-value="transport">Infrared
+                                    Sauna</button>
+                                <button type="button" class="chip" aria-pressed="false" data-value="meals">Red Light
+                                    Therapy</button>
+                                <button type="button" class="chip" aria-pressed="false" data-value="boarding">Hydration
+                                    Elixir</button>
                             </div>
                         </div>
 
@@ -363,7 +433,8 @@
                     <div class="interactive-panel">
                         <span class="panel-label">Estimated Session Rate</span>
                         <div class="result-headline" data-readout="total">$79</div>
-                        <p class="result-sub" data-readout="permonth">Includes private shower suite &amp; organic tea lounge</p>
+                        <p class="result-sub" data-readout="permonth">Includes private shower suite &amp; organic tea
+                            lounge</p>
 
                         <div class="cost-bar" aria-hidden="true" data-readout="bar"></div>
                         <div class="cost-legend" data-readout="legend" aria-live="polite"></div>
@@ -374,13 +445,15 @@
                             <div class="row-icon"><i class="ph ph-seal-percent"></i></div>
                             <div class="row-main">
                                 <div class="row-title">Member &amp; First-Time Floater Savings</div>
-                                <div class="row-meta" data-readout="savingsnote">Save up to 35% on multi-session bundles</div>
+                                <div class="row-meta" data-readout="savingsnote">Save up to 35% on multi-session bundles
+                                </div>
                             </div>
                             <div class="row-value" data-readout="savings">&minus;$25</div>
                         </div>
 
                         <p style="font-size: 0.75rem; color: var(--color-text-secondary); margin-top: var(--space-3);">
-                            All sessions include earplugs, organic shampoos/body wash, towels, and access to our post-float reflection lounge.
+                            All sessions include earplugs, organic shampoos/body wash, towels, and access to our
+                            post-float reflection lounge.
                         </p>
                     </div>
                 </div>
@@ -393,7 +466,8 @@
                 <div class="section-header">
                     <span class="eyebrow">Sanctuary Calendar</span>
                     <h2>Upcoming Wellness Workshops &amp; Events</h2>
-                    <p class="subtext">Reserve your spot for specialized sound baths and guided float meditation sessions</p>
+                    <p class="subtext">Reserve your spot for specialized sound baths and guided float meditation
+                        sessions</p>
                 </div>
                 <div style="max-width: 800px; margin: 0 auto;">
                     <!-- Event 1 -->
@@ -405,11 +479,13 @@
                             </div>
                             <div class="deadline-info">
                                 <h4>Theta Wave Guided Float Meditation</h4>
-                                <p>Specialized acoustic sound bath paired with 60-min sensory floatation for deep stress release.</p>
+                                <p>Specialized acoustic sound bath paired with 60-min sensory floatation for deep stress
+                                    release.</p>
                             </div>
                         </div>
                         <span class="deadline-tag"
-                            style="background-color: var(--color-status-admitted-bg); color: var(--color-status-admitted);">Few Slots Left</span>
+                            style="background-color: var(--color-status-admitted-bg); color: var(--color-status-admitted);">Few
+                            Slots Left</span>
                     </div>
 
                     <!-- Event 2 -->
@@ -421,11 +497,13 @@
                             </div>
                             <div class="deadline-info">
                                 <h4>Athletic Neuromuscular Recovery Evening</h4>
-                                <p>Combining 30m Full Spectrum Infrared Sauna with a 90-min High Magnesium Float session.</p>
+                                <p>Combining 30m Full Spectrum Infrared Sauna with a 90-min High Magnesium Float
+                                    session.</p>
                             </div>
                         </div>
                         <span class="deadline-tag"
-                            style="background-color: var(--color-status-review-bg); color: var(--color-status-review);">Registration Open</span>
+                            style="background-color: var(--color-status-review-bg); color: var(--color-status-review);">Registration
+                            Open</span>
                     </div>
 
                     <!-- Event 3 -->
@@ -437,7 +515,8 @@
                             </div>
                             <div class="deadline-info">
                                 <h4>First-Time Floater Orientation &amp; Tea Tasting</h4>
-                                <p>Complimentary sanctuary tour, floating tips Q&amp;A, and post-float herbal tea blending.</p>
+                                <p>Complimentary sanctuary tour, floating tips Q&amp;A, and post-float herbal tea
+                                    blending.</p>
                             </div>
                         </div>
                         <span class="deadline-tag"
@@ -453,13 +532,14 @@
                 <div class="section-header">
                     <span class="eyebrow">Guest Stories</span>
                     <h2>Profound Quiet, In Their Words</h2>
-                    <p class="subtext">How regular floating helped our guests reduce anxiety, relieve physical pain, and reset</p>
+                    <p class="subtext">How regular floating helped our guests reduce anxiety, relieve physical pain, and
+                        reset</p>
                 </div>
 
                 <!-- Featured story -->
                 <div class="testimonial-feature">
                     <figure class="testimonial-photo">
-                        <img src="assets/images/testimonial-family.jpg" alt="Sanctuary lounge guest">
+                        <img src="https://truerest-assets.b-cdn.net/wp-content/themes/hello-elementor-child/images/LocationPage1-round-pod.jpg" alt="Sanctuary lounge guest">
                         <div class="testimonial-photo-badge">
                             <i class="ph-fill ph-drop"></i>
                             <span>Pain score dropped <strong>80% in 3 weeks</strong></span>
@@ -469,7 +549,9 @@
                     <div class="testimonial-body">
                         <div class="testimonial-mark"><i class="ph-fill ph-quotes"></i></div>
                         <blockquote>
-                            I suffered from persistent neck tension and chronic insomnia for years. Floating at Solace gave me the only true muscle relaxation and quiet space where my mind could finally rest. I now float twice a month religiously.
+                            I suffered from persistent neck tension and chronic insomnia for years. Floating at Solace
+                            gave me the only true muscle relaxation and quiet space where my mind could finally rest. I
+                            now float twice a month religiously.
                         </blockquote>
                         <div class="testimonial-stars" aria-label="Rated 5 out of 5">
                             <i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i><i
@@ -480,7 +562,8 @@
                             <img src="assets/images/testimonial-anita.jpg" alt="Anita Rao">
                             <div>
                                 <div class="who">Anita Rao</div>
-                                <div class="where"><i class="ph-fill ph-drop"></i> Zenith Member &middot; 24 Floats Completed</div>
+                                <div class="where"><i class="ph-fill ph-drop"></i> Zenith Member &middot; 24 Floats
+                                    Completed</div>
                             </div>
                         </div>
                     </div>
@@ -494,7 +577,8 @@
                                 class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i><i
                                 class="ph-fill ph-star"></i>
                         </div>
-                        <p>&ldquo;The water is so impeccably clean and warm that you literally lose track of where your body ends and the water begins.&rdquo;</p>
+                        <p>&ldquo;The water is so impeccably clean and warm that you literally lose track of where your
+                            body ends and the water begins.&rdquo;</p>
                         <div class="testimonial-author">
                             <img src="assets/images/testimonial-daniel.jpg" alt="Daniel Mensah">
                             <div>
@@ -510,7 +594,8 @@
                                 class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i><i
                                 class="ph-fill ph-star"></i>
                         </div>
-                        <p>&ldquo;The client dashboard makes scheduling my monthly float packages effortless. I can book my preferred 60-minute time slot in seconds.&rdquo;</p>
+                        <p>&ldquo;The client dashboard makes scheduling my monthly float packages effortless. I can book
+                            my preferred 60-minute time slot in seconds.&rdquo;</p>
                         <div class="testimonial-author">
                             <img src="assets/images/testimonial-rohit.jpg" alt="Rohit Malhotra">
                             <div>
@@ -525,7 +610,8 @@
                             <i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i><i
                                 class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i><i class="ph ph-star"></i>
                         </div>
-                        <p>&ldquo;As a runner, the 1,000 lbs of Epsom salt is the single best recovery therapy for my legs. Zero soreness the next day!&rdquo;</p>
+                        <p>&ldquo;As a runner, the 1,000 lbs of Epsom salt is the single best recovery therapy for my
+                            legs. Zero soreness the next day!&rdquo;</p>
                         <div class="testimonial-author">
                             <img src="assets/images/testimonial-leila.jpg" alt="Leila Haddad">
                             <div>
@@ -545,9 +631,10 @@
                 <h2 style="color: white; font-family: var(--font-display);">Your Private Sanctuary Awaits</h2>
                 <p
                     style="color: rgba(255,255,255,0.85); font-size: 1.125rem; max-width: 600px; margin: 0 auto var(--space-6);">
-                    Step into quiet weightlessness today. Book your private float suite or access your member dashboard.</p>
+                    Step into quiet weightlessness today. Book your private float suite or access your member dashboard.
+                </p>
                 <div class="cta-actions">
-                    <a href="register.html" class="btn cta-btn cta-btn-solid">Book Sanctuary Reservation</a>
+                    <a href="register.html" class="btn cta-btn cta-btn-solid">Book Reservation</a>
                     <a href="parent-dashboard.html" class="btn cta-btn cta-btn-ghost">Access Member Dashboard</a>
                 </div>
             </div>
@@ -561,25 +648,38 @@
             <div class="footer-grid">
                 <div class="footer-brand">
                     <a href="index.html" class="navbar-brand">
-                        <svg class="brand-logo" viewBox="0 0 200 60" preserveAspectRatio="xMinYMid meet" role="img" aria-label="Solace">
+                        <svg class="brand-logo" viewBox="0 0 200 60" preserveAspectRatio="xMinYMid meet" role="img"
+                            aria-label="Solace">
                             <title>Solace</title>
                             <g transform="translate(4, 4) scale(1.15)">
-                                <circle cx="24" cy="24" r="22" fill="#1A6B72" opacity="0.12"/>
-                                <circle cx="24" cy="24" r="22" fill="none" stroke="#52B69A" stroke-width="1.8" opacity="0.4"/>
-                                <path d="M 24 3 A 21 21 0 1 1 4 26" fill="none" stroke="#52B69A" stroke-width="2" stroke-linecap="round" opacity="0.75"/>
-                                <path d="M 24 8 A 16 16 0 1 1 9 28" fill="none" stroke="#52B69A" stroke-width="2" stroke-linecap="round" opacity="0.85"/>
-                                <path d="M 24 13 A 11 11 0 1 1 14 29" fill="none" stroke="#52B69A" stroke-width="1.8" stroke-linecap="round" opacity="0.95"/>
+                                <circle cx="24" cy="24" r="22" fill="#1A6B72" opacity="0.12" />
+                                <circle cx="24" cy="24" r="22" fill="none" stroke="#52B69A" stroke-width="1.8"
+                                    opacity="0.4" />
+                                <path d="M 24 3 A 21 21 0 1 1 4 26" fill="none" stroke="#52B69A" stroke-width="2"
+                                    stroke-linecap="round" opacity="0.75" />
+                                <path d="M 24 8 A 16 16 0 1 1 9 28" fill="none" stroke="#52B69A" stroke-width="2"
+                                    stroke-linecap="round" opacity="0.85" />
+                                <path d="M 24 13 A 11 11 0 1 1 14 29" fill="none" stroke="#52B69A" stroke-width="1.8"
+                                    stroke-linecap="round" opacity="0.95" />
                                 <g transform="translate(24, 24) rotate(-35) translate(-24, -24)">
-                                    <circle cx="24" cy="10" r="3.2" fill="#1A6B72"/>
-                                    <path d="M 21.5 14 C 21.5 14 20 22 21 28 C 22 33 22.5 38 22.5 38 L 25.5 38 C 25.5 38 26 33 27 28 C 28 22 26.5 14 26.5 14 Z" fill="#1A6B72"/>
-                                    <path d="M 22 16 C 17 13 11 10 7 9 C 6.5 10.5 8 12.5 12 14.5 C 16 16.5 21.5 18 21.5 18 Z" fill="#1A6B72"/>
-                                    <path d="M 26 16 C 31 13 37 10 41 9 C 41.5 10.5 40 12.5 36 14.5 C 32 16.5 26.5 18 26.5 18 Z" fill="#1A6B72"/>
+                                    <circle cx="24" cy="10" r="3.2" fill="#1A6B72" />
+                                    <path
+                                        d="M 21.5 14 C 21.5 14 20 22 21 28 C 22 33 22.5 38 22.5 38 L 25.5 38 C 25.5 38 26 33 27 28 C 28 22 26.5 14 26.5 14 Z"
+                                        fill="#1A6B72" />
+                                    <path
+                                        d="M 22 16 C 17 13 11 10 7 9 C 6.5 10.5 8 12.5 12 14.5 C 16 16.5 21.5 18 21.5 18 Z"
+                                        fill="#1A6B72" />
+                                    <path
+                                        d="M 26 16 C 31 13 37 10 41 9 C 41.5 10.5 40 12.5 36 14.5 C 32 16.5 26.5 18 26.5 18 Z"
+                                        fill="#1A6B72" />
                                 </g>
                             </g>
-                            <text class="brand-text" x="66" y="42" font-family="'Lora','Georgia',serif" font-weight="700" font-size="34" letter-spacing="-0.5" fill="currentColor">Solace</text>
+                            <text class="brand-text" x="66" y="42" font-family="'Lora','Georgia',serif"
+                                font-weight="700" font-size="34" letter-spacing="-0.5" fill="currentColor">Solace</text>
                         </svg>
                     </a>
-                    <p class="footer-desc">A tranquil urban sanctuary dedicated to zero-gravity sensory deprivation float therapy, Epsom salt hydrotherapy, and holistic neuromuscular reset.</p>
+                    <p class="footer-desc">A tranquil urban sanctuary dedicated to zero-gravity sensory deprivation
+                        float therapy, Epsom salt hydrotherapy, and holistic neuromuscular reset.</p>
                     <div
                         style="display: flex; gap: var(--space-2); font-size: 1.5rem; color: var(--color-text-secondary);">
                         <a href="#" aria-label="Solace Float Spa on X"><i class="ph-fill ph-x-logo"></i></a>

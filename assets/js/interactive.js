@@ -100,15 +100,15 @@
     const root = document.getElementById('matchFinder');
     if (!root) return;
 
-    const img = (id, w) => `https://images.unsplash.com/${id}?auto=format&fit=crop&w=${w}&q=80`;
+    const img = (id, w) => id.startsWith('http') ? id : `https://images.unsplash.com/${id}?auto=format&fit=crop&w=${w}&q=80`;
 
     const SUITES = [
-      { name: 'Executive Zero-Gravity Pod Suite', area: 'Downtown Sanctuary', board: 'Pod',    fee: 79,  grades: ['early', 'primary', 'middle', 'senior'], strengths: ['academics', 'sports', 'boarding'], rating: 4.9, photo: 'photo-1544161515-4ab6ce6db874' },
-      { name: 'Horizon Open Basin Suite',       area: 'Westside Studio',     board: 'Open',   fee: 105, grades: ['early', 'primary', 'middle'],           strengths: ['academics', 'arts'],            rating: 4.95, photo: 'photo-1507652313519-d4e9174996dd' },
-      { name: 'Float + Infrared Sauna Ritual',   area: 'Downtown Sanctuary', board: 'Sauna',  fee: 110, grades: ['primary', 'middle', 'senior'],          strengths: ['sports', 'arts', 'boarding'],   rating: 4.88, photo: 'photo-1540555700478-4be289fbecef' },
-      { name: 'Couples Sanctuary Double Suite',  area: 'Westside Studio',     board: 'Couples',fee: 140, grades: ['early', 'primary', 'middle', 'senior'], strengths: ['arts', 'academics'],            rating: 4.92, photo: 'photo-1596178065887-1198b6148b2b' },
-      { name: 'Red Light & Hydro-Massage Suite', area: 'Downtown Sanctuary', board: 'Pod',    fee: 65,  grades: ['early', 'primary'],                     strengths: ['academics', 'transport'],       rating: 4.75, photo: 'photo-1515377905703-c4788e51af15' },
-      { name: 'Deep Rest 90-Min Isolation Pod', area: 'Westside Studio',     board: 'Pod',    fee: 95,  grades: ['middle', 'senior'],                     strengths: ['sports', 'boarding'],           rating: 4.85, photo: 'photo-1519823551278-64ac92734fb1' }
+      { name: 'Executive Zero-Gravity Pod Suite', area: 'Downtown Sanctuary', board: 'Pod', fee: 79, grades: ['early', 'primary', 'middle', 'senior'], strengths: ['academics', 'sports', 'boarding'], rating: 4.9, photo: 'https://www.humantouch.com/cdn/shop/files/gravis-zg-chair-5048249.jpg?v=1760472287&width=1440' },
+      { name: 'Horizon Open Basin Suite', area: 'Westside Studio', board: 'Open', fee: 105, grades: ['early', 'primary', 'middle'], strengths: ['academics', 'arts'], rating: 4.95, photo: 'https://floatspa.com/wp-content/uploads/2020/04/Float-tank-Soulex-1024x681.jpg' },
+      { name: 'Float + Infrared Sauna Ritual', area: 'Downtown Sanctuary', board: 'Sauna', fee: 110, grades: ['primary', 'middle', 'senior'], strengths: ['sports', 'arts', 'boarding'], rating: 4.88, photo: 'https://static.wixstatic.com/media/f8ac2b_1d6b50c2ef5f4309b5b0f1383974bb81~mv2.jpg/v1/fill/w_2500,h_1667,al_c/f8ac2b_1d6b50c2ef5f4309b5b0f1383974bb81~mv2.jpg' },
+      { name: 'Couples Sanctuary Double Suite', area: 'Westside Studio', board: 'Couples', fee: 140, grades: ['early', 'primary', 'middle', 'senior'], strengths: ['arts', 'academics'], rating: 4.92, photo: 'https://images.squarespace-cdn.com/content/v1/61f9c3e9468e396b8c21d87f/1692058264991-UN4S10OTD2VBFP4400R9/CC_OCT22_60.jpg' },
+      { name: 'Red Light & Hydro-Massage Suite', area: 'Downtown Sanctuary', board: 'Pod', fee: 65, grades: ['early', 'primary'], strengths: ['academics', 'transport'], rating: 4.75, photo: 'https://www.extremesuntanning.com/images/red-light-therapy-buffalo-ny.webp' },
+      { name: 'Deep Rest 90-Min Isolation Pod', area: 'Westside Studio', board: 'Pod', fee: 95, grades: ['middle', 'senior'], strengths: ['sports', 'boarding'], rating: 4.85, photo: 'https://dynamic-media-cdn.tripadvisor.com/media/photo-o/2f/9f/98/08/lobby-registration-and.jpg?w=1100&h=1100&s=1' }
     ];
 
     const out = readouts(root);
@@ -194,35 +194,35 @@
     if (!root) return;
 
     const BOARDS = {
-      cbse:  { label: 'Executive Pod', tuition: 79 },
-      icse:  { label: 'Open Basin',    tuition: 95 },
-      ib:    { label: 'Float + Sauna', tuition: 110 },
+      cbse: { label: 'Executive Pod', tuition: 79 },
+      icse: { label: 'Open Basin', tuition: 95 },
+      ib: { label: 'Float + Sauna', tuition: 110 },
       state: { label: 'Couples Suite', tuition: 140 }
     };
 
     const GRADES = {
-      primary: { label: '60 Minutes',  factor: 1.00 },
-      middle:  { label: '90 Minutes',  factor: 1.30 },
-      senior:  { label: '120 Minutes', factor: 1.60 }
+      primary: { label: '60 Minutes', factor: 1.00 },
+      middle: { label: '90 Minutes', factor: 1.30 },
+      senior: { label: '120 Minutes', factor: 1.60 }
     };
 
     const CITIES = {
       metro: { label: 'Single Float', factor: 1.00 },
-      tier2: { label: '3-Pack Bundle',factor: 0.85 },
+      tier2: { label: '3-Pack Bundle', factor: 0.85 },
       tier3: { label: 'Monthly Pass', factor: 0.70 }
     };
 
     const ADDONS = {
       transport: { label: 'Infrared Sauna', cost: 35 },
-      meals:     { label: 'Red Light',     cost: 25 },
-      boarding:  { label: 'Elixir Tea',    cost: 10 }
+      meals: { label: 'Red Light', cost: 25 },
+      boarding: { label: 'Elixir Tea', cost: 10 }
     };
 
     const SEGMENTS = [
-      { key: 'tuition',   label: 'Float Suite',        color: '#1A6B72' },
-      { key: 'admission', label: 'Magnesium & Spa Kit',color: '#52B69A' },
-      { key: 'materials', label: 'Lounge Elixir',      color: '#4A9E9B' },
-      { key: 'addons',    label: 'Add-ons',            color: '#2563EB' }
+      { key: 'tuition', label: 'Float Suite', color: '#1A6B72' },
+      { key: 'admission', label: 'Magnesium & Spa Kit', color: '#52B69A' },
+      { key: 'materials', label: 'Lounge Elixir', color: '#4A9E9B' },
+      { key: 'addons', label: 'Add-ons', color: '#2563EB' }
     ];
 
     const out = readouts(root);
