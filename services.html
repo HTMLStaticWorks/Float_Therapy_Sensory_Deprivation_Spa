@@ -17,10 +17,12 @@
     <script src="https://unpkg.com/@phosphor-icons/web"></script>
 
     <style>
+        /* Directory Layout & Sidebar */
         .directory-layout {
             display: flex;
             gap: var(--space-8);
             align-items: flex-start;
+            width: 100%;
         }
 
         .filter-sidebar {
@@ -35,10 +37,103 @@
             max-height: calc(100vh - 108px);
             overflow-y: auto;
             box-shadow: var(--shadow-soft);
+            box-sizing: border-box;
+            transition: all var(--transition-normal);
+        }
+
+        .filter-sidebar-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: var(--space-4);
+        }
+
+        .filter-mobile-close {
+            display: none;
+            background: var(--color-bg-secondary);
+            border: 1px solid var(--color-border);
+            border-radius: var(--radius-soft);
+            padding: 0.35rem 0.65rem;
+            color: var(--color-text-primary);
+            font-size: 0.8rem;
+            font-weight: 600;
+            cursor: pointer;
+            align-items: center;
+            gap: 0.35rem;
+            transition: background var(--transition-fast);
+        }
+
+        .filter-mobile-close:hover {
+            background: var(--color-border);
         }
 
         .directory-main {
             flex-grow: 1;
+            min-width: 0;
+            width: 100%;
+        }
+
+        /* Top Search & Filter Bar */
+        .directory-search-wrapper {
+            background: var(--color-bg-primary);
+            padding: var(--space-5) var(--space-6);
+            border-radius: var(--radius-soft);
+            border: 1px solid var(--color-border);
+            margin-bottom: var(--space-6);
+            box-shadow: var(--shadow-soft);
+            width: 100%;
+            box-sizing: border-box;
+        }
+
+        .directory-search-inner {
+            display: flex;
+            gap: var(--space-3);
+            flex-wrap: wrap;
+            align-items: center;
+            width: 100%;
+        }
+
+        .directory-search-field {
+            flex: 1;
+            min-width: 240px;
+            position: relative;
+        }
+
+        .directory-search-field .search-icon {
+            position: absolute;
+            left: 16px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--color-brand-secondary);
+            font-size: 1.25rem;
+            pointer-events: none;
+        }
+
+        .directory-search-field input.form-control {
+            padding-left: 48px;
+            height: 48px;
+            border-radius: var(--radius-soft);
+            font-size: 0.95rem;
+            width: 100%;
+            box-sizing: border-box;
+        }
+
+        .directory-search-select {
+            width: auto;
+            min-width: 180px;
+            height: 48px;
+            border-radius: var(--radius-soft);
+            box-sizing: border-box;
+        }
+
+        .directory-search-btn {
+            height: 48px;
+            padding: 0 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            white-space: nowrap;
+            cursor: pointer;
         }
 
         .filter-group {
@@ -61,6 +156,11 @@
             align-items: center;
             justify-content: space-between;
             color: var(--color-text-primary);
+        }
+
+        .filter-group .form-control {
+            width: 100%;
+            box-sizing: border-box;
         }
 
         .checkbox-item {
@@ -89,8 +189,9 @@
 
         .schools-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(min(320px, 100%), 1fr));
+            grid-template-columns: repeat(auto-fill, minmax(min(300px, 100%), 1fr));
             gap: var(--space-6);
+            width: 100%;
         }
 
         .school-card {
@@ -102,9 +203,70 @@
             display: flex;
             flex-direction: column;
             height: 100%;
+            width: 100%;
+            box-sizing: border-box;
         }
 
-        /* Filter Section & Tailored Rest Image Responsive Heights */
+        .school-card:hover {
+            transform: translateY(-6px);
+            box-shadow: var(--shadow-hover);
+        }
+
+        .school-card-img-wrapper {
+            position: relative;
+            height: 200px;
+            width: 100%;
+            overflow: hidden;
+            background-color: var(--color-bg-secondary);
+        }
+
+        .school-card-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+
+        .school-card-content {
+            padding: var(--space-4);
+            display: flex;
+            flex-direction: column;
+            flex-grow: 1;
+        }
+
+        /* Price + Book row — prevents overlap on narrow cards */
+        .school-card-footer {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-top: auto;
+            border-top: 1px solid var(--color-border);
+            padding-top: 0.75rem;
+        }
+
+        .school-card-footer .card-price {
+            font-weight: 700;
+            font-size: 1.1rem;
+            color: var(--color-text-primary);
+            white-space: nowrap;
+            flex-shrink: 0;
+        }
+
+        .school-card-footer .card-price small {
+            font-size: 0.8rem;
+            font-weight: 400;
+            color: var(--color-text-secondary);
+        }
+
+        .school-card-footer .btn {
+            flex-shrink: 0;
+            padding: 0.4rem 0.8rem;
+            font-size: 0.85rem;
+        }
+
+        /* Large Screen Heights */
         @media (min-width: 1024px) {
             .schools-grid .school-card-img-wrapper {
                 height: 260px;
@@ -121,28 +283,103 @@
             }
         }
 
-        .school-card:hover {
-            transform: translateY(-6px);
-            box-shadow: var(--shadow-hover);
+        /* Tablet & Mobile Breakpoint (<= 992px) */
+        @media (max-width: 992px) {
+            .directory-layout {
+                flex-direction: column;
+                gap: var(--space-6);
+            }
+
+            .filter-sidebar {
+                width: 100%;
+                max-width: 100%;
+                position: static;
+                max-height: none;
+                padding: var(--space-5);
+            }
+
+            .filter-sidebar.mobile-collapsed {
+                display: none;
+            }
+
+            .filter-sidebar-header .filter-mobile-close {
+                display: inline-flex;
+            }
         }
 
-        .school-card-img-wrapper {
-            position: relative;
-            height: 200px;
-            overflow: hidden;
+        /* Mobile Screens (<= 768px) */
+        @media (max-width: 768px) {
+            .directory-search-wrapper {
+                padding: var(--space-4) var(--space-3);
+                margin-bottom: var(--space-5);
+            }
+
+            .directory-search-inner {
+                flex-direction: column;
+                align-items: stretch;
+                gap: var(--space-3);
+            }
+
+            .directory-search-field {
+                width: 100%;
+                min-width: 0;
+            }
+
+            .directory-search-select {
+                width: 100%;
+                min-width: 0;
+            }
+
+            .directory-search-btn {
+                width: 100%;
+                justify-content: center;
+            }
+
+            .filter-sidebar {
+                padding: var(--space-4);
+            }
         }
 
-        .school-card-img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
+        /* Small Phones (<= 480px down to 368px and below) */
+        @media (max-width: 480px) {
+            .directory-search-wrapper {
+                padding: var(--space-3);
+                border-radius: var(--radius-soft);
+            }
 
-        .school-card-content {
-            padding: var(--space-4);
-            display: flex;
-            flex-direction: column;
-            flex-grow: 1;
+            .directory-search-field input.form-control {
+                font-size: 0.875rem;
+                height: 44px;
+                padding-left: 42px;
+            }
+
+            .directory-search-field .search-icon {
+                left: 14px;
+                font-size: 1.1rem;
+            }
+
+            .directory-search-select {
+                height: 44px;
+                font-size: 0.875rem;
+            }
+
+            .directory-search-btn {
+                height: 44px;
+                font-size: 0.875rem;
+            }
+
+            .schools-grid {
+                grid-template-columns: 1fr;
+                gap: var(--space-4);
+            }
+
+            .school-card-img-wrapper {
+                height: 190px;
+            }
+
+            .school-card-content {
+                padding: var(--space-3);
+            }
         }
     </style>
 </head>
@@ -282,38 +519,41 @@
         <div class="container">
 
             <!-- Top Search & Quick Filter Bar -->
-            <div class="directory-search-wrapper"
-                style="background: var(--color-bg-primary); padding: var(--space-5) var(--space-6); border-radius: var(--radius-soft); border: 1px solid var(--color-border); margin-bottom: var(--space-6); box-shadow: var(--shadow-soft);">
-                <div style="display: flex; gap: var(--space-3); flex-wrap: wrap; align-items: center;">
-                    <div style="flex: 1; min-width: 260px; position: relative;">
-                        <i class="ph ph-magnifying-glass"
-                            style="position: absolute; left: 16px; top: 50%; transform: translateY(-50%); color: var(--color-brand-secondary); font-size: 1.25rem;"></i>
+            <div class="directory-search-wrapper">
+                <div class="directory-search-inner">
+                    <div class="directory-search-field">
+                        <i class="ph ph-magnifying-glass search-icon"></i>
                         <input type="text" id="therapySearchInput" class="form-control"
-                            placeholder="Search float pods, infrared saunas, or benefits..."
-                            style="padding-left: 48px; height: 48px; border-radius: var(--radius-soft); font-size: 0.95rem;">
+                            placeholder="Search float pods..." aria-label="Search float pods">
                     </div>
-                    <select class="form-control"
-                        style="width: auto; min-width: 180px; height: 48px; border-radius: var(--radius-soft);">
+                    <select class="form-control directory-search-select" id="envFilterSelect" aria-label="Select Environment">
                         <option value="">All Environments</option>
-                        <option value="pod">Enclosed Float Pod</option>
-                        <option value="basin">Horizon Open Basin</option>
-                        <option value="infrared">Infrared Sauna</option>
-                        <option value="redlight">Red Light Room</option>
+                        <option value="">Enclosed Float Pod</option>
+                        <option value="">Horizon Open Basin</option>
+                        <option value="">Infrared Sauna</option>
+                        <option value="">Red Light Room</option>
                     </select>
-                    <button class="btn btn-primary"
-                        style="height: 48px; padding: 0 1.5rem; display: flex; align-items: center; gap: 0.5rem;">
-                        <i class="ph ph-sliders-horizontal"></i> Filter Modalities
+                    <button class="btn btn-primary directory-search-btn" id="filterModalitiesBtn" type="button"
+                        aria-expanded="false" aria-controls="filterSidebar">
+                        <i class="ph ph-sliders-horizontal"></i> <span id="filterBtnLabel">Filter Modalities</span>
                     </button>
                 </div>
             </div>
 
             <div class="directory-layout">
                 <!-- Filter Sidebar -->
-                <aside class="filter-sidebar">
-                    <div
-                        style="display: flex; justify-content: space-between; align-items: center; margin-bottom: var(--space-4);">
-                        <h3 style="font-size: 1.1rem; margin: 0;">Filter Therapies</h3>
-                        <a href="#" style="font-size: 0.8rem; color: var(--color-brand-accent);">Reset All</a>
+                <aside class="filter-sidebar" id="filterSidebar">
+                    <div class="filter-sidebar-header">
+                        <div style="display: flex; align-items: center; gap: 0.5rem;">
+                            <i class="ph ph-sliders" style="color: var(--color-brand-accent);"></i>
+                            <h3 style="font-size: 1.1rem; margin: 0;">Therapies</h3>
+                        </div>
+                        <div style="display: flex; align-items: center; gap: 0.75rem;">
+                            <a href="#" id="resetFiltersBtn" style="font-size: 0.8rem; color: var(--color-brand-accent);">Reset All</a>
+                            <button class="filter-mobile-close" id="filterMobileClose" type="button" aria-label="Close filters">
+                                <i class="ph ph-x"></i> Close
+                            </button>
+                        </div>
                     </div>
 
                     <!-- Search Box inside Filter Sidebar -->
@@ -374,10 +614,10 @@
                 <div class="directory-main">
                     <div class="schools-grid">
                         <!-- Service Card 1 -->
-                        <div class="school-card">
+                        <div class="school-card" data-env="pod">
                             <div class="school-card-img-wrapper">
                                 <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQkjtssnOJ4939lscuAt-FIz0oDyXPVSGZd5UUdS5u4M0dvPNJoRQS7gRa9&s=10"
-                                    alt="Executive Pod Suite" class="school-card-img">
+                                    alt="Executive Pod Suite" class="school-card-img" loading="lazy">
                             </div>
                             <div class="school-card-content">
                                 <span
@@ -389,24 +629,18 @@
                                     style="font-size: 0.875rem; color: var(--color-text-secondary); margin-bottom: 1rem;">
                                     Complete sensory isolation with starry sky LED controls and 1,000 lbs USP Epsom
                                     salt.</p>
-                                <div
-                                    style="display: flex; justify-content: space-between; align-items: center; margin-top: auto; border-top: 1px solid var(--color-border); padding-top: 0.75rem;">
-                                    <span
-                                        style="font-weight: 700; font-size: 1.1rem; color: var(--color-text-primary);">$79
-                                        <span
-                                            style="font-size: 0.8rem; font-weight: 400; color: var(--color-text-secondary);">/
-                                            60 Min</span></span>
-                                    <a href="parent-dashboard.html" class="btn btn-primary"
-                                        style="padding: 0.4rem 0.8rem; font-size: 0.85rem;">Book Session</a>
+                                <div class="school-card-footer">
+                                    <span class="card-price">$79 <small>/ 60 Min</small></span>
+                                    <a href="parent-dashboard.html" class="btn btn-primary">Book Session</a>
                                 </div>
                             </div>
                         </div>
 
                         <!-- Service Card 2 -->
-                        <div class="school-card">
+                        <div class="school-card" data-env="basin">
                             <div class="school-card-img-wrapper">
                                 <img src="https://saltworld.in/themes/img/gallery/g2.jpg"
-                                    alt="Horizon Open Basin Suite" class="school-card-img">
+                                    alt="Horizon Open Basin Suite" class="school-card-img" loading="lazy">
                             </div>
                             <div class="school-card-content">
                                 <span
@@ -417,24 +651,18 @@
                                     style="font-size: 0.875rem; color: var(--color-text-secondary); margin-bottom: 1rem;">
                                     Expansive open-air float pool designed for first-timers seeking high ceilings and
                                     spaciousness.</p>
-                                <div
-                                    style="display: flex; justify-content: space-between; align-items: center; margin-top: auto; border-top: 1px solid var(--color-border); padding-top: 0.75rem;">
-                                    <span
-                                        style="font-weight: 700; font-size: 1.1rem; color: var(--color-text-primary);">$105
-                                        <span
-                                            style="font-size: 0.8rem; font-weight: 400; color: var(--color-text-secondary);">/
-                                            90 Min</span></span>
-                                    <a href="parent-dashboard.html" class="btn btn-primary"
-                                        style="padding: 0.4rem 0.8rem; font-size: 0.85rem;">Book Session</a>
+                                <div class="school-card-footer">
+                                    <span class="card-price">$105 <small>/ 90 Min</small></span>
+                                    <a href="parent-dashboard.html" class="btn btn-primary">Book Session</a>
                                 </div>
                             </div>
                         </div>
 
                         <!-- Service Card 3 -->
-                        <div class="school-card">
+                        <div class="school-card" data-env="infrared">
                             <div class="school-card-img-wrapper">
                                 <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS9LjvYAs0mZ7RvogJ57ot2-O_jpfyN4qwYp4AG9vDjxw&s=10"
-                                    alt="Infrared Sauna Suite" class="school-card-img">
+                                    alt="Infrared Sauna Suite" class="school-card-img" loading="lazy">
                             </div>
                             <div class="school-card-content">
                                 <span
@@ -446,24 +674,18 @@
                                     style="font-size: 0.875rem; color: var(--color-text-secondary); margin-bottom: 1rem;">
                                     Deep cellular heat detox combined with pharmaceutical halo salt aerosol for
                                     respiratory health.</p>
-                                <div
-                                    style="display: flex; justify-content: space-between; align-items: center; margin-top: auto; border-top: 1px solid var(--color-border); padding-top: 0.75rem;">
-                                    <span
-                                        style="font-weight: 700; font-size: 1.1rem; color: var(--color-text-primary);">$45
-                                        <span
-                                            style="font-size: 0.8rem; font-weight: 400; color: var(--color-text-secondary);">/
-                                            45 Min</span></span>
-                                    <a href="parent-dashboard.html" class="btn btn-primary"
-                                        style="padding: 0.4rem 0.8rem; font-size: 0.85rem;">Book Session</a>
+                                <div class="school-card-footer">
+                                    <span class="card-price">$45 <small>/ 45 Min</small></span>
+                                    <a href="parent-dashboard.html" class="btn btn-primary">Book Session</a>
                                 </div>
                             </div>
                         </div>
 
                         <!-- Service Card 4 -->
-                        <div class="school-card">
+                        <div class="school-card" data-env="redlight">
                             <div class="school-card-img-wrapper">
                                 <img src="https://www.rebootfloatspa.com/images/IMG_6856.jpg"
-                                    alt="Red Light Recovery Suite" class="school-card-img">
+                                    alt="Red Light Recovery Suite" class="school-card-img" loading="lazy">
                             </div>
                             <div class="school-card-content">
                                 <span
@@ -474,24 +696,18 @@
                                     style="font-size: 0.875rem; color: var(--color-text-secondary); margin-bottom: 1rem;">
                                     660nm red and 850nm near-infrared wavelengths for skin collagen synthesis and joint
                                     relief.</p>
-                                <div
-                                    style="display: flex; justify-content: space-between; align-items: center; margin-top: auto; border-top: 1px solid var(--color-border); padding-top: 0.75rem;">
-                                    <span
-                                        style="font-weight: 700; font-size: 1.1rem; color: var(--color-text-primary);">$35
-                                        <span
-                                            style="font-size: 0.8rem; font-weight: 400; color: var(--color-text-secondary);">/
-                                            20 Min</span></span>
-                                    <a href="parent-dashboard.html" class="btn btn-primary"
-                                        style="padding: 0.4rem 0.8rem; font-size: 0.85rem;">Book Session</a>
+                                <div class="school-card-footer">
+                                    <span class="card-price">$35 <small>/ 20 Min</small></span>
+                                    <a href="parent-dashboard.html" class="btn btn-primary">Book Session</a>
                                 </div>
                             </div>
                         </div>
 
                         <!-- Service Card 5 -->
-                        <div class="school-card">
+                        <div class="school-card" data-env="pod basin">
                             <div class="school-card-img-wrapper">
                                 <img src="https://saltworld.in/themes/img/gallery/g4.jpg"
-                                    alt="Couples Float Suite" class="school-card-img">
+                                    alt="Couples Float Suite" class="school-card-img" loading="lazy">
                             </div>
                             <div class="school-card-content">
                                 <span
@@ -503,24 +719,18 @@
                                     style="font-size: 0.875rem; color: var(--color-text-secondary); margin-bottom: 1rem;">
                                     Float together in an extra-wide zero-gravity pool with dual rain shower amenities.
                                 </p>
-                                <div
-                                    style="display: flex; justify-content: space-between; align-items: center; margin-top: auto; border-top: 1px solid var(--color-border); padding-top: 0.75rem;">
-                                    <span
-                                        style="font-weight: 700; font-size: 1.1rem; color: var(--color-text-primary);">$140
-                                        <span
-                                            style="font-size: 0.8rem; font-weight: 400; color: var(--color-text-secondary);">/
-                                            60 Min</span></span>
-                                    <a href="parent-dashboard.html" class="btn btn-primary"
-                                        style="padding: 0.4rem 0.8rem; font-size: 0.85rem;">Book Session</a>
+                                <div class="school-card-footer">
+                                    <span class="card-price">$140 <small>/ 60 Min</small></span>
+                                    <a href="parent-dashboard.html" class="btn btn-primary">Book Session</a>
                                 </div>
                             </div>
                         </div>
 
                         <!-- Service Card 6 -->
-                        <div class="school-card">
+                        <div class="school-card" data-env="infrared pod">
                             <div class="school-card-img-wrapper">
                                 <img src="https://www.midnightsuntanning.ca/wp-content/uploads/2018/06/couples-float-room.jpg"
-                                    alt="Float + Sauna Combo" class="school-card-img">
+                                    alt="Float + Sauna Combo" class="school-card-img" loading="lazy">
                             </div>
                             <div class="school-card-content">
                                 <span
@@ -532,15 +742,9 @@
                                     style="font-size: 0.875rem; color: var(--color-text-secondary); margin-bottom: 1rem;">
                                     The ultimate 90-minute sanctuary pairing: 30m infrared pre-warm followed by a 60m
                                     pod float.</p>
-                                <div
-                                    style="display: flex; justify-content: space-between; align-items: center; margin-top: auto; border-top: 1px solid var(--color-border); padding-top: 0.75rem;">
-                                    <span
-                                        style="font-weight: 700; font-size: 1.1rem; color: var(--color-text-primary);">$110
-                                        <span
-                                            style="font-size: 0.8rem; font-weight: 400; color: var(--color-text-secondary);">/
-                                            90 Min</span></span>
-                                    <a href="parent-dashboard.html" class="btn btn-primary"
-                                        style="padding: 0.4rem 0.8rem; font-size: 0.85rem;">Book Session</a>
+                                <div class="school-card-footer">
+                                    <span class="card-price">$110 <small>/ 90 Min</small></span>
+                                    <a href="parent-dashboard.html" class="btn btn-primary">Book Session</a>
                                 </div>
                             </div>
                         </div>
@@ -745,6 +949,107 @@
     <!-- Scripts -->
     <script src="assets/js/main.js"></script>
     <script src="assets/js/interactive.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const filterBtn = document.getElementById('filterModalitiesBtn');
+            const filterSidebar = document.getElementById('filterSidebar');
+            const filterCloseBtn = document.getElementById('filterMobileClose');
+            const filterBtnLabel = document.getElementById('filterBtnLabel');
+            const searchInput = document.getElementById('therapySearchInput');
+            const envSelect = document.getElementById('envFilterSelect');
+            const cards = document.querySelectorAll('.school-card');
+            const resetBtn = document.getElementById('resetFiltersBtn');
+            const sidebarSearchInput = filterSidebar ? filterSidebar.querySelector('input[type="text"]') : null;
+
+            // Responsive Mobile Filter State
+            function checkMobileFilterState() {
+                if (!filterSidebar) return;
+                if (window.innerWidth <= 992) {
+                    if (!filterSidebar.classList.contains('is-open')) {
+                        filterSidebar.classList.add('mobile-collapsed');
+                        if (filterBtn) filterBtn.setAttribute('aria-expanded', 'false');
+                        if (filterBtnLabel) filterBtnLabel.textContent = 'Filter Modalities';
+                    }
+                } else {
+                    filterSidebar.classList.remove('mobile-collapsed');
+                    filterSidebar.classList.remove('is-open');
+                    if (filterBtn) filterBtn.setAttribute('aria-expanded', 'true');
+                    if (filterBtnLabel) filterBtnLabel.textContent = 'Filter Modalities';
+                }
+            }
+
+            checkMobileFilterState();
+            window.addEventListener('resize', checkMobileFilterState);
+
+            if (filterBtn && filterSidebar) {
+                filterBtn.addEventListener('click', () => {
+                    const isCollapsed = filterSidebar.classList.contains('mobile-collapsed');
+                    if (isCollapsed) {
+                        filterSidebar.classList.remove('mobile-collapsed');
+                        filterSidebar.classList.add('is-open');
+                        filterBtn.setAttribute('aria-expanded', 'true');
+                        if (filterBtnLabel) filterBtnLabel.textContent = 'Hide Filters';
+                        filterSidebar.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+                    } else {
+                        filterSidebar.classList.add('mobile-collapsed');
+                        filterSidebar.classList.remove('is-open');
+                        filterBtn.setAttribute('aria-expanded', 'false');
+                        if (filterBtnLabel) filterBtnLabel.textContent = 'Filter Modalities';
+                    }
+                });
+            }
+
+            if (filterCloseBtn && filterSidebar) {
+                filterCloseBtn.addEventListener('click', () => {
+                    filterSidebar.classList.add('mobile-collapsed');
+                    filterSidebar.classList.remove('is-open');
+                    if (filterBtn) {
+                        filterBtn.setAttribute('aria-expanded', 'false');
+                        if (filterBtnLabel) filterBtnLabel.textContent = 'Filter Modalities';
+                    }
+                });
+            }
+
+            // Live search and filter function
+            function filterCards() {
+                const query = (searchInput && searchInput.value ? searchInput.value : (sidebarSearchInput ? sidebarSearchInput.value : '')).toLowerCase().trim();
+                const selectedEnv = (envSelect ? envSelect.value.toLowerCase().trim() : '');
+
+                cards.forEach(card => {
+                    const title = (card.querySelector('h3') ? card.querySelector('h3').textContent.toLowerCase() : '');
+                    const desc = (card.querySelector('p') ? card.querySelector('p').textContent.toLowerCase() : '');
+                    const env = card.getAttribute('data-env') || '';
+
+                    const matchesQuery = !query || title.includes(query) || desc.includes(query);
+                    const matchesEnv = !selectedEnv || env.includes(selectedEnv);
+
+                    card.style.display = (matchesQuery && matchesEnv) ? '' : 'none';
+                });
+            }
+
+            if (searchInput) searchInput.addEventListener('input', () => {
+                if (sidebarSearchInput) sidebarSearchInput.value = searchInput.value;
+                filterCards();
+            });
+
+            if (sidebarSearchInput) sidebarSearchInput.addEventListener('input', () => {
+                if (searchInput) searchInput.value = sidebarSearchInput.value;
+                filterCards();
+            });
+
+            if (envSelect) envSelect.addEventListener('change', filterCards);
+
+            if (resetBtn) {
+                resetBtn.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    if (searchInput) searchInput.value = '';
+                    if (sidebarSearchInput) sidebarSearchInput.value = '';
+                    if (envSelect) envSelect.value = '';
+                    filterCards();
+                });
+            }
+        });
+    </script>
 </body>
 
 </html>
