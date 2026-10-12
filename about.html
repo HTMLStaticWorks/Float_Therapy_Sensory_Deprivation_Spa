@@ -4,10 +4,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>First-Time Floater Guide &amp; Spa Story | Solace Float Spa</title>
+    <title>About Us &amp; Sanctuary Story | Solace Float Spa</title>
     <link rel="icon" type="image/svg+xml" href="assets/images/favicon.svg">
     <meta name="description"
-        content="Everything you need to know for your first float session at Solace Float Spa. Step-by-step preparation, zero-gravity buoyancy science, and sanctuary hygiene standards.">
+        content="Discover the story behind Solace Float Spa. Learn about our founding vision, the clinical science of zero-gravity Floatation-REST, hospital-grade water purification, and our dedicated wellness guides.">
 
     <!-- CSS -->
     <link rel="stylesheet" href="assets/css/style.css">
@@ -17,66 +17,161 @@
     <script src="https://unpkg.com/@phosphor-icons/web"></script>
 
     <style>
-        .mission-media {
+        /* About Page Dedicated Aesthetics */
+        .about-story-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: var(--space-10);
+            align-items: center;
+        }
+
+        .about-story-media {
+            position: relative;
             border-radius: var(--radius-soft);
             overflow: hidden;
             border: 1px solid var(--color-border);
-            box-shadow: var(--shadow-soft);
-            transition: transform var(--transition-premium),
-                box-shadow var(--transition-premium),
-                border-color var(--transition-premium);
+            box-shadow: var(--shadow-lift);
+            aspect-ratio: 16 / 10;
         }
 
-        .mission-media img {
-            display: block;
+        .about-story-media img {
             width: 100%;
             height: 100%;
             object-fit: cover;
-            transition: transform 0.7s var(--ease-premium);
+            display: block;
+            transition: transform 0.8s var(--ease-premium);
         }
 
-        .mission-media:hover {
+        .about-story-media:hover img {
+            transform: scale(1.04);
+        }
+
+        .about-story-badge {
+            position: absolute;
+            bottom: var(--space-4);
+            left: var(--space-4);
+            background: rgba(13, 31, 35, 0.88);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid rgba(82, 182, 154, 0.35);
+            padding: 0.6rem 1rem;
+            border-radius: var(--radius-sm);
+            color: #ffffff;
+            font-size: 0.85rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .about-stats-bar {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: var(--space-4);
+            margin-top: var(--space-8);
+        }
+
+        .about-stat-card {
+            background: var(--color-bg-primary);
+            border: 1px solid var(--color-border);
+            border-radius: var(--radius-soft);
+            padding: var(--space-6) var(--space-4);
+            text-align: center;
+            box-shadow: var(--shadow-soft);
+            transition: transform var(--transition-fast), border-color var(--transition-fast);
+        }
+
+        .about-stat-card:hover {
             transform: translateY(-4px);
-            box-shadow: var(--shadow-hover);
             border-color: var(--color-brand-secondary);
         }
 
-        .mission-media:hover img {
-            transform: scale(1.06);
+        .about-stat-number {
+            font-family: var(--font-display);
+            font-size: 2.25rem;
+            font-weight: 700;
+            color: var(--color-brand-accent);
+            line-height: 1.1;
+            margin-bottom: 0.25rem;
         }
 
-        .values-grid {
+        .about-stat-label {
+            font-size: 0.875rem;
+            color: var(--color-text-secondary);
+            font-weight: 500;
+        }
+
+        /* Science Cards */
+        .science-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
             gap: var(--space-6);
             margin-top: var(--space-8);
         }
 
-        .value-card {
+        .science-card {
             background: var(--color-bg-primary);
             border: 1px solid var(--color-border);
-            padding: var(--space-6);
             border-radius: var(--radius-soft);
-            text-align: center;
-            transition: transform var(--transition-fast);
-        }
-
-        .value-card:hover {
-            transform: translateY(-4px);
+            padding: var(--space-6);
             box-shadow: var(--shadow-soft);
+            transition: transform var(--transition-fast), box-shadow var(--transition-fast);
+            display: flex;
+            flex-direction: column;
         }
 
-        .value-icon {
+        .science-card:hover {
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-lift);
+            border-color: var(--color-brand-secondary);
+        }
+
+        .science-icon {
             width: 48px;
             height: 48px;
+            border-radius: 50%;
             background: var(--color-bg-secondary);
             color: var(--color-brand-accent);
-            border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
             font-size: 1.5rem;
-            margin: 0 auto var(--space-4);
+            margin-bottom: var(--space-4);
+        }
+
+        .science-card h3 {
+            font-size: 1.25rem;
+            margin-bottom: var(--space-2);
+            font-family: var(--font-display);
+        }
+
+        .science-card p {
+            color: var(--color-text-secondary);
+            font-size: 0.95rem;
+            line-height: 1.6;
+            margin-bottom: 0;
+        }
+
+        /* Founders Section */
+        .founders-wrapper {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: var(--space-10);
+            align-items: center;
+        }
+
+        .founders-media {
+            border-radius: var(--radius-soft);
+            overflow: hidden;
+            border: 1px solid var(--color-border);
+            box-shadow: var(--shadow-lift);
+            aspect-ratio: 4 / 3;
+        }
+
+        .founders-media img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
         }
 
         .team-grid {
@@ -92,24 +187,24 @@
             border-radius: var(--radius-soft);
             overflow: hidden;
             text-align: center;
+            box-shadow: var(--shadow-soft);
             transition: transform var(--transition-fast);
         }
 
         .team-card:hover {
             transform: translateY(-4px);
-            box-shadow: var(--shadow-soft);
         }
 
         .team-img-wrapper {
-            aspect-ratio: 3 / 4;
+            aspect-ratio: 1 / 1;
             overflow: hidden;
         }
 
         .team-img {
-            display: block;
             width: 100%;
             height: 100%;
             object-fit: cover;
+            display: block;
         }
 
         .team-info {
@@ -123,7 +218,164 @@
 
         .team-info p {
             color: var(--color-text-secondary);
-            font-size: 0.875rem;
+            font-size: 0.85rem;
+            margin: 0;
+        }
+
+        /* Milestones Timeline */
+        .milestones-track {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: var(--space-6);
+            margin-top: var(--space-8);
+            position: relative;
+        }
+
+        .milestone-item {
+            background: var(--color-bg-primary);
+            border: 1px solid var(--color-border);
+            border-radius: var(--radius-soft);
+            padding: var(--space-6);
+            box-shadow: var(--shadow-soft);
+            position: relative;
+        }
+
+        .milestone-year {
+            display: inline-block;
+            font-size: 0.85rem;
+            font-weight: 700;
+            color: var(--color-brand-secondary);
+            background: rgba(82, 182, 154, 0.15);
+            padding: 0.25rem 0.65rem;
+            border-radius: var(--radius-full);
+            margin-bottom: var(--space-3);
+        }
+
+        .milestone-item h4 {
+            font-size: 1.15rem;
+            margin-bottom: var(--space-2);
+        }
+
+        .milestone-item p {
+            color: var(--color-text-secondary);
+            font-size: 0.9rem;
+            line-height: 1.5;
+            margin: 0;
+        }
+
+        /* Testimonials */
+        .testimonial-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: var(--space-6);
+            margin-top: var(--space-8);
+        }
+
+        .testimonial-card {
+            background: var(--color-bg-primary);
+            border: 1px solid var(--color-border);
+            border-radius: var(--radius-soft);
+            padding: var(--space-6);
+            box-shadow: var(--shadow-soft);
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .testimonial-text {
+            font-style: italic;
+            color: var(--color-text-primary);
+            font-size: 1.05rem;
+            line-height: 1.6;
+            margin-bottom: var(--space-4);
+        }
+
+        .testimonial-author {
+            display: flex;
+            align-items: center;
+            gap: var(--space-3);
+        }
+
+        .testimonial-avatar {
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            background: var(--color-bg-secondary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            color: var(--color-brand-accent);
+        }
+
+        .testimonial-name {
+            font-weight: 700;
+            font-size: 0.95rem;
+        }
+
+        .testimonial-role {
+            font-size: 0.8rem;
+            color: var(--color-text-secondary);
+        }
+
+        /* FAQ details styling */
+        .faq-accordion {
+            max-width: 800px;
+            margin: var(--space-8) auto 0;
+            display: flex;
+            flex-direction: column;
+            gap: var(--space-3);
+        }
+
+        .faq-item {
+            background: var(--color-bg-primary);
+            border: 1px solid var(--color-border);
+            border-radius: var(--radius-soft);
+            overflow: hidden;
+            box-shadow: var(--shadow-soft);
+        }
+
+        .faq-summary {
+            padding: var(--space-4) var(--space-5);
+            font-weight: 700;
+            font-size: 1.05rem;
+            cursor: pointer;
+            list-style: none;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            user-select: none;
+        }
+
+        .faq-summary::-webkit-details-marker {
+            display: none;
+        }
+
+        .faq-summary::after {
+            content: "+";
+            font-size: 1.4rem;
+            font-weight: 400;
+            color: var(--color-brand-accent);
+            transition: transform 0.2s ease;
+        }
+
+        .faq-item[open] .faq-summary::after {
+            content: "−";
+        }
+
+        .faq-body {
+            padding: 0 var(--space-5) var(--space-4);
+            color: var(--color-text-secondary);
+            font-size: 0.95rem;
+            line-height: 1.6;
+        }
+
+        @media (max-width: 900px) {
+            .about-story-grid,
+            .founders-wrapper {
+                grid-template-columns: 1fr;
+                gap: var(--space-6);
+            }
         }
     </style>
 </head>
@@ -133,22 +385,31 @@
     <header class="navbar">
         <div class="container navbar-container">
             <a href="index.html" class="navbar-brand">
-                <svg class="brand-logo" viewBox="0 0 200 60" preserveAspectRatio="xMinYMid meet" role="img" aria-label="Solace">
+                <svg class="brand-logo" viewBox="0 0 200 60" preserveAspectRatio="xMinYMid meet" role="img"
+                    aria-label="Solace">
                     <title>Solace</title>
                     <g transform="translate(4, 4) scale(1.15)">
-                        <circle cx="24" cy="24" r="22" fill="#1A6B72" opacity="0.12"/>
-                        <circle cx="24" cy="24" r="22" fill="none" stroke="#52B69A" stroke-width="1.8" opacity="0.4"/>
-                        <path d="M 24 3 A 21 21 0 1 1 4 26" fill="none" stroke="#52B69A" stroke-width="2" stroke-linecap="round" opacity="0.75"/>
-                        <path d="M 24 8 A 16 16 0 1 1 9 28" fill="none" stroke="#52B69A" stroke-width="2" stroke-linecap="round" opacity="0.85"/>
-                        <path d="M 24 13 A 11 11 0 1 1 14 29" fill="none" stroke="#52B69A" stroke-width="1.8" stroke-linecap="round" opacity="0.95"/>
+                        <circle cx="24" cy="24" r="22" fill="#1A6B72" opacity="0.12" />
+                        <circle cx="24" cy="24" r="22" fill="none" stroke="#52B69A" stroke-width="1.8" opacity="0.4" />
+                        <path d="M 24 3 A 21 21 0 1 1 4 26" fill="none" stroke="#52B69A" stroke-width="2"
+                            stroke-linecap="round" opacity="0.75" />
+                        <path d="M 24 8 A 16 16 0 1 1 9 28" fill="none" stroke="#52B69A" stroke-width="2"
+                            stroke-linecap="round" opacity="0.85" />
+                        <path d="M 24 13 A 11 11 0 1 1 14 29" fill="none" stroke="#52B69A" stroke-width="1.8"
+                            stroke-linecap="round" opacity="0.95" />
                         <g transform="translate(24, 24) rotate(-35) translate(-24, -24)">
-                            <circle cx="24" cy="10" r="3.2" fill="#1A6B72"/>
-                            <path d="M 21.5 14 C 21.5 14 20 22 21 28 C 22 33 22.5 38 22.5 38 L 25.5 38 C 25.5 38 26 33 27 28 C 28 22 26.5 14 26.5 14 Z" fill="#1A6B72"/>
-                            <path d="M 22 16 C 17 13 11 10 7 9 C 6.5 10.5 8 12.5 12 14.5 C 16 16.5 21.5 18 21.5 18 Z" fill="#1A6B72"/>
-                            <path d="M 26 16 C 31 13 37 10 41 9 C 41.5 10.5 40 12.5 36 14.5 C 32 16.5 26.5 18 26.5 18 Z" fill="#1A6B72"/>
+                            <circle cx="24" cy="10" r="3.2" fill="#1A6B72" />
+                            <path
+                                d="M 21.5 14 C 21.5 14 20 22 21 28 C 22 33 22.5 38 22.5 38 L 25.5 38 C 25.5 38 26 33 27 28 C 28 22 26.5 14 26.5 14 Z"
+                                fill="#1A6B72" />
+                            <path d="M 22 16 C 17 13 11 10 7 9 C 6.5 10.5 8 12.5 12 14.5 C 16 16.5 21.5 18 21.5 18 Z"
+                                fill="#1A6B72" />
+                            <path d="M 26 16 C 31 13 37 10 41 9 C 41.5 10.5 40 12.5 36 14.5 C 32 16.5 26.5 18 26.5 18 Z"
+                                fill="#1A6B72" />
                         </g>
                     </g>
-                    <text class="brand-text" x="66" y="42" font-family="'Lora','Georgia',serif" font-weight="700" font-size="34" letter-spacing="-0.5" fill="currentColor">Solace</text>
+                    <text class="brand-text" x="66" y="42" font-family="'Lora','Georgia',serif" font-weight="700"
+                        font-size="34" letter-spacing="-0.5" fill="currentColor">Solace</text>
                 </svg>
             </a>
 
@@ -157,7 +418,7 @@
                     <li><a href="index.html" class="nav-link">Home</a></li>
                     <li><a href="home2.html" class="nav-link">Home 2</a></li>
                     <li><a href="services.html" class="nav-link">Services</a></li>
-                    <li><a href="first-time-guide.html" class="nav-link active">First-Time Guide</a></li>
+                    <li><a href="about.html" class="nav-link active">About</a></li>
                     <li><a href="pricing.html" class="nav-link">Pricing</a></li>
                     <li><a href="blog.html" class="nav-link">Blog</a></li>
                     <li><a href="contact.html" class="nav-link">Contact</a></li>
@@ -186,22 +447,31 @@
     <div class="mobile-drawer" id="mobileDrawer">
         <div class="drawer-header">
             <a href="index.html" class="navbar-brand">
-                <svg class="brand-logo" viewBox="0 0 180 56" preserveAspectRatio="xMinYMid meet" role="img" aria-label="Solace">
+                <svg class="brand-logo" viewBox="0 0 180 56" preserveAspectRatio="xMinYMid meet" role="img"
+                    aria-label="Solace">
                     <title>Solace</title>
                     <g transform="translate(2, 2) scale(1.05)">
-                        <circle cx="24" cy="24" r="22" fill="#1A6B72" opacity="0.12"/>
-                        <circle cx="24" cy="24" r="22" fill="none" stroke="#52B69A" stroke-width="1.8" opacity="0.4"/>
-                        <path d="M 24 3 A 21 21 0 1 1 4 26" fill="none" stroke="#52B69A" stroke-width="2" stroke-linecap="round" opacity="0.75"/>
-                        <path d="M 24 8 A 16 16 0 1 1 9 28" fill="none" stroke="#52B69A" stroke-width="2" stroke-linecap="round" opacity="0.85"/>
-                        <path d="M 24 13 A 11 11 0 1 1 14 29" fill="none" stroke="#52B69A" stroke-width="1.8" stroke-linecap="round" opacity="0.95"/>
+                        <circle cx="24" cy="24" r="22" fill="#1A6B72" opacity="0.12" />
+                        <circle cx="24" cy="24" r="22" fill="none" stroke="#52B69A" stroke-width="1.8" opacity="0.4" />
+                        <path d="M 24 3 A 21 21 0 1 1 4 26" fill="none" stroke="#52B69A" stroke-width="2"
+                            stroke-linecap="round" opacity="0.75" />
+                        <path d="M 24 8 A 16 16 0 1 1 9 28" fill="none" stroke="#52B69A" stroke-width="2"
+                            stroke-linecap="round" opacity="0.85" />
+                        <path d="M 24 13 A 11 11 0 1 1 14 29" fill="none" stroke="#52B69A" stroke-width="1.8"
+                            stroke-linecap="round" opacity="0.95" />
                         <g transform="translate(24, 24) rotate(-35) translate(-24, -24)">
-                            <circle cx="24" cy="10" r="3.2" fill="#1A6B72"/>
-                            <path d="M 21.5 14 C 21.5 14 20 22 21 28 C 22 33 22.5 38 22.5 38 L 25.5 38 C 25.5 38 26 33 27 28 C 28 22 26.5 14 26.5 14 Z" fill="#1A6B72"/>
-                            <path d="M 22 16 C 17 13 11 10 7 9 C 6.5 10.5 8 12.5 12 14.5 C 16 16.5 21.5 18 21.5 18 Z" fill="#1A6B72"/>
-                            <path d="M 26 16 C 31 13 37 10 41 9 C 41.5 10.5 40 12.5 36 14.5 C 32 16.5 26.5 18 26.5 18 Z" fill="#1A6B72"/>
+                            <circle cx="24" cy="10" r="3.2" fill="#1A6B72" />
+                            <path
+                                d="M 21.5 14 C 21.5 14 20 22 21 28 C 22 33 22.5 38 22.5 38 L 25.5 38 C 25.5 38 26 33 27 28 C 28 22 26.5 14 26.5 14 Z"
+                                fill="#1A6B72" />
+                            <path d="M 22 16 C 17 13 11 10 7 9 C 6.5 10.5 8 12.5 12 14.5 C 16 16.5 21.5 18 21.5 18 Z"
+                                fill="#1A6B72" />
+                            <path d="M 26 16 C 31 13 37 10 41 9 C 41.5 10.5 40 12.5 36 14.5 C 32 16.5 26.5 18 26.5 18 Z"
+                                fill="#1A6B72" />
                         </g>
                     </g>
-                    <text class="brand-text" x="62" y="39" font-family="'Lora','Georgia',serif" font-weight="700" font-size="30" letter-spacing="-0.5" fill="currentColor">Solace</text>
+                    <text class="brand-text" x="62" y="39" font-family="'Lora','Georgia',serif" font-weight="700"
+                        font-size="30" letter-spacing="-0.5" fill="currentColor">Solace</text>
                 </svg>
             </a>
             <button class="drawer-close" aria-label="Close Menu">
@@ -212,7 +482,7 @@
             <a href="index.html" class="nav-link">Home</a>
             <a href="home2.html" class="nav-link">Home 2</a>
             <a href="services.html" class="nav-link">Services</a>
-            <a href="first-time-guide.html" class="nav-link active">First-Time Guide</a>
+            <a href="about.html" class="nav-link active">About</a>
             <a href="pricing.html" class="nav-link">Pricing</a>
             <a href="blog.html" class="nav-link">Blog</a>
             <a href="contact.html" class="nav-link">Contact</a>
@@ -231,159 +501,303 @@
         </div>
     </div>
 
+    <!-- Page Hero -->
     <section class="page-hero">
         <div class="container">
-            <span class="eyebrow eyebrow-center">First-Time Floater Guide</span>
-            <h1>Your Complete Guide to Zero Gravity</h1>
-            <p class="page-hero-lead">Step-by-step preparation, pod customization, and sensory deprivation science for a serene first float.</p>
+            <span class="eyebrow eyebrow-center">OUR SANCTUARY STORY &amp; PHILOSOPHY</span>
+            <h1>A Sanctuary Created to Quiet the Noise of the World</h1>
+            <p class="page-hero-lead"> Experience genuine zero gravity, deep parasympathetic rest, and pure stillness.</p>
+
+            
         </div>
     </section>
 
     <!-- Main Content -->
     <main>
-
-        <!-- Guide Steps Section -->
+        <!-- Story & Origins Section -->
         <section class="section">
             <div class="container">
-                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: var(--space-8); align-items: center;">
+                <div class="about-story-grid">
                     <div>
-                        <span class="eyebrow">Step-By-Step Preparation</span>
-                        <h2 style="font-family: var(--font-display); margin-bottom: var(--space-4);">What to Expect During Your First Session</h2>
-                        
-                        <div style="display: flex; flex-direction: column; gap: var(--space-4);">
-                            <div style="display: flex; gap: var(--space-3);">
-                                <div style="width: 36px; height: 36px; border-radius: 50%; background: var(--color-brand-accent); color: white; display: flex; align-items: center; justify-content: center; font-weight: 700; flex-shrink: 0;">1</div>
-                                <div>
-                                    <h4 style="margin-bottom: 0.25rem;">Pre-Float Shower &amp; Earplugs</h4>
-                                    <p style="color: var(--color-text-secondary); margin: 0;">Inside your private luxury suite, insert the provided silicone earplugs and take a warm shower to rinse away perfumes, lotions, and hair product.</p>
-                                </div>
-                            </div>
-                            <div style="display: flex; gap: var(--space-3);">
-                                <div style="width: 36px; height: 36px; border-radius: 50%; background: var(--color-brand-accent); color: white; display: flex; align-items: center; justify-content: center; font-weight: 700; flex-shrink: 0;">2</div>
-                                <div>
-                                    <h4 style="margin-bottom: 0.25rem;">Step Into Weightless Water</h4>
-                                    <p style="color: var(--color-text-secondary); margin: 0;">Step into the float pod or open suite. The 10-inch water depth is saturated with 1,000 lbs of Epsom salt, allowing you to float effortlessly on your back.</p>
-                                </div>
-                            </div>
-                            <div style="display: flex; gap: var(--space-3);">
-                                <div style="width: 36px; height: 36px; border-radius: 50%; background: var(--color-brand-accent); color: white; display: flex; align-items: center; justify-content: center; font-weight: 700; flex-shrink: 0;">3</div>
-                                <div>
-                                    <h4 style="margin-bottom: 0.25rem;">Set Your Ambient Lighting &amp; Sound</h4>
-                                    <p style="color: var(--color-text-secondary); margin: 0;">You hold full control. Turn off the pod light for pure darkness or leave the soft starry sky ceiling on with gentle ambient music.</p>
-                                </div>
-                            </div>
-                            <div style="display: flex; gap: var(--space-3);">
-                                <div style="width: 36px; height: 36px; border-radius: 50%; background: var(--color-brand-accent); color: white; display: flex; align-items: center; justify-content: center; font-weight: 700; flex-shrink: 0;">4</div>
-                                <div>
-                                    <h4 style="margin-bottom: 0.25rem;">Post-Float Refreshment Lounge</h4>
-                                    <p style="color: var(--color-text-secondary); margin: 0;">Soft music signals session completion. Take a refreshing shower to rinse away mineral salts, then relax in our lounge with herbal tea.</p>
-                                </div>
-                            </div>
+                        <span class="eyebrow">THE SOLACE PHILOSOPHY</span>
+                        <h2 style="font-family: var(--font-display); margin-bottom: var(--space-4);">Reclaiming Stillness in an Overstimulated Society</h2>
+                        <p style="color: var(--color-text-secondary); font-size: 1.05rem; line-height: 1.7; margin-bottom: var(--space-4);">
+                            In our modern everyday lives, the human nervous system is under unceasing demand. Artificial blue light, digital notifications, urban acoustic clutter, and the constant downward drag of gravity create persistent low-grade stress and chronic musculoskeletal tension.
+                        </p>
+                        <p style="color: var(--color-text-secondary); font-size: 1.05rem; line-height: 1.7; margin-bottom: var(--space-4);">
+                            Solace was founded on a simple yet profound realization: when you subtract the external sensory barrage and remove gravitational pressure from the spine, the human body and consciousness possess an innate, extraordinary capacity to repair and rebalance.
+                        </p>
+                        <div style="border-left: 3px solid var(--color-brand-accent); padding-left: var(--space-4); margin: var(--space-6) 0;">
+                            <p style="font-family: var(--font-display); font-size: 1.15rem; font-style: italic; color: var(--color-text-primary); margin: 0;">
+                                "Floating isn't about escaping reality — it is about stripping away the friction so you can finally return to your clearest, most grounded self."
+                            </p>
+                            <span style="display: block; margin-top: var(--space-2); font-size: 0.85rem; font-weight: 700; color: var(--color-brand-secondary);">
+                                — Elena Vance &amp; Marcus Sterling, Founders
+                            </span>
                         </div>
                     </div>
-                    <div class="mission-media" style="aspect-ratio: 4/3;">
-                        <img src="https://images.unsplash.com/photo-1519823551278-64ac92734fb1?auto=format&fit=crop&w=1200&q=80" alt="Sensory float pod suite interior">
+                    <div class="about-story-media">
+                        <img src="assets/images/about-sanctuary.jpg" alt="Solace Float Spa tranquil reception and indoor reflection pool" loading="lazy">
+                        <div class="about-story-badge">
+                            <i class="ph-fill ph-sparkle" style="color: var(--color-brand-secondary);"></i>
+                            <span>Solace Sanctuary Reflection Lounge &amp; Tea Bar</span>
+                        </div>
                     </div>
                 </div>
             </div>
         </section>
 
-        <!-- Our Purity Values -->
-        <section class="section" style="background-color: var(--color-bg-secondary);">
+        <!-- Science of Floatation REST -->
+        
+
+        <!-- Purity Standards -->
+        <section class="section">
             <div class="container">
-                <div class="section-header" style="text-align: center;">
-                    <span class="eyebrow">Sanctuary Standards</span>
-                    <h2>Our Purity &amp; Hygiene Promise</h2>
-                    <p class="subtext">Four uncompromising pillars ensuring pristine water quality and absolute floater comfort</p>
+                <div class="section-header" style="text-align: center; max-width: 800px; margin: 0 auto var(--space-10);">
+                    <span class="eyebrow">SANCTUARY STANDARDS</span>
+                    <h2>Our Uncompromising Hygiene Promise</h2>
+                    <p class="subtext">Our water purification and sanitation protocols exceed municipal swimming pools and medical recovery centers.</p>
                 </div>
 
                 <div class="values-grid">
                     <div class="value-card">
                         <div class="value-icon">
-                            <i class="ph ph-drop"></i>
+                            <i class="ph-fill ph-scales"></i>
                         </div>
-                        <h3>1,000 Lbs Medical Epsom Salt</h3>
-                        <p>USP-grade magnesium sulfate provides maximum buoyancy, relaxing tight muscles and reducing systemic inflammation.</p>
+                        <h3>1,000 Lbs Pure USP Salt</h3>
+                        <p>High salinity creates a natural saline environment where pathogenic bacteria and microbes simply cannot survive.</p>
                     </div>
 
                     <div class="value-card">
                         <div class="value-icon">
-                            <i class="ph ph-shield-check"></i>
+                            <i class="ph-fill ph-arrows-clockwise"></i>
                         </div>
-                        <h3>100% Water Filtration</h3>
-                        <p>Between every single guest float, 100% of the water passes through 1-micron filters, high-output UV light, and ozone purification.</p>
+                        <h3>100% Water Turnover</h3>
+                        <p>Between every single guest, 100% of the suite water is cycled 3 to 5 times through multi-stage commercial filtration systems.</p>
                     </div>
 
                     <div class="value-card">
                         <div class="value-icon">
-                            <i class="ph ph-thermometer"></i>
+                            <i class="ph-fill ph-sun"></i>
                         </div>
-                        <h3>Skin-Temperature Match</h3>
-                        <p>Water is maintained at an exact skin temperature of 93.5°F (34.2°C) so your body forgets where skin ends and water begins.</p>
+                        <h3>Dual UV-C &amp; Ozone Disinfection</h3>
+                        <p>High-intensity germicidal UV-C light combined with dissolved active ozone neutralizes 99.9% of organics and micro-particles.</p>
                     </div>
 
                     <div class="value-card">
                         <div class="value-icon">
-                            <i class="ph ph-house-line"></i>
+                            <i class="ph-fill ph-thermometer-simple"></i>
                         </div>
-                        <h3>Private Luxury Suites</h3>
-                        <p>Every float room is 100% private and equipped with its own rain shower, plush towels, earplugs, and natural organic toiletries.</p>
+                        <h3>Exact 93.5°F Thermal Match</h3>
+                        <p>Digital micro-controllers continuously balance water to 93.5°F so you never feel too hot or cold during your journey.</p>
+                    </div>
+
+                    <div class="value-card">
+                        <div class="value-icon">
+                            <i class="ph-fill ph-speaker-slash"></i>
+                        </div>
+                        <h3>Acoustic Soundproofing</h3>
+                        <p>Double-insulated architectural sound chambers and silicone earplugs ensure complete acoustic quietude from external noise.</p>
+                    </div>
+
+                    <div class="value-card">
+                        <div class="value-icon">
+                            <i class="ph-fill ph-wind"></i>
+                        </div>
+                        <h3>HEPA Fresh Air Inflow</h3>
+                        <p>Whisper-quiet hospital HEPA ventilation pumps purified fresh air continuously into every private suite chamber.</p>
                     </div>
                 </div>
             </div>
         </section>
 
-        <!-- Float Guides Team -->
-        <section class="section">
+        <!-- Founders & Team -->
+        <section class="section" style="background-color: var(--color-bg-secondary);">
             <div class="container">
-                <div class="section-header" style="text-align: center;">
-                    <span class="eyebrow">Sanctuary Team</span>
-                    <h2>Our Wellness &amp; Float Guides</h2>
-                    <p class="subtext">Dedicated sensory therapy specialists guiding your relaxation journey</p>
+                <div class="founders-wrapper" style="margin-bottom: var(--space-12);">
+                    <div class="founders-media">
+                        <img src="assets/images/about-founders.jpg" alt="Solace Float Spa Co-Founders Elena Vance and Marcus Sterling" loading="lazy">
+                    </div>
+                    <div>
+                        <span class="eyebrow">SANCTUARY LEADERSHIP</span>
+                        <h2 style="font-family: var(--font-display); margin-bottom: var(--space-4);">Meet the Visionaries Behind Solace</h2>
+                        <p style="color: var(--color-text-secondary); font-size: 1.05rem; line-height: 1.7; margin-bottom: var(--space-3);">
+                            Elena Vance, a certified clinical hydrotherapist and former athletic physiologist, discovered sensory deprivation after recovering from severe spinal disc trauma. Marcus Sterling, an architectural acoustics engineer and water sanitation director, engineered our silent sound-isolated suites.
+                        </p>
+                        <p style="color: var(--color-text-secondary); font-size: 1.05rem; line-height: 1.7; margin-bottom: var(--space-4);">
+                            Together, they designed Solace from the ground up: prioritizing spacious, claustrophobia-free environments, medical-grade water purification, and a personalized guest orientation that puts first-timers immediately at ease.
+                        </p>
+                        <div style="display: flex; gap: var(--space-4); align-items: center;">
+                            <div>
+                                <h4 style="margin: 0; font-size: 1.1rem;">Elena Vance &amp; Marcus Sterling</h4>
+                                <span style="font-size: 0.85rem; color: var(--color-text-secondary);">Founders &amp; Sanctuary Directors</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="section-header" style="text-align: center; margin-bottom: var(--space-8);">
+                    <span class="eyebrow">OUR EXPERT PRACTITIONERS</span>
+                    <h2>Dedicated Sanctuary Guides</h2>
+                    <p class="subtext">Compassionate guides supporting every step of your sensory rest journey</p>
                 </div>
 
                 <div class="team-grid">
                     <div class="team-card">
                         <div class="team-img-wrapper">
-                            <img src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&w=600&q=80" alt="Elena Vance" class="team-img">
+                            <img src="https://media.istockphoto.com/id/1911998428/photo/beautiful-business-woman-working-with-laptop-while-looking-at-camera-in-living-room-at-home.jpg?s=612x612&w=0&k=20&c=mdtaANRj5CMo_uyfAml6jya2q5iuKYDxwYw-G99xCac="
+                                alt="Elena Vance" class="team-img" loading="lazy">
                         </div>
                         <div class="team-info">
                             <h4>Elena Vance</h4>
                             <p>Founder &amp; Hydrotherapy Specialist</p>
                         </div>
                     </div>
+
                     <div class="team-card">
                         <div class="team-img-wrapper">
-                            <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=600&q=80" alt="Marcus Sterling" class="team-img">
+                            <img src="https://cdn.shopify.com/s/files/1/0722/2168/8089/files/naveenganwani_A_groom_in_an_elegant_sage_green_wedding_suit_s_88e5caec-29b6-465e-b1a2-230bd3817f35_0_1_480x480.png?v=1727781751"
+                                alt="Marcus Sterling" class="team-img" loading="lazy">
                         </div>
                         <div class="team-info">
                             <h4>Marcus Sterling</h4>
-                            <p>Head Float Technician &amp; Sanitation Director</p>
+                            <p>Co-Founder &amp; Water Director</p>
                         </div>
                     </div>
+
                     <div class="team-card">
                         <div class="team-img-wrapper">
-                            <img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=600&q=80" alt="Priya Patel" class="team-img">
+                            <img src="https://img.magnific.com/premium-photo/professional-woman-smiling-desk-modern-office_971166-171135.jpg?semt=ais_hybrid&w=740&q=80"
+                                alt="Priya Patel" class="team-img" loading="lazy">
                         </div>
                         <div class="team-info">
                             <h4>Priya Patel</h4>
-                            <p>Mindfulness &amp; Sound Meditation Guide</p>
+                            <p>Mindfulness &amp; Breathwork Guide</p>
+                        </div>
+                    </div>
+
+                    <div class="team-card">
+                        <div class="team-img-wrapper">
+                            <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=600&q=80"
+                                alt="Dr. Sarah Jenkins" class="team-img" loading="lazy">
+                        </div>
+                        <div class="team-info">
+                            <h4>Dr. Sarah Jenkins</h4>
+                            <p>Neurobiology &amp; Recovery Advisor</p>
                         </div>
                     </div>
                 </div>
             </div>
         </section>
 
-        <!-- CTA Section -->
-        <section class="section"
-            style="background-color: var(--color-brand-accent); color: white; text-align: center; margin: var(--space-8) var(--space-4); border-radius: var(--radius-soft);">
+        <!-- Milestones Journey -->
+        <section class="section">
             <div class="container">
-                <h2 style="color: white; font-family: var(--font-display);">Ready for Your First Zero-Gravity Float?</h2>
-                <p style="color: rgba(255,255,255,0.85); font-size: 1.125rem; max-width: 600px; margin: 0 auto var(--space-6);">
-                    Book your introductory float session or explore our monthly membership options.</p>
-                <div class="cta-actions">
-                    <a href="register.html" class="btn cta-btn cta-btn-solid">Book Introductory Float ($79)</a>
-                    <a href="services.html" class="btn cta-btn cta-btn-ghost">View All Services</a>
+                <div class="section-header" style="text-align: center; max-width: 800px; margin: 0 auto var(--space-8);">
+                    <span class="eyebrow">OUR EVOLUTION</span>
+                    <h2>Milestones in Sensory Well-Being</h2>
+                    <p class="subtext">From our first pod prototype to becoming the region's premier sensory deprivation sanctuary</p>
+                </div>
+
+                <div class="milestones-track">
+                    <div class="milestone-item">
+                        <span class="milestone-year">2021 • Inception</span>
+                        <h4>Sanctuary Founded</h4>
+                        <p>Opened our doors with three custom zero-gravity sensory pods, establishing hospital-level water turnover standards.</p>
+                    </div>
+
+                    <div class="milestone-item">
+                        <span class="milestone-year">2023 • Expansion</span>
+                        <h4>Horizon Open Pools</h4>
+                        <p>Introduced expansive open-basin float pools, allowing guests with claustrophobia concerns to enjoy zero-gravity healing.</p>
+                    </div>
+
+                    <div class="milestone-item">
+                        <span class="milestone-year">2024 • Recognition</span>
+                        <h4>Holistic Health Award</h4>
+                        <p>Named "Best Recovery Sanctuary" by the Holistic Health Guild, recognized for innovation in neurological rest.</p>
+                    </div>
+
+                    <div class="milestone-item">
+                        <span class="milestone-year">2026 • Contrast Synergy</span>
+                        <h4>15,000 Floats &amp; Sauna</h4>
+                        <p>Surpassed 15,000 float sessions guided and introduced synergistic full-spectrum infrared contrast rituals.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Guest Testimonials -->
+        
+
+        <!-- FAQ Section -->
+        <section class="section">
+            <div class="container">
+                <div class="section-header" style="text-align: center; max-width: 800px; margin: 0 auto var(--space-4);">
+                    <span class="eyebrow">FREQUENT QUESTIONS</span>
+                    <h2>Everything You Need to Know About Floating</h2>
+                    <p class="subtext">Common questions about safety, comfort, and the float experience at Solace</p>
+                </div>
+
+                <div class="faq-accordion">
+                    <details class="faq-item" open>
+                        <summary class="faq-summary">What if I am prone to claustrophobia or anxiety?</summary>
+                        <div class="faq-body">
+                            You are always in complete control. Our pods feature interior light switches, audio controls, and an easy-lift door that remains open as wide as you like. Additionally, we offer Horizon Open Basin Suites with high ceilings and spacious surroundings for first-timers who prefer an open environment.
+                        </div>
+                    </details>
+
+                    <details class="faq-item">
+                        <summary class="faq-summary">How is the float water cleaned between sessions?</summary>
+                        <div class="faq-body">
+                            Between every single guest, 100% of the water passes 3 to 5 times through a 1-micron sediment core filter, high-output germicidal UV-C light, and advanced dissolved ozone purification. The 1,000 lbs salt saturation also creates a natural saline environment where bacteria cannot survive.
+                        </div>
+                    </details>
+
+                    <details class="faq-item">
+                        <summary class="faq-summary">Can I float if I don't know how to swim?</summary>
+                        <div class="faq-body">
+                            Yes, absolutely! The 1,000 lbs of Epsom salt makes the water far denser than the Dead Sea (specific gravity 1.28). It is physically impossible to sink — you will effortlessly float on the surface like a cork without any effort or swimming ability required.
+                        </div>
+                    </details>
+
+                    <details class="faq-item">
+                        <summary class="faq-summary">What should I bring for my session?</summary>
+                        <div class="faq-body">
+                            Nothing at all! We provide everything inside your private luxury suite: warm rain showers, organic sulfate-free shampoo, conditioner, body wash, makeup wipes, plush towels, earplugs, and blow dryers. You can float in swimwear or completely nude for true sensory freedom.
+                        </div>
+                    </details>
+
+                    <details class="faq-item">
+                        <summary class="faq-summary">What happens if I fall asleep while floating?</summary>
+                        <div class="faq-body">
+                            Many floaters drift into gentle, deeply restorative Theta sleep. Because of the extreme buoyancy, your face remains comfortably above the water line at all times. Gentle chime music will softly wake you at the conclusion of your session.
+                        </div>
+                    </details>
+                </div>
+            </div>
+        </section>
+
+        <!-- Closing CTA -->
+        <section class="about-cta-section"
+            style="background: linear-gradient(135deg, #0e3d41 0%, #175e65 50%, #11464b 100%); color: white; text-align: center; margin: var(--space-6) var(--space-4); padding: var(--space-6) var(--space-4); border-radius: var(--radius-soft); box-shadow: var(--shadow-lift);">
+            <div class="container" style="padding: 0; max-width: 800px;">
+                <span class="eyebrow eyebrow-center" style="color: #A7F3D0; font-weight: 700; font-size: 0.8rem; letter-spacing: 0.16em; margin-bottom: var(--space-2); text-shadow: 0 1px 3px rgba(0,0,0,0.3);">BEGIN YOUR WEIGHTLESS JOURNEY</span>
+                <h2 style="color: white; font-family: var(--font-display); font-size: 1.85rem; margin-bottom: var(--space-2);">
+                    Ready to Experience Pure Gravity-Free Solace?
+                </h2>
+                <p style="color: rgba(255,255,255,0.9); font-size: 0.95rem; max-width: 580px; margin: 0 auto var(--space-4); line-height: 1.5;">
+                    Book your introductory 60-minute sensory float session today for just $79, or explore our flexible monthly wellness memberships.
+                </p>
+                <div style="display: flex; gap: var(--space-3); justify-content: center; flex-wrap: wrap;">
+                    <a href="parent-dashboard.html" class="btn btn-primary"
+                        style="background: white; color: var(--color-brand-accent); font-weight: 700; padding: 0.6rem 1.6rem; border-radius: var(--radius-soft); font-size: 0.9rem;">
+                        Book Your Float Session
+                    </a>
+                    <a href="pricing.html" class="btn btn-secondary"
+                        style="border: 2px solid white; color: white; padding: 0.6rem 1.6rem; border-radius: var(--radius-soft); background: transparent; font-size: 0.9rem;">
+                        Explore Memberships
+                    </a>
                 </div>
             </div>
         </section>
@@ -391,34 +805,48 @@
 
     <!-- Footer -->
     <footer class="footer">
-        <div class="container">
+        <div class="container footer-container">
             <div class="footer-grid">
                 <div class="footer-brand">
                     <a href="index.html" class="navbar-brand">
-                        <svg class="brand-logo" viewBox="0 0 200 60" preserveAspectRatio="xMinYMid meet" role="img" aria-label="Solace">
+                        <svg class="brand-logo" viewBox="0 0 200 60" preserveAspectRatio="xMinYMid meet" role="img"
+                            aria-label="Solace">
                             <title>Solace</title>
                             <g transform="translate(4, 4) scale(1.15)">
-                                <circle cx="24" cy="24" r="22" fill="#1A6B72" opacity="0.12"/>
-                                <circle cx="24" cy="24" r="22" fill="none" stroke="#52B69A" stroke-width="1.8" opacity="0.4"/>
-                                <path d="M 24 3 A 21 21 0 1 1 4 26" fill="none" stroke="#52B69A" stroke-width="2" stroke-linecap="round" opacity="0.75"/>
-                                <path d="M 24 8 A 16 16 0 1 1 9 28" fill="none" stroke="#52B69A" stroke-width="2" stroke-linecap="round" opacity="0.85"/>
-                                <path d="M 24 13 A 11 11 0 1 1 14 29" fill="none" stroke="#52B69A" stroke-width="1.8" stroke-linecap="round" opacity="0.95"/>
+                                <circle cx="24" cy="24" r="22" fill="#1A6B72" opacity="0.12" />
+                                <circle cx="24" cy="24" r="22" fill="none" stroke="#52B69A" stroke-width="1.8"
+                                    opacity="0.4" />
+                                <path d="M 24 3 A 21 21 0 1 1 4 26" fill="none" stroke="#52B69A" stroke-width="2"
+                                    stroke-linecap="round" opacity="0.75" />
+                                <path d="M 24 8 A 16 16 0 1 1 9 28" fill="none" stroke="#52B69A" stroke-width="2"
+                                    stroke-linecap="round" opacity="0.85" />
+                                <path d="M 24 13 A 11 11 0 1 1 14 29" fill="none" stroke="#52B69A" stroke-width="1.8"
+                                    stroke-linecap="round" opacity="0.95" />
                                 <g transform="translate(24, 24) rotate(-35) translate(-24, -24)">
-                                    <circle cx="24" cy="10" r="3.2" fill="#1A6B72"/>
-                                    <path d="M 21.5 14 C 21.5 14 20 22 21 28 C 22 33 22.5 38 22.5 38 L 25.5 38 C 25.5 38 26 33 27 28 C 28 22 26.5 14 26.5 14 Z" fill="#1A6B72"/>
-                                    <path d="M 22 16 C 17 13 11 10 7 9 C 6.5 10.5 8 12.5 12 14.5 C 16 16.5 21.5 18 21.5 18 Z" fill="#1A6B72"/>
-                                    <path d="M 26 16 C 31 13 37 10 41 9 C 41.5 10.5 40 12.5 36 14.5 C 32 16.5 26.5 18 26.5 18 Z" fill="#1A6B72"/>
+                                    <circle cx="24" cy="10" r="3.2" fill="#1A6B72" />
+                                    <path
+                                        d="M 21.5 14 C 21.5 14 20 22 21 28 C 22 33 22.5 38 22.5 38 L 25.5 38 C 25.5 38 26 33 27 28 C 28 22 26.5 14 26.5 14 Z"
+                                        fill="#1A6B72" />
+                                    <path
+                                        d="M 22 16 C 17 13 11 10 7 9 C 6.5 10.5 8 12.5 12 14.5 C 16 16.5 21.5 18 21.5 18 Z"
+                                        fill="#1A6B72" />
+                                    <path
+                                        d="M 26 16 C 31 13 37 10 41 9 C 41.5 10.5 40 12.5 36 14.5 C 32 16.5 26.5 18 26.5 18 Z"
+                                        fill="#1A6B72" />
                                 </g>
                             </g>
-                            <text class="brand-text" x="66" y="42" font-family="'Lora','Georgia',serif" font-weight="700" font-size="34" letter-spacing="-0.5" fill="currentColor">Solace</text>
+                            <text class="brand-text" x="66" y="42" font-family="'Lora','Georgia',serif"
+                                font-weight="700" font-size="34" letter-spacing="-0.5" fill="currentColor">Solace</text>
                         </svg>
                     </a>
-                    <p class="footer-desc">A tranquil urban sanctuary dedicated to zero-gravity sensory deprivation float therapy, Epsom salt hydrotherapy, and holistic neuromuscular reset.</p>
-                    <div
-                        style="display: flex; gap: var(--space-2); font-size: 1.5rem; color: var(--color-text-secondary);">
+                    <p style="color: var(--color-text-secondary); margin-top: var(--space-4); max-width: 320px;">
+                        A luxury sensory deprivation sanctuary dedicated to neuromuscular release, mental quietude, and
+                        zero-gravity Epsom salt hydrotherapy.
+                    </p>
+                    <div class="footer-socials">
+                        <a href="#" aria-label="Solace Float Spa on Instagram"><i class="ph-fill ph-instagram-logo"></i></a>
+                        <a href="#" aria-label="Solace Float Spa on Facebook"><i class="ph-fill ph-facebook-logo"></i></a>
                         <a href="#" aria-label="Solace Float Spa on X"><i class="ph-fill ph-x-logo"></i></a>
-                        <a href="#"><i class="ph-fill ph-facebook-logo"></i></a>
-                        <a href="#"><i class="ph-fill ph-instagram-logo"></i></a>
                     </div>
                 </div>
 
@@ -437,7 +865,7 @@
                     <ul class="footer-links">
                         <li><a href="parent-dashboard.html">Book Float Slot</a></li>
                         <li><a href="parent-dashboard.html">Package Tracker</a></li>
-                        <li><a href="first-time-guide.html">First-Time Guide</a></li>
+                        <li><a href="about.html">About Us</a></li>
                         <li><a href="pricing.html">Membership Plans</a></li>
                     </ul>
                 </div>
