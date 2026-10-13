@@ -1839,6 +1839,20 @@ p:last-child {
     flex-direction: column;
     gap: var(--space-4);
   }
+
+  /* Ensure visual panels fill full width when stacked */
+  .timeline-visual {
+    flex: none;
+    width: 100%;
+    min-height: 220px;
+  }
+
+  /* Preserve the fixed height so the absolutely-positioned photo is visible */
+  .timeline-visual.timeline-visual-media {
+    width: 100%;
+    height: 220px;
+    min-height: 220px;
+  }
 }
 
 @media (max-width: 600px) {
